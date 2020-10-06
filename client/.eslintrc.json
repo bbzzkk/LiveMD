@@ -1,0 +1,17 @@
+{
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "./src/"]
+        ]
+      }
+    }
+  },
+  "extends": ["react-app", "airbnb", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": ["error", {
+      "endOfLine": "auto"
+    }]
+  }
+}
