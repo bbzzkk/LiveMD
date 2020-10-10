@@ -10,7 +10,9 @@
     "@toast-ui/react-editor": "^2.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "styled-components": "^5.2.0"
   },
   "scripts": {
     "start": "craco start",
