@@ -1,16 +1,17 @@
 import React from 'react';
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Main } from './pages';
+import { GlobalStyle } from './styles';
 
-import { Editor } from '@toast-ui/react-editor';
-
-const App = () => {
-  return (
-    <div>
-      CRA ESLint Prettier 설정 완료.
-      <Editor previewStyle="vertical" usageStatistics={false} />
-    </div>
-  );
-};
+const App = () => (
+  <>
+    <GlobalStyle />
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Main} />
+      </Switch>
+    </Router>
+  </>
+);
 
 export default App;
