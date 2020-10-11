@@ -11,5 +11,8 @@ export default {
   MainContent: styled.div`
     display: flex;
     flex: 1;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   `,
 };
