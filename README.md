@@ -19,7 +19,7 @@ Server
 
 
 ### UML
-![JPA](.\images\spring-social-uml-ver1.0.png)
+![JPA](./images/spring-social-uml-ver1.0.png)
 
 
 ### 소스코드
