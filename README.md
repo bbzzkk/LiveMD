@@ -21,6 +21,8 @@ Server
 ### UML
 ![JPA](./images/spring-social-uml-ver1.0.png)
 
+### Preview 화면
+![social-login](./images/social-login.gif)
 
 ### 소스코드
 https://github.com/bbzzkk/LiveMD/tree/release
