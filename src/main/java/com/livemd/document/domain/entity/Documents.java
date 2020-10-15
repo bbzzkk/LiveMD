@@ -30,4 +30,8 @@ public class Documents {
         this.title = title;
         this.content = content;
     }
+
+    public void update(String title){
+        this.title = title;
+    }
 }
