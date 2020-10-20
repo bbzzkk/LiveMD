@@ -3,7 +3,7 @@ package com.livemd.document.service;
 import com.livemd.document.domain.entity.UserDocuments;
 import com.livemd.document.domain.repository.UserDocumentsRepository;
 import com.livemd.document.dto.DocumentsListResponseDto;
-import com.livemd.document.dto.DocumentsResponseDto;
+import com.livemd.document.dto.UserDocumentsResponseDto;
 import com.livemd.document.dto.UserDocumentsSaveRequestDto;
 import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +32,10 @@ public class UserDocumentsService {
         return id;
     }
 
-    public DocumentsResponseDto findById(Long id){
+    public UserDocumentsResponseDto findById(Long id){
         UserDocuments userDocuments = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. id" + id));
 
-        return new DocumentsResponseDto(userDocuments);
+        return new UserDocumentsResponseDto(userDocuments);
     }
 
     public void delete(Long id) {
