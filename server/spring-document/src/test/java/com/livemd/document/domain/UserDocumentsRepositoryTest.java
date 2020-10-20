@@ -1,7 +1,7 @@
 package com.livemd.document.domain;
 
-import com.livemd.document.domain.entity.Documents;
-import com.livemd.document.domain.repository.DocumentsRepository;
+import com.livemd.document.domain.entity.UserDocuments;
+import com.livemd.document.domain.repository.UserDocumentsRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DocumentsRepositoryTest {
+public class UserDocumentsRepositoryTest {
 
     @Autowired
-    DocumentsRepository repository;
+    UserDocumentsRepository repository;
 
     @After
     public void cleanup(){
@@ -29,20 +29,18 @@ public class DocumentsRepositoryTest {
     public void saveAndFindDocuments(){
 
         String owner = "ownerTest";
-        String title = "titleTest";
+        String uuid = "uuid";
 
-        repository.save(Documents.builder()
+        repository.save(UserDocuments.builder()
                 .owner(owner)
-                .title(title)
-                .content("contentTest")
+                .uuid(uuid)
                 .build());
 
-        List<Documents> documentsList = repository.findAll();
+        List<UserDocuments> userDocumentsList = repository.findAll();
 
-        Documents documents = documentsList.get(0);
-        assertThat(documents.getOwner()).isEqualTo(owner);
-        assertThat(documents.getTitle()).isEqualTo(title);
-        assertThat(documents.getContent()).isEqualTo("contentTest");
+        UserDocuments userDocuments = userDocumentsList.get(0);
+        assertThat(userDocuments.getOwner()).isEqualTo(owner);
+        assertThat(userDocuments.getUuid()).isEqualTo(uuid);
     }
 
 

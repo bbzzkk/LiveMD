@@ -9,24 +9,28 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Documents {
+public class UserDocuments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
+    private String uuid;
+
     @Column(nullable = false)
     private String owner;
 
-    @Column(nullable = false)
+    @Column
     private String title;
 
     @Column
     private String content;
 
     @Builder
-    public Documents(String owner, String title, String content){
+    public UserDocuments(String owner, String uuid, String title, String content){
         this.owner = owner;
+        this.uuid = uuid;
         this.title = title;
         this.content = content;
     }
