@@ -4,14 +4,14 @@ import com.livemd.document.domain.entity.UserDocuments;
 import lombok.Getter;
 
 @Getter
-public class DocumentsResponseDto {
+public class UserDocumentsResponseDto {
 
     private Long id;
     private String owner;
     private String title;
     private String content;
 
-    public DocumentsResponseDto(UserDocuments entity){
+    public UserDocumentsResponseDto(UserDocuments entity){
         this.id = entity.getId();
         this.owner = entity.getOwner();
         this.title = entity.getTitle();
