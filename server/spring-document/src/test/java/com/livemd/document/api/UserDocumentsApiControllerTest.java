@@ -1,8 +1,8 @@
 package com.livemd.document.api;
 
-import com.livemd.document.domain.entity.Documents;
-import com.livemd.document.domain.repository.DocumentsRepository;
-import com.livemd.document.dto.DocumentsSaveRequestDto;
+import com.livemd.document.domain.entity.UserDocuments;
+import com.livemd.document.domain.repository.UserDocumentsRepository;
+import com.livemd.document.dto.UserDocumentsSaveRequestDto;
 import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DocumentsApiControllerTest {
+public class UserDocumentsApiControllerTest {
 
     @LocalServerPort
     private int port;
@@ -32,7 +32,7 @@ public class DocumentsApiControllerTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private DocumentsRepository repository;
+    private UserDocumentsRepository repository;
 
     @After
     public void clearAll() throws Exception {
@@ -43,12 +43,10 @@ public class DocumentsApiControllerTest {
     public void createDocuments () throws Exception{
 
         String owner = "owner";
-        String title = "title";
-        String content = "content";
-        DocumentsSaveRequestDto dto = DocumentsSaveRequestDto.builder()
+        String uuid = "uuid";
+        UserDocumentsSaveRequestDto dto = UserDocumentsSaveRequestDto.builder()
                 .owner(owner)
-                .title(title)
-                .content(content)
+                .uuid(uuid)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/documents";
@@ -58,22 +56,21 @@ public class DocumentsApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        List<Documents> all = repository.findAll();
+        List<UserDocuments> all = repository.findAll();
         assertThat(all.get(0).getOwner()).isEqualTo(owner);
-        assertThat(all.get(0).getTitle()).isEqualTo(title);
-
+        assertThat(all.get(0).getUuid()).isEqualTo(uuid);
     }
 
     @Test
     public void updateDocumentsTitle() throws Exception{
         //given
-        Documents savedDocuments = repository.save(Documents.builder()
+        UserDocuments savedUserDocuments = repository.save(UserDocuments.builder()
                 .owner("owner")
                 .title("title")
                 .content("content")
                 .build());
 
-        Long updateId = savedDocuments.getId();
+        Long updateId = savedUserDocuments.getId();
         String expectedTitle = "title2";
 
         DocumentsTitleUpdateRequestDto requestDto = DocumentsTitleUpdateRequestDto.builder()
@@ -91,7 +88,7 @@ public class DocumentsApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        List<Documents> all = repository.findAll();
+        List<UserDocuments> all = repository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
 
     }
