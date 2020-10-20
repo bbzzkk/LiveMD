@@ -2,7 +2,7 @@ package com.livemd.document.service;
 
 import com.livemd.document.domain.entity.UserDocuments;
 import com.livemd.document.domain.repository.UserDocumentsRepository;
-import com.livemd.document.dto.DocumentsListResponseDto;
+import com.livemd.document.dto.UserDocumentsListResponseDto;
 import com.livemd.document.dto.UserDocumentsResponseDto;
 import com.livemd.document.dto.UserDocumentsSaveRequestDto;
 import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
@@ -44,7 +44,7 @@ public class UserDocumentsService {
         repository.delete(userDocuments);
     }
 
-    public List<DocumentsListResponseDto> findAll() {
-        return repository.findAll().stream().map(DocumentsListResponseDto::new).collect(Collectors.toList());
+    public List<UserDocumentsListResponseDto> findAll() {
+        return repository.findAll().stream().map(UserDocumentsListResponseDto::new).collect(Collectors.toList());
     }
 }
