@@ -1,5 +1,57 @@
-*node_modules*
-*package-lock.json*
-# vscode
+###### root ######
 
-/.vscode
+###### client ######
+/client/.vscode
+
+# dependencies
+/client/node_modules
+/client/.pnp
+/client/.pnp.js
+
+# testing
+/client/coverage
+
+# production
+/client/build
+
+# misc
+/client/.DS_Store
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
+
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*
+
+
+###### server ######
+
+
+### STS ###
+/server/**/.apt_generated
+/server/**/.classpath
+/server/**/.factorypath
+/server/**/.project
+/server/**/.settings
+/server/**/.springBeans
+/server/**/.sts4-cache
+
+### IntelliJ IDEA ###
+/server/**/.idea
+/server/**/*.iws
+/server/**/*.iml
+/server/**/*.ipr
+
+### NetBeans ###
+/server/**/nbproject/private/
+/server/**/build/
+/server/**/nbbuild/
+/server/**/dist/
+/server/**/nbdist/
+/server/**/.nb-gradle/
+
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
