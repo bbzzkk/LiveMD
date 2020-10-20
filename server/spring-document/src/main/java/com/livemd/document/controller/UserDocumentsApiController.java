@@ -1,7 +1,7 @@
 package com.livemd.document.controller;
 
 import com.livemd.document.dto.DocumentsListResponseDto;
-import com.livemd.document.dto.DocumentsResponseDto;
+import com.livemd.document.dto.UserDocumentsResponseDto;
 import com.livemd.document.dto.UserDocumentsSaveRequestDto;
 import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
 import com.livemd.document.service.UserDocumentsService;
@@ -27,7 +27,7 @@ public class UserDocumentsApiController {
     }
 
     @GetMapping("/api/v1/documents/{id}")
-    public DocumentsResponseDto findBydId(@PathVariable Long id){
+    public UserDocumentsResponseDto findBydId(@PathVariable Long id){
         return service.findById(id);
     }
 
