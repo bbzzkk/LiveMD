@@ -52,6 +52,7 @@
 /server/**/nbdist/
 /server/**/.nb-gradle/
 /server/**/.metadata/
+/server/**/.gradle/
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar
