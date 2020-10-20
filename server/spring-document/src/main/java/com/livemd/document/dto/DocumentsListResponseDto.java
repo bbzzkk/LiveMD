@@ -1,6 +1,6 @@
 package com.livemd.document.dto;
 
-import com.livemd.document.domain.entity.Documents;
+import com.livemd.document.domain.entity.UserDocuments;
 import lombok.Getter;
 
 @Getter
@@ -10,7 +10,7 @@ public class DocumentsListResponseDto {
     private String title;
     private String content;
 
-    public DocumentsListResponseDto(Documents entity) {
+    public DocumentsListResponseDto(UserDocuments entity) {
         this.id = entity.getId();
         this.owner = entity.getOwner();
         this.title = entity.getTitle();

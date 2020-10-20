@@ -2,9 +2,9 @@ package com.livemd.document.controller;
 
 import com.livemd.document.dto.DocumentsListResponseDto;
 import com.livemd.document.dto.DocumentsResponseDto;
-import com.livemd.document.dto.DocumentsSaveRequestDto;
+import com.livemd.document.dto.UserDocumentsSaveRequestDto;
 import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
-import com.livemd.document.service.DocumentsService;
+import com.livemd.document.service.UserDocumentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +12,13 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class DocumentsApiController {
+public class UserDocumentsApiController {
 
-    private final DocumentsService service;
+    private final UserDocumentsService service;
 
     @PostMapping("/api/v1/documents")
-    public Long save(@RequestBody DocumentsSaveRequestDto requestDto){
-        return service.save(requestDto);
+    public Long create(@RequestBody UserDocumentsSaveRequestDto requestDto){
+        return service.create(requestDto);
     }
 
     @PutMapping("/api/v1/documents/{id}")
