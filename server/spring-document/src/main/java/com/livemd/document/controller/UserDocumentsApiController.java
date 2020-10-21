@@ -1,6 +1,6 @@
 package com.livemd.document.controller;
 
-import com.livemd.document.dto.DocumentsListResponseDto;
+import com.livemd.document.dto.UserDocumentsListResponseDto;
 import com.livemd.document.dto.UserDocumentsResponseDto;
 import com.livemd.document.dto.UserDocumentsSaveRequestDto;
 import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
@@ -38,7 +38,7 @@ public class UserDocumentsApiController {
     }
 
     @GetMapping("/api/v1/documents/list")
-    public List<DocumentsListResponseDto> findAll() {
+    public List<UserDocumentsListResponseDto> findAll() {
         return service.findAll();
     }
 
