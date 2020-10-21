@@ -3,7 +3,7 @@ package com.livemd.document.controller;
 import com.livemd.document.dto.UserDocumentsListResponseDto;
 import com.livemd.document.dto.UserDocumentsResponseDto;
 import com.livemd.document.dto.UserDocumentsSaveRequestDto;
-import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
+import com.livemd.document.dto.UserDocumentsTitleUpdateRequestDto;
 import com.livemd.document.service.UserDocumentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class UserDocumentsApiController {
     }
 
     @PutMapping("/api/v1/documents/{id}")
-    public Long update(@PathVariable Long id, @RequestBody DocumentsTitleUpdateRequestDto requestDto){
+    public Long update(@PathVariable Long id, @RequestBody UserDocumentsTitleUpdateRequestDto requestDto){
         return service.update(id, requestDto);
     }
 
