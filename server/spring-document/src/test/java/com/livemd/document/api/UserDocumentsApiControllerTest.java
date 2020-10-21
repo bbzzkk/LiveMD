@@ -112,8 +112,8 @@ public class UserDocumentsApiControllerTest {
         //given
         UserDocuments savedUserDocuments = repository.save(UserDocuments.builder()
                 .owner("owner")
+                .uuid("uuid")
                 .title("title")
-                .content("content")
                 .build());
 
         Long updateId = savedUserDocuments.getId();
