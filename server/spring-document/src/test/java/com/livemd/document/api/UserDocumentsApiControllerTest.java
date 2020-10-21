@@ -2,10 +2,8 @@ package com.livemd.document.api;
 
 import com.livemd.document.domain.entity.UserDocuments;
 import com.livemd.document.domain.repository.UserDocumentsRepository;
-import com.livemd.document.dto.UserDocumentsResponseDto;
 import com.livemd.document.dto.UserDocumentsSaveRequestDto;
-import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
-import jdk.nashorn.internal.runtime.options.Option;
+import com.livemd.document.dto.UserDocumentsTitleUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -114,20 +112,20 @@ public class UserDocumentsApiControllerTest {
         //given
         UserDocuments savedUserDocuments = repository.save(UserDocuments.builder()
                 .owner("owner")
+                .uuid("uuid")
                 .title("title")
-                .content("content")
                 .build());
 
         Long updateId = savedUserDocuments.getId();
         String expectedTitle = "title2";
 
-        DocumentsTitleUpdateRequestDto requestDto = DocumentsTitleUpdateRequestDto.builder()
+        UserDocumentsTitleUpdateRequestDto requestDto = UserDocumentsTitleUpdateRequestDto.builder()
                 .title(expectedTitle)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/documents/" + updateId;
 
-        HttpEntity<DocumentsTitleUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
+        HttpEntity<UserDocumentsTitleUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         //when
         ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
