@@ -5,7 +5,7 @@ import com.livemd.document.domain.repository.UserDocumentsRepository;
 import com.livemd.document.dto.UserDocumentsListResponseDto;
 import com.livemd.document.dto.UserDocumentsResponseDto;
 import com.livemd.document.dto.UserDocumentsSaveRequestDto;
-import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
+import com.livemd.document.dto.UserDocumentsTitleUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class UserDocumentsService {
     }
 
     @Transactional
-    public Long update(Long id, DocumentsTitleUpdateRequestDto requestDto){
+    public Long update(Long id, UserDocumentsTitleUpdateRequestDto requestDto){
         UserDocuments userDocuments = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. id" + id));
         userDocuments.update(requestDto.getTitle());
 
