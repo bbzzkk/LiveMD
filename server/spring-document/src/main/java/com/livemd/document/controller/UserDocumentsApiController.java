@@ -16,28 +16,28 @@ public class UserDocumentsApiController {
 
     private final UserDocumentsService service;
 
-    @PostMapping("/api/v1/documents")
+    @PostMapping("/api/v1/user-documents")
     public Long create(@RequestBody UserDocumentsSaveRequestDto requestDto){
         return service.create(requestDto);
     }
 
-    @PutMapping("/api/v1/documents/{id}")
+    @PutMapping("/api/v1/user-documents/{id}")
     public Long update(@PathVariable Long id, @RequestBody UserDocumentsTitleUpdateRequestDto requestDto){
         return service.update(id, requestDto);
     }
 
-    @GetMapping("/api/v1/documents/{id}")
+    @GetMapping("/api/v1/user-documents/{id}")
     public UserDocumentsResponseDto findBydId(@PathVariable Long id){
         return service.findById(id);
     }
 
-    @DeleteMapping("/api/v1/documents/{id}")
+    @DeleteMapping("/api/v1//user-documents/{id}")
     public Long delete(@PathVariable Long id){
         service.delete(id);
         return id;
     }
 
-    @GetMapping("/api/v1/documents/list")
+    @GetMapping("/api/v1/user-documents/list")
     public List<UserDocumentsListResponseDto> findAll() {
         return service.findAll();
     }

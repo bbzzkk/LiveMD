@@ -50,7 +50,7 @@ public class UserDocumentsApiControllerTest {
                 .uuid(uuid)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/documents";
+        String url = "http://localhost:" + port + "/api/v1/user-documents";
 
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
 
@@ -71,7 +71,7 @@ public class UserDocumentsApiControllerTest {
                 .uuid(uuid)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/documents";
+        String url = "http://localhost:" + port + "/api/v1/user-documents";
 
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
 
@@ -93,7 +93,7 @@ public class UserDocumentsApiControllerTest {
                 .uuid(uuid)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/documents";
+        String url = "http://localhost:" + port + "/api/v1/user-documents";
 
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
 
@@ -123,7 +123,7 @@ public class UserDocumentsApiControllerTest {
                 .title(expectedTitle)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/documents/" + updateId;
+        String url = "http://localhost:" + port + "/api/v1/user-documents/" + updateId;
 
         HttpEntity<UserDocumentsTitleUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
@@ -148,7 +148,7 @@ public class UserDocumentsApiControllerTest {
                 .uuid(uuid)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/documents";
+        String url = "http://localhost:" + port + "/api/v1/user-documents";
 
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
 
