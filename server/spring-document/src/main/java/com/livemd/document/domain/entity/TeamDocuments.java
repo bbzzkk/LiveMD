@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class UserDocuments extends BaseTimeEntity {
+public class TeamDocuments extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +29,11 @@ public class UserDocuments extends BaseTimeEntity {
     private String content;
 
     @Builder
-    public UserDocuments(String owner, String uuid, String title, String content){
+    public TeamDocuments(String owner, String uuid, String title, String content){
         this.owner = owner;
         this.uuid = uuid;
         this.title = title;
         this.content = content;
-    }
-    public void update(String title){
-        this.title = title;
     }
 
 }
