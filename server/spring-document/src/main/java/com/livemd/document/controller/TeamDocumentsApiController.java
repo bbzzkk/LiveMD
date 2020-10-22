@@ -22,7 +22,7 @@ public class TeamDocumentsApiController {
         return service.create(requestDto);
     }
 
-    @GetMapping("/api/v1/team-documents")
+    @GetMapping("/api/v1/team-documents/list")
     public List<TeamDocumentsListResponseDto> findAll(){
         return service.findAll();
     }
@@ -35,5 +35,11 @@ public class TeamDocumentsApiController {
     @PutMapping("/api/v1/team-documents/{id}")
     public Long update(@PathVariable Long id, @RequestBody TeamDocumentsTitleUpdateRequestDto requestDto){
         return service.update(id, requestDto);
+    }
+
+    @DeleteMapping("/api/v1/team-documents/{id}")
+    public Long delete(@PathVariable Long id){
+        service.delete(id);
+        return id;
     }
 }
