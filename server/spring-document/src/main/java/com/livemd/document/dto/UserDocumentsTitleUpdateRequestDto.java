@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class DocumentsTitleUpdateRequestDto {
+public class UserDocumentsTitleUpdateRequestDto {
     private String title;
 
     @Builder
-    public DocumentsTitleUpdateRequestDto(String title){
+    public UserDocumentsTitleUpdateRequestDto(String title){
         this.title = title;
     }
 }
