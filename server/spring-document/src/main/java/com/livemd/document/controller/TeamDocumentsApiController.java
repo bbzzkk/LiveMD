@@ -4,6 +4,7 @@ import com.livemd.document.domain.entity.TeamDocuments;
 import com.livemd.document.dto.TeamDocumentsListResponseDto;
 import com.livemd.document.dto.TeamDocumentsResponseDto;
 import com.livemd.document.dto.TeamDocumentsSaveRequestDto;
+import com.livemd.document.dto.TeamDocumentsTitleUpdateRequestDto;
 import com.livemd.document.service.TeamDocumentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +30,10 @@ public class TeamDocumentsApiController {
     @GetMapping("/api/v1/team-documents/{id}")
     public TeamDocumentsResponseDto findById(@PathVariable Long id){
         return service.findById(id);
+    }
+
+    @PutMapping("/api/v1/team-documents/{id}")
+    public Long update(@PathVariable Long id, @RequestBody TeamDocumentsTitleUpdateRequestDto requestDto){
+        return service.update(id, requestDto);
     }
 }

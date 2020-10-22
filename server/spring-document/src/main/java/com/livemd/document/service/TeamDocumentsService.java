@@ -5,6 +5,7 @@ import com.livemd.document.domain.repository.TeamDocumentsRepository;
 import com.livemd.document.dto.TeamDocumentsListResponseDto;
 import com.livemd.document.dto.TeamDocumentsResponseDto;
 import com.livemd.document.dto.TeamDocumentsSaveRequestDto;
+import com.livemd.document.dto.TeamDocumentsTitleUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,14 @@ public class TeamDocumentsService {
         TeamDocuments teamDocuments = repository.findById(id).orElseThrow(()-> new IllegalArgumentException("해당 문서가 존재하지 않습니다. id" + id));
 
         return new TeamDocumentsResponseDto(teamDocuments);
+    }
+
+    @Transactional
+    public Long update(Long id, TeamDocumentsTitleUpdateRequestDto requestDto){
+        TeamDocuments teamDocuments = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. id" + id));
+        teamDocuments.update(requestDto.getTitle());
+
+        return id;
     }
 
 }
