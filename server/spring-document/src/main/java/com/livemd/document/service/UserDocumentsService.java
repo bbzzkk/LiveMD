@@ -32,18 +32,21 @@ public class UserDocumentsService {
         return id;
     }
 
+    @Transactional
     public UserDocumentsResponseDto findById(Long id){
         UserDocuments userDocuments = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. id" + id));
 
         return new UserDocumentsResponseDto(userDocuments);
     }
 
+    @Transactional
     public void delete(Long id) {
         UserDocuments userDocuments = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. id" + id));
 
         repository.delete(userDocuments);
     }
 
+    @Transactional
     public List<UserDocumentsListResponseDto> findAll() {
         return repository.findAll().stream().map(UserDocumentsListResponseDto::new).collect(Collectors.toList());
     }
