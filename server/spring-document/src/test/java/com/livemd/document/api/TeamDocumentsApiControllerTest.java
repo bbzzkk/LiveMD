@@ -58,5 +58,28 @@ public class TeamDocumentsApiControllerTest {
         assertThat(all.get(0).getOwner()).isEqualTo(owner);
         assertThat(all.get(0).getUuid()).isEqualTo(uuid);
     }
+
+    @Test
+    public void findAllDocuments () throws Exception{
+        String owner = "owner";
+        String uuid = "uuid";
+        TeamDocumentsSaveRequestDto dto = TeamDocumentsSaveRequestDto.builder()
+                .owner(owner)
+                .uuid(uuid)
+                .build();
+
+        String url = "http://localhost:" + port + "/api/v1/team-documents";
+
+        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<TeamDocuments> teamDocumentsList = repository.findAll();
+
+        assertThat(teamDocumentsList.get(0).getOwner()).isEqualTo(owner);
+        assertThat(teamDocumentsList.get(0).getUuid()).isEqualTo(uuid);
+    }
+
 }
 
