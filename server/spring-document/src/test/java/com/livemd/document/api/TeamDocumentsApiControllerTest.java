@@ -4,6 +4,7 @@ import com.livemd.document.domain.entity.TeamDocuments;
 import com.livemd.document.domain.entity.UserDocuments;
 import com.livemd.document.domain.repository.TeamDocumentsRepository;
 import com.livemd.document.dto.TeamDocumentsSaveRequestDto;
+import com.livemd.document.dto.TeamDocumentsTitleUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -103,6 +106,38 @@ public class TeamDocumentsApiControllerTest {
 
         assertThat(teamDocuments.getOwner()).isEqualTo(owner);
         assertThat(teamDocuments.getUuid()).isEqualTo(uuid);
+    }
+
+    @Test
+    public void updateDocumentsTitle() throws Exception{
+        //given
+        TeamDocuments savedTeamDocuments = repository.save(TeamDocuments.builder()
+                .owner("owner")
+                .uuid("uuid")
+                .title("title")
+                .build());
+
+        Long updateId = savedTeamDocuments.getId();
+        String expectedTitle = "title2";
+
+        TeamDocumentsTitleUpdateRequestDto requestDto = TeamDocumentsTitleUpdateRequestDto.builder()
+                .title(expectedTitle)
+                .build();
+
+        String url = "http://localhost:" + port + "/api/v1/team-documents/" + updateId;
+
+        HttpEntity<TeamDocumentsTitleUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
+
+        //when
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<TeamDocuments> all = repository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
+
     }
 
 }
