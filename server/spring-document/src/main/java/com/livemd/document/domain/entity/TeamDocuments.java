@@ -35,5 +35,8 @@ public class TeamDocuments extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
+    public void update(String title){
+        this.title = title;
+    }
 
 }
