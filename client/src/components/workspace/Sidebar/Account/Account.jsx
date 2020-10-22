@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -13,7 +14,7 @@ const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
   },
-})((props) => (
+})(props => (
   <Menu
     elevation={0}
     getContentAnchorEl={null}
@@ -29,7 +30,7 @@ const StyledMenu = withStyles({
   />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
+const StyledMenuItem = withStyles(theme => ({
   root: {
     '&:focus': {
       backgroundColor: theme.palette.primary.main,
@@ -43,7 +44,7 @@ const StyledMenuItem = withStyles((theme) => ({
 const Account = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -90,6 +91,6 @@ const Account = () => {
       </StyledMenu>
     </div>
   );
-}
+};
 
 export default Account;
