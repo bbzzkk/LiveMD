@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Main, OAuth2RedirectHandler } from '@/pages';
-import { GlobalStyle } from '@/styles';
+
+import { Login, Main, OAuth2RedirectHandler } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
+
+import { GlobalStyle } from '@/styles';
 import getCurrentUser from '@/utils/APIUtils';
 
 const App = () => {
@@ -45,17 +48,8 @@ const App = () => {
       <GlobalStyle />
       <Router>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Main
-                authenticated={authenticated}
-                currentUser={currentUser}
-                onLogout={handleLogout}
-              />
-            )}
-          />
+          <Route exact path="/" component={Main} />
+          <Route path="/login" component={Login} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
         </Switch>
       </Router>

@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/auth": "^3.4.7",
+    "@aws-amplify/ui-react": "^0.2.24",
     "@craco/craco": "^5.7.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@toast-ui/react-editor": "^2.4.0",
+    "aws-amplify": "^3.3.4",
+    "aws-appsync": "^4.0.1",
+    "graphql-tag": "^2.11.0",
     "react": "^16.13.1",
+    "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
@@ -41,5 +47,6 @@
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2"
-  }
+  },
+  "resolutions": { "apollo-client": "2.6.3" }
 }
