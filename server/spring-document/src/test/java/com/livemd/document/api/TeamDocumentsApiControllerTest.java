@@ -140,5 +140,26 @@ public class TeamDocumentsApiControllerTest {
 
     }
 
+    @Test
+    public void deleteTeamDocuments () throws Exception{
+        String owner = "owner";
+        String uuid = "uuid";
+        TeamDocumentsSaveRequestDto dto = TeamDocumentsSaveRequestDto.builder()
+                .owner(owner)
+                .uuid(uuid)
+                .build();
+
+        String url = "http://localhost:" + port + "/api/v1/team-documents";
+
+        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        Optional<TeamDocuments> optTeamDocuments = repository.findById(1L);
+        TeamDocuments teamDocuments = optTeamDocuments.get();
+
+        repository.delete(teamDocuments);
+    }
 }
 
