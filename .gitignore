@@ -2,6 +2,7 @@
 
 ###### client ######
 /client/.vscode
+/client/yarn.lock
 
 # dependencies
 /client/node_modules
