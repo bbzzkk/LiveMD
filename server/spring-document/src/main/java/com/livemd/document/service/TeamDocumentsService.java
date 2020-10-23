@@ -44,4 +44,11 @@ public class TeamDocumentsService {
         return id;
     }
 
+    @Transactional
+    public void delete(Long id) {
+        TeamDocuments teamDocuments = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. id" + id));
+
+        repository.delete(teamDocuments);
+    }
+
 }
