@@ -2,16 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Amplify from 'aws-amplify';
-import { Main, OAuth2RedirectHandler } from '@/pages';
+import { Login, Main, OAuth2RedirectHandler } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
 
 import { GlobalStyle } from '@/styles';
 import getCurrentUser from '@/utils/APIUtils';
-import awsExports from './aws-exports';
-import { Login } from './pages';
-
-Amplify.configure(awsExports);
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
