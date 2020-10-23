@@ -1,13 +1,18 @@
 /* eslint-disable */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+import { ApolloProvider } from 'react-apollo';
+// import { Rehydrated } from 'aws-appsync-react';
+import { ApolloClient, Rehydrated } from '@/aws/index';
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={ApolloClient}>
+    <Rehydrated>
+      <App />
+    </Rehydrated>
+  </ApolloProvider>,
   document.getElementById('root'),
 );
 
