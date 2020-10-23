@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Main, OAuth2RedirectHandler } from '@/pages';
+import { Main, OAuth2RedirectHandler, Editor } from '@/pages';
 import { GlobalStyle } from '@/styles';
 import { LoadingIndicator } from '@/components/common';
 import getCurrentUser from '@/utils/APIUtils';
@@ -57,6 +57,7 @@ const App = () => {
             )}
           />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
+          <Route path="/editor" component={Editor} />
         </Switch>
       </Router>
     </>
