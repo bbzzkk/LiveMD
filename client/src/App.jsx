@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Login, Main, OAuth2RedirectHandler } from '@/pages';
+import { Workspace, Login, Main, OAuth2RedirectHandler } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
 
 import { GlobalStyle } from '@/styles';
@@ -44,15 +44,16 @@ const App = () => {
   }
 
   return (
-    <>
-      <Router>
+    <Workspace />
+    /* {
+        <Router>
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
         </Switch>
-      </Router>
-    </>
+      </Router> 
+    } */
   );
 };
 

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "apollo-link-error": "^1.1.13",
     "apollo-react-hooks": "^0.0.1",
     "aws-appsync-react": "^4.0.1"
