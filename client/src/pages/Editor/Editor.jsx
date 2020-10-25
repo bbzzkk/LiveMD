@@ -1,46 +1,41 @@
 import React, { useEffect } from 'react';
 import * as Y from 'yjs';
 import { WebsocketProvider } from 'y-websocket';
-import { QuillBinding } from 'y-quill';
-import Quill from 'quill';
-import QuillCursors from 'quill-cursors';
-import 'react-quill/dist/quill.snow.css';
+import { CodemirrorBinding } from 'y-codemirror';
+import CodeMirror from 'codemirror';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+import './style.css';
+import marked from 'marked';
 
 const Editor = () => {
   useEffect(() => {
-    Quill.register('modules/cursors', QuillCursors);
-
     const ydoc = new Y.Doc();
     const provider = new WebsocketProvider(
-      // 'wss://demos.yjs.dev',
-      'ws://3.35.98.199:1234',
-      'quill',
+      'wss://demos.yjs.dev',
+      // 'ws://3.35.98.199:1234',
+      'codemirror-large',
       ydoc,
     );
-    const type = ydoc.getText('quill');
+    const type = ydoc.getText('codemirror');
     const editorContainer = document.createElement('div');
     editorContainer.setAttribute('id', 'editor');
     document.getElementById('wrapper').insertBefore(editorContainer, null);
 
-    const editor = new Quill(editorContainer, {
-      modules: {
-        cursors: true,
-        toolbar: [
-          // [{ header: [1, 2, false] }],
-          // ['bold', 'italic', 'underline'],
-          // ['image', 'code-block'],
-        ],
-        history: {
-          userOnly: true,
-        },
+    const editor = CodeMirror(editorContainer, {
+      mode: {
+        name: 'markdown',
+        highlightFormatting: true
       },
-      placeholder: 'Start collaborating...',
-      theme: 'snow', // or 'bubble'
+      lineNumbers: true,
+      theme: 'markdown',
+      lineWrapping: true,
     });
 
-    const binding = new QuillBinding(type, editor, provider.awareness);
-    console.log(editorContainer);
 
+    // const binding = new CodemirrorBinding(type, editor, provider.awareness);
+    
     const connectBtn = document.getElementById('y-connect-btn');
     connectBtn.addEventListener('click', () => {
       if (provider.shouldConnect) {
@@ -51,23 +46,20 @@ const Editor = () => {
         connectBtn.textContent = 'Disconnect';
       }
     });
-
-    /*
-  // Define user name and user name
-  // Check the quill-cursors package on how to change the way cursors are rendered
-  provider.awareness.setLocalStateField('user', {
-    name: 'Typing Jimmy',
-    color: 'blue'
-  })
-  */
   });
 
+
+  const text = '# test string';
+  const markedTest = marked(text, { sanitize: true });
   return (
-    <div id="wrapper">
-      <button type="button" id="y-connect-btn">
-        Disconnect
-      </button>
-    </div>
+    <>
+      <div id="wrapper">
+        <button type="button" id="y-connect-btn">
+          Disconnect
+        </button>
+      </div>
+      <div dangerouslySetInnerHTML={{ __html: markedTest }} />
+    </>
   );
 };
 
