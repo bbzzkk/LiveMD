@@ -54,6 +54,9 @@
 /server/**/.metadata/
 /server/**/.gradle/
 
+### EXPRESS ###
+/express/node_modules
+
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
