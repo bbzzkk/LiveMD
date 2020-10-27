@@ -1,25 +1,25 @@
 import React from 'react';
 
+import Header from '@/components/workspace/Header';
 import Sidebar from '@/components/workspace/Sidebar';
-import Document from '@/components/workspace/Document';
-
-import { documents } from '@/utils/Mock';
+import Main from '@/components/workspace/Main';
 
 import S from './style';
 
-const Workspace = () => {
+const Workspace = props => {
   return (
-    <S.Workspace>
-      <S.SidebarContainer>
-        <Sidebar />
-      </S.SidebarContainer>
-      <S.ContentContainer>
-        {/* {documents.data.map(({ owner, createdAt, title }) => {
-          return <Document owner={owner} createdAt={createdAt} title={title} />;
-        })} */}
-        <Content />
-      </S.ContentContainer>
-    </S.Workspace>
+    <>
+      <S.Workspace>
+        <Header />
+        <S.SidebarContainer>
+          <Sidebar />
+        </S.SidebarContainer>
+
+        <S.MainContainer>
+          <Main />
+        </S.MainContainer>
+      </S.Workspace>
+    </>
   );
 };
 

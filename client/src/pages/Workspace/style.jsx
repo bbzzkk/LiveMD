@@ -6,13 +6,13 @@ export default {
   `,
 
   SidebarContainer: styled.div`
-    width: 20%;
     flexshrink: 0;
   `,
 
-  Content: styled.div`
-    flexGrow: 1,
-    width: 80%;
-    padding: theme.spacing(3),
+  MainContainer: styled.div`
+    flexgrow: 1;
+    margin-top: 7em;
+    margin-left: min(15em, 14em);
+    flexgrow: 1;
   `,
 };
