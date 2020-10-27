@@ -1,25 +1,20 @@
 import React from 'react';
+import S from './style';
+import Teams from './Teams';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-
-import List from './List';
-
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-});
-
-function Sidebar() {
+const Sidebar = () => {
+  const handleClickMy = () => {
+    console.log('go to My Workspace');
+  };
   return (
-    <Drawer open variant="permanent">
-      <List />
-    </Drawer>
+    <S.Drawer open variant="permanent">
+      <S.DrawerList>
+        <S.My button onClick={handleClickMy}>
+          <S.MyText primary="My" />
+        </S.My>
+        <Teams />
+      </S.DrawerList>
+    </S.Drawer>
   );
-}
+};
 export default Sidebar;

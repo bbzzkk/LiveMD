@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 345,
-    minWidth: 275,
+    maxWidth: 200,
+    minWidth: 250,
     margin: theme.spacing(7),
   },
   bullet: {
@@ -35,13 +35,6 @@ const Document = props => {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          {owner}
-        </Typography>
         <Typography variant="h5" component="h2">
           {title}
         </Typography>
