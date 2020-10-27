@@ -1,9 +1,30 @@
 import React from 'react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Header, Footer } from '@/components/home';
+import S from './style';
 
-const Login = () => {
-  // console.log(Auth.currentAuthenticatedUser());
-  return <div>Login Success. This should be called.</div>;
+const Home = props => {
+  const { authenticated, onLogout, currentUser } = props;
+
+  return (
+    <>
+      <S.Main>
+        <Header
+          authenticated={authenticated}
+          onLogout={onLogout}
+          currentUser={currentUser}
+        />
+        <S.MainContent>
+          {authenticated ? (
+            <>
+              <div>{currentUser?.name}</div>
+              <img src={currentUser.imageUrl} alt="img" />
+            </>
+          ) : null}
+        </S.MainContent>
+        <Footer />
+      </S.Main>
+    </>
+  );
 };
 
-export default withAuthenticator(Login, { includeGreetings: true });
+export default Home;
