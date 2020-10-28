@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 import { Workspace } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
 
 import { GlobalStyle } from '@/styles';
 import getCurrentUser from '@/utils/APIUtils';
+
+import CreateRoom from "@/pages/VideoChat/CreateRoom";
+import Room from "@/pages/VideoChat/Room";
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -44,7 +48,7 @@ const App = () => {
   }
 
   return (
-    <Workspace />
+    // <Workspace />
     /* {
         <Router>
         <Switch>
@@ -54,6 +58,12 @@ const App = () => {
         </Switch>
       </Router> 
     } */
+    <BrowserRouter>
+    <Switch>
+      <Route path="/" exact component={CreateRoom} />
+      <Route path="/room/:roomID" component={Room} />
+    </Switch>
+  </BrowserRouter>
   );
 };
 
