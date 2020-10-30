@@ -55,7 +55,7 @@
 /server/**/.gradle/
 
 ### EXPRESS ###
-/express/node_modules
+/chat-server/node_modules
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar
