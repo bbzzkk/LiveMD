@@ -29,6 +29,10 @@
 ###### server ######
 
 
+### node js ###
+/server/**/node_modules
+/server/**/.env
+
 ### STS ###
 /server/**/.apt_generated
 /server/**/.classpath
@@ -56,7 +60,3 @@
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-<<<<<<< HEAD
-
-=======
->>>>>>> 267c8d230c26883709a9e62297edf4a010ae427c
