@@ -17,8 +17,13 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+<<<<<<< HEAD
+    "socket.io-client": "^2.3.1",
+    "styled-components": "^5.2.0"
+=======
     "styled-components": "^5.2.0",
     "uuid": "^8.3.1"
+>>>>>>> develop
   },
   "scripts": {
     "start": "craco start",
@@ -49,5 +54,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2"
   },
-  "proxy": "https://ec2-52-79-80-240.ap-northeast-2.compute.amazonaws.com:8001"
+  "resolutions": {
+    "apollo-client": "2.6.3"
+  },
+  "proxy": "http://chat-test.live-md.com:8000"
 }
