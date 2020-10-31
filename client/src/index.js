@@ -8,11 +8,13 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient, Rehydrated } from '@/aws/index';
 
 ReactDOM.render(
-  <ApolloProvider client={ApolloClient}>
-    <Rehydrated>
-      <App />
-    </Rehydrated>
-  </ApolloProvider>,
+  // <ApolloProvider client={ApolloClient}>
+  //   <Rehydrated>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+    /* </Rehydrated>
+  </ApolloProvider>, */
   document.getElementById('root'),
 );
 
