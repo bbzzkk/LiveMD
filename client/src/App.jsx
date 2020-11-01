@@ -45,8 +45,8 @@ const App = () => {
   }
 
   return (
-    <Workspace />
-    /* {
+    <>
+    {/* <Workspace /> */}
         <Router>
         <Switch>
           <Route exact path="/" component={Main} />
@@ -54,8 +54,8 @@ const App = () => {
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route path="/chat" component={Chat} />
         </Switch>
-      </Router> 
-    } */
+      </Router>
+      </>  
   );
 };
 
