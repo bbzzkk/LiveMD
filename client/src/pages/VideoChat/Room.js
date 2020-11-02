@@ -47,10 +47,11 @@ const Room = props => {
   const roomID = props.match.params.roomID;
 
   useEffect(() => {
-    socketRef.current = io.connect('/');
+    socketRef.current = io.connect('http://ec2-52-79-80-240.ap-northeast-2.compute.amazonaws.com:8000/');
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
-      .then(stream => {  // 우리 자신의 스트림에서 얻은 스트림을 가져온다.
+      .then(stream => {
+        // 우리 자신의 스트림에서 얻은 스트림을 가져온다.
         if (!userVideo.current) {
           //userVideo없으면 아무것도 하지 않기 왜냐면 없을수도 있는데 무조건 넘겨주면 안되니까
           return;
@@ -61,7 +62,8 @@ const Room = props => {
           const peers = [];
           users.forEach(userID => {
             const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.push({ // peerID 전달, 
+            peersRef.current.push({
+              // peerID 전달,
               peerID: userID,
               peer,
             });
@@ -123,15 +125,15 @@ const Room = props => {
 
   return (
     <>
-    <Container>
-      <StyledVideo muted ref={userVideo} autoPlay playsInline />
-      {peers.map((peer, index) => {
-        return <Video key={index} peer={peer} />;
-      })}
-    </Container>
-    <StyledMic>
-      <button onClick={() => alert('Click')}>Click Me!</button>
-    </StyledMic>
+      <Container>
+        <StyledVideo muted ref={userVideo} autoPlay playsInline />
+        {peers.map((peer, index) => {
+          return <Video key={index} peer={peer} />;
+        })}
+      </Container>
+      <StyledMic>
+        <button onClick={() => alert('Click')}>Click Me!</button>
+      </StyledMic>
     </>
   );
 };
