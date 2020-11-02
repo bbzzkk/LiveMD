@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Y from 'yjs';
-import { WebsocketProvider } from 'y-websocket';
-import { CodemirrorBinding } from 'y-codemirror';
+import { WebsocketProvider } from './y-websocket';
+import { CodemirrorBinding } from './y-codemirror';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/lib/codemirror.css';
@@ -9,33 +9,41 @@ import 'codemirror/theme/material.css';
 import './style.css';
 import marked from 'marked';
 
-const Editor = () => {
+const Editor = (props) => {
+  const [text, setText] = useState('');
+  const textareaRef = useRef(null);
+  const markedTest = marked(text, { sanitize: true });
+  const editorID = props.match.params.editorID;
+
+  const handleChange = doc => {
+    if(textareaRef.current)
+    setText(doc.getValue());
+  };
+
   useEffect(() => {
     const ydoc = new Y.Doc();
     const provider = new WebsocketProvider(
-      'wss://demos.yjs.dev',
-      // 'ws://3.35.98.199:1234',
-      'codemirror-large',
+    //   'wss://demos.yjs.dev',
+      'ws://3.35.98.199:1234',
+    //   'ws://localhost:1234',
+    // 'codemirror-large',
+      editorID,
       ydoc,
     );
-    const type = ydoc.getText('codemirror');
-    const editorContainer = document.createElement('div');
-    editorContainer.setAttribute('id', 'editor');
-    document.getElementById('wrapper').insertBefore(editorContainer, null);
-
-    const editor = CodeMirror(editorContainer, {
+    const type = ydoc.getText(editorID);
+    const editor = CodeMirror.fromTextArea(textareaRef.current, {
       mode: {
         name: 'markdown',
-        highlightFormatting: true
+        highlightFormatting: true,
       },
       lineNumbers: true,
       theme: 'markdown',
       lineWrapping: true,
     });
+    const binding = new CodemirrorBinding(type, editor, provider.awareness);
 
+    editor.on('change', handleChange);
 
-    // const binding = new CodemirrorBinding(type, editor, provider.awareness);
-    
     const connectBtn = document.getElementById('y-connect-btn');
     connectBtn.addEventListener('click', () => {
       if (provider.shouldConnect) {
@@ -46,19 +54,23 @@ const Editor = () => {
         connectBtn.textContent = 'Disconnect';
       }
     });
-  });
 
+    return () => {
+      if (editor) {
+        editor.toTextArea();
+      }
+    };
+  }, []);
 
-  const text = '# test string';
-  const markedTest = marked(text, { sanitize: true });
   return (
     <>
       <div id="wrapper">
         <button type="button" id="y-connect-btn">
           Disconnect
         </button>
+        <textarea ref={textareaRef} onChange={handleChange} value={text} />
+        <div dangerouslySetInnerHTML={{ __html: markedTest }} />
       </div>
-      <div dangerouslySetInnerHTML={{ __html: markedTest }} />
     </>
   );
 };
