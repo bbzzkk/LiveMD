@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const InvitationSchema = new mongoose.Schema({
   memberId: {
-    type: Number,
+    type: String,
     required: true,
   },
   email: {
@@ -17,9 +17,10 @@ const InvitationSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    index: true,
   },
   dateCreated: {
-    type: Date,
+    type: String,
     default: Date.now(),
     expires: 600, // 10분 뒤 만료
   },

@@ -22,7 +22,7 @@ const TeamSchema = new mongoose.Schema({
     type: Date,
     // required: true,
   },
-  updatedAt: { type: Date },
+  updatedAt: { type: String },
   imageAttr: {
     width: Number,
     height: Number,

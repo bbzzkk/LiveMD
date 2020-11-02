@@ -6,33 +6,41 @@ const Member = require("../models/Member");
 router.post("/", async (req, res) => {
   try {
     const { userId, teamname, description } = req.body;
-    const isThereTeam = await Team.findOne({
-      teamname: teamname,
-    });
 
-    if (isThereTeam) {
+    if (!teamname) {
       return res.status(500).json({
         result: false,
         status: 500,
-        error: "The name of team already exists.",
+        error: "Teamname is required.",
       });
     }
-    const teamResult = await Team.create({
+
+    await Team.findOne({
+      teamname: teamname,
+    }).then((team) => {
+      if (team) {
+        return res.status(500).json({
+          result: false,
+          status: 500,
+          error: "The name of team already exists.",
+        });
+      }
+    });
+
+    const team = await Team.create({
       teamname: teamname,
       description: description,
       createdAt: Date.now(),
-      // thumbnailAttr,
-    });
+    }).then((team) => team.save());
 
-    await teamResult.save();
-
-    const ownerResult = await Member.create({
-      teamId: teamResult.teamId,
+    await Member.create({
+      teamId: team.teamId,
       userId: userId,
       role: "owner",
       status: "active",
+    }).then((member) => {
+      member.save();
     });
-    await ownerResult.save();
 
     res.status(200).json({ result: true, status: 200 });
   } catch (e) {
@@ -54,8 +62,9 @@ router.get("/", async (req, res) => {
         status: 500,
         error: "You must send userId by query parameter.",
       });
-    const data = await Member.find({ userId: userId });
-    res.status(200).json({ result: true, data: data });
+    await Member.find({ userId: userId }).then((member) =>
+      res.status(200).json({ result: true, data: member })
+    );
   } catch (e) {
     res.status(500).json({ result: false, error: e.message });
   }
@@ -69,13 +78,13 @@ router.get("/:teamId", async (req, res) => {
     //   teamId: req.params.teamId,
     // });
     const { teamId } = req.params;
-    const data = await Team.findOne({ teamId: teamId });
-    if (!data) {
+    const team = await Team.findOne({ teamId: teamId });
+    if (!team) {
       return res
         .status(404)
         .json({ result: false, status: 404, error: "Team Not Found" });
     }
-    res.status(200).json({ result: true, status: 200, data: data });
+    res.status(200).json({ result: true, status: 200, data: team });
   } catch (e) {
     res
       .status(e.status)
@@ -91,17 +100,11 @@ router.put("/:teamId", async (req, res) => {
     // query imageURL
     // const imageURL = req.query.imageURL;
     // const result = await User.useFindAndModify({ uid: req.params.uid }, { dids: req.body.dids});
-    const result = await await Team.update(
+    await Team.update(
       { teamId: teamId },
       { $push: { description: description } }
       // { $push: { imageURLs: imageURL } }
-    );
-    if (!result) {
-      return res
-        .status(404)
-        .json({ result: false, status: 404, error: "User Not Found" });
-    }
-    res.status(200).json({ result: true, status: 200 });
+    ).then(() => res.status(200).json({ result: true, status: 200 }));
   } catch (e) {
     res
       .status(e.status)
@@ -113,12 +116,15 @@ router.put("/:teamId", async (req, res) => {
 router.delete("/:teamId", async (req, res) => {
   try {
     const { teamId } = req.params;
-    const teamResult = await Team.findOneAndDelete({ teamId: teamId });
-    if (!teamResult) {
-      return res
-        .status(404)
-        .json({ result: false, status: 404, error: "Team Not Found" });
-    }
+    await Team.findOneAndDelete({ teamId: teamId }).then((result) => {
+      if (!result) {
+        return res.status(404).json({
+          result: false,
+          status: 404,
+          error: "Team Not Found. Cannot Delete Team.",
+        });
+      }
+    });
     await Member.deleteMany({ teamId: teamId });
     res.status(200).json({ result: true, status: 200 });
   } catch (e) {
