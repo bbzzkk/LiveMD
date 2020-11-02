@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
+// const autoIncrement = require("mongoose-auto-increment");
 const uuid = require("../utils/uuid");
-// autoInc.initialize(mongoose.connection);
 
-console.log(uuid);
 const TeamSchema = new mongoose.Schema({
   teamId: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
     default: uuid(),
@@ -21,16 +20,15 @@ const TeamSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    required: true,
+    // required: true,
   },
   updatedAt: { type: Date },
-  thumbnailAttr: {
+  imageAttr: {
     width: Number,
     height: Number,
     imageURL: { type: String, default: "" },
   },
 });
 
-// TeamSchema.plugin(autoInc.plugin, "Team");
-// mongoose.set("teamCreateIndex", true);
+// TeamSchema.plugin(autoIncrement.plugin, "Team");
 module.exports = mongoose.model("Team", TeamSchema);

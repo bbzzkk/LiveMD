@@ -1,17 +1,22 @@
 const mongoose = require("mongoose");
-// autoInc.initialize(mongoose.connection);
+// const autoIncrement = require("mongoose-auto-increment");
 const uuid = require("../utils/uuid");
 
 const MemberSchema = new mongoose.Schema({
   memberId: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
+    index: true,
     default: uuid(),
+  },
+  userId: {
+    type: String,
+    required: true,
     index: true,
   },
   teamId: {
-    type: Number,
+    type: String,
     required: true,
     index: true,
   },
@@ -31,6 +36,5 @@ const MemberSchema = new mongoose.Schema({
   },
 });
 
-// MemberSchema.plugin(autoInc.plugin, "Member");
-// mongoose.set("memberCreateIndex", true);
+// MemberSchema.plugin(autoIncrement.plugin, "Member");
 module.exports = mongoose.model("Member", MemberSchema);
