@@ -14,7 +14,6 @@ const PartnerRow = styled(MyRow)`
   justify-content: flex-start;
 `;
 
-
 const Chat = () => {
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);

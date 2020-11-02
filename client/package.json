@@ -12,6 +12,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "aws-amplify": "^3.3.4",
+    "http-proxy-middleware": "^1.0.6",
     "mobx-state-tree": "^3.17.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -51,10 +52,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2"
   },
-  "proxy": "http://ec2-52-79-80-240.ap-northeast-2.compute.amazonaws.com:8000",
   "resolutions": {
     "apollo-client": "2.6.3"
-  },
-  "proxy": "http://chat-test.live-md.com:8000"
-  
+  }
 }
