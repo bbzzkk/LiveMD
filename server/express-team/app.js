@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
+<<<<<<< HEAD
 const multer = require("multer");
 
 require("dotenv").config();
@@ -16,6 +17,13 @@ const databasePort = process.env.DATABASE_PORT;
 const databaseName = process.env.DATABASE_NAME;
 
 app.use(cors());
+=======
+// var autoIncrement = require("mongoose-auto-increment");
+const multer = require("multer");
+
+app.use(cors());
+
+>>>>>>> ba7765e289ba0dd8d633626fc77c65197f1e6789
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

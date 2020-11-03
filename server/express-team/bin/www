@@ -4,16 +4,27 @@
  * Module dependencies.
  */
 
+<<<<<<< HEAD
 const app = require("../app");
 const debug = require("debug")("realserver:server");
 const http = require("http");
+=======
+var app = require('../app');
+var debug = require('debug')('realserver:server');
+var http = require('http');
+>>>>>>> ba7765e289ba0dd8d633626fc77c65197f1e6789
 
 /**
  * Get port from environment and store in Express.
  */
 
+<<<<<<< HEAD
 const port = normalizePort(process.env.PORT);
 app.set("port", port);
+=======
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+>>>>>>> ba7765e289ba0dd8d633626fc77c65197f1e6789
 
 /**
  * Create HTTP server.

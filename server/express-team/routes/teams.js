@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const Team = require("../models/Team");
 const Member = require("../models/Member");
 
