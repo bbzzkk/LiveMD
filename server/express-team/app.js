@@ -7,11 +7,15 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
-// var autoIncrement = require("mongoose-auto-increment");
 const multer = require("multer");
 
-app.use(cors());
+require("dotenv").config();
 
+const databaseUrl = process.env.DATABASE_URL;
+const databasePort = process.env.DATABASE_PORT;
+const databaseName = process.env.DATABASE_NAME;
+
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +30,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 mongoose.Promise = global.Promise;
 mongoose
-  .connect("mongodb://localhost:27017/LiveMD", {
+  .connect(`mongodb://${databaseUrl}:${databasePort}/${databaseName}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
