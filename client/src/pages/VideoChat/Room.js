@@ -33,6 +33,8 @@ const AllContainer = styled.div`
   float : right;
 `;
 
+// https://github.com/bbzzkk/LiveMD.git
+
 const StyledVideo = styled.video`
   height: 40%;
   width: 50%;
@@ -64,7 +66,7 @@ const Room = props => {
   const roomID = props.match.params.roomID;
 
   useEffect(() => {
-    socketRef.current = io.connect('http://ec2-52-79-80-240.ap-northeast-2.compute.amazonaws.com:8000/');
+    socketRef.current = io.connect('https://chat.live-md.com');
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
       .then(stream => {
