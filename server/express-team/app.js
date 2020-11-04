@@ -5,15 +5,12 @@ const createError = require("http-errors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+
+const apiRouter = require("./routes/index");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const multer = require("multer");
 
 require("dotenv").config();
-
-const databaseUrl = process.env.DATABASE_URL;
-const databasePort = process.env.DATABASE_PORT;
-const databaseName = process.env.DATABASE_NAME;
 
 app.use(cors());
 app.use(logger("dev"));
@@ -28,35 +25,26 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/api/", apiRouter);
+
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(`mongodb://${databaseUrl}:${databasePort}/${databaseName}`, {
+  .connect(process.env.DATABASE_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
   .then(() => console.log("mongoDB connected successful"))
   .catch((err) => console.error(err));
-// autoIncrement.initialize(connection);
 
-const teamsRouter = require("./routes/teams");
-const membersRouter = require("./routes/members");
-
-app.use("/teams", teamsRouter);
-app.use("/members", membersRouter);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+app.use((err, req, res) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render("error");
 });

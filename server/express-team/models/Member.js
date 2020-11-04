@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-// const autoIncrement = require("mongoose-auto-increment");
-const uuid = require("../utils/uuid");
+const { getUuid } = require("../utils/index");
 
 const MemberSchema = new mongoose.Schema({
   memberId: {
@@ -8,23 +7,24 @@ const MemberSchema = new mongoose.Schema({
     required: true,
     unique: true,
     index: true,
-    default: uuid(),
+    default: getUuid,
   },
   userId: {
     type: String,
     required: true,
-    index: true,
+    // index: true,
   },
   teamId: {
     type: String,
     required: true,
     index: true,
   },
-  // email: {
-  //   type: String,
-  //   required: true,
-  //   match: [/^.{4,12}$/, "Should be 4-12 characters!"],
-  // },
+  email: {
+    type: String,
+    required: true,
+    match: [/^.{4,12}$/, "Should be 4-12 characters!"],
+    index: true,
+  },
   role: {
     type: String,
     enum: ["owner", "admin", "writer", "reader"],
@@ -36,5 +36,4 @@ const MemberSchema = new mongoose.Schema({
   },
 });
 
-// MemberSchema.plugin(autoIncrement.plugin, "Member");
 module.exports = mongoose.model("Member", MemberSchema);

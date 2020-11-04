@@ -1,7 +1,7 @@
 const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-const moment = require("moment");
+// const moment = require("moment");
 
 const s3 = new aws.S3({
   accessKeyId: "accesskey", // 생성한 s3의 accesskey
@@ -17,10 +17,10 @@ const storage = multerS3({
     cb(null, { fieldName: file.fieldname }); // 파일 메타정보를 저장합니다.
   },
   key: function (req, file, cb) {
-    cb(null, moment().format("YYYYMMDDHHmmss") + "_" + file.originalname); // key... 저장될 파일명과 같이 해봅니다.
+    // cb(null, moment().format("YYYYMMDDHHmmss") + "_" + file.originalname); // key... 저장될 파일명과 같이 해봅니다.
   },
 });
 
-const upload = multer({ storage: storage }).single("file");
+const uploadImage = multer({ storage: storage }).single("file");
 
-module.exports = upload;
+module.exports = uploadImage;

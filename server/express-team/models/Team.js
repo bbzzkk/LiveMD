@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
-// const autoIncrement = require("mongoose-auto-increment");
-const uuid = require("../utils/uuid");
+const { getUuid } = require("../utils/index");
 
 const TeamSchema = new mongoose.Schema({
   teamId: {
     type: String,
     required: true,
     unique: true,
-    default: uuid(),
+    default: getUuid,
     index: true,
   },
   teamname: {
@@ -30,5 +29,4 @@ const TeamSchema = new mongoose.Schema({
   },
 });
 
-// TeamSchema.plugin(autoIncrement.plugin, "Team");
 module.exports = mongoose.model("Team", TeamSchema);
