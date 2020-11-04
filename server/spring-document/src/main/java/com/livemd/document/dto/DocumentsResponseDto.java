@@ -13,8 +13,8 @@ public class DocumentsResponseDto {
     private String docId;
     private String title;
     private String content;
-    private LocalDateTime created_at;
-    private LocalDateTime modified_at;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
     public DocumentsResponseDto(Documents entity){
         this.id = entity.getId();
@@ -22,7 +22,7 @@ public class DocumentsResponseDto {
         this.docId = entity.getDocId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
-        this.created_at = entity.getCreated_at();
-        this.modified_at = entity.getModified_at();
+        this.createdDate = entity.getCreatedDate();
+        this.modifiedDate = entity.getModifiedDate();
     }
 }
