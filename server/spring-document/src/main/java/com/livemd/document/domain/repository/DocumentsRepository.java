@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface DocumentsRepository extends JpaRepository<Documents, Long> {
     Page<Documents> findAllByOwnerId(Pageable pageable, String ownerId);
-    List<Documents> findByOwnerId(String ownerId);
+//    List<Documents> findByOwnerId(String ownerId);
     Optional<Documents> findByDocId(String docId);
+    Page<Documents> findAllByOwnerIdAndTitleContaining(Pageable pageable, String ownerId, String keyword);
 }

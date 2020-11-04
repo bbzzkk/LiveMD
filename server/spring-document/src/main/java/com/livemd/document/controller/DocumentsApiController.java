@@ -37,6 +37,11 @@ public class DocumentsApiController {
         return service.findByDocId(docId);
     }
 
+    @GetMapping("search")
+    public Page searchByKeyword(final Pageable pageable, @RequestParam(value = "oid") String oid, @RequestParam(value = "keyword") String keyword){
+        return service.findAllByTitle(pageable, oid, keyword);
+    }
+
     @PutMapping("{docId}")
     public DocumentsIdResponseDto update(@PathVariable String docId, @RequestBody DocumentsTitleUpdateRequestDto requestDto){
         return service.update(docId, requestDto);

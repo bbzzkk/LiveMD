@@ -46,6 +46,12 @@ public class DocumentsService {
     }
 
     @Transactional
+    public Page findAllByTitle(final Pageable pageable, String oid, String keyword){
+        Page<Documents> page = repository.findAllByOwnerIdAndTitleContaining(pageable, oid, keyword);
+        Page<DocumentsResponseDto> dtoPage = page.map(documents -> new DocumentsResponseDto(documents));
+        return dtoPage;
+    }
+    @Transactional
     public DocumentsIdResponseDto update(String docId, DocumentsTitleUpdateRequestDto requestDto){
         Documents documents = repository.findByDocId(docId).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. documents id" + docId));
         documents.update(requestDto.getTitle());
