@@ -56,8 +56,8 @@ const App = () => {
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
-          <Route path="/chat" component={Chat} />
-          <Route path="/create" exact component={CreateRoom} />
+          {/* <Route path="/chat" component={Chat} /> */}
+          <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
         </Switch>
       </Router>

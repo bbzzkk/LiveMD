@@ -2,14 +2,35 @@ import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import styled from 'styled-components';
+import S from './style';
 
+
+const MyRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+`;
+
+const PartnerRow = styled(MyRow)`
+  justify-content: flex-start;
+`;
+
+//video Container
+// margin: auto 없앰
 const Container = styled.div`
   padding: 20px;
   display: flex;
   height: 100vh;
-  width: 90%;
-  margin: auto;
+  width: 100%;
+
   flex-wrap: wrap;
+  flex-direction: column;
+`;
+
+//Chat + WebRTC Container
+const AllContainer = styled.div`
+  float : right;
 `;
 
 const StyledVideo = styled.video`
@@ -17,14 +38,10 @@ const StyledVideo = styled.video`
   width: 50%;
 `;
 
-const StyledMic = styled.div`
-  height: 10%
-  width: 10%
-`;
 
 const Video = props => {
   const ref = useRef();
-
+  console.log(props);
   useEffect(() => {
     props.peer.on('stream', stream => {
       ref.current.srcObject = stream;
@@ -89,6 +106,13 @@ const Room = props => {
       });
   }, [userVideo]); //userVideo가 업데이트 되면 useEffect 실행
 
+  const pauseVideo = () => {
+    const stream = navigator.mediaDevices.getUserMedia({video : false, audio: false});
+    if (userVideo.current) {
+      userVideo.current.srcObject = stream;
+    }
+  };
+
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
       initiator: true,
@@ -122,18 +146,82 @@ const Room = props => {
 
     return peer;
   }
+// 위에는 video 아래는 chat
+  const [yourID, setYourID] = useState();
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+
+  const socketRefChat = useRef();
+
+  useEffect(() => {
+    socketRefChat.current = io.connect('http://chat-test.live-md.com:8000');
+
+    socketRefChat.current.on('your id', id => {
+      setYourID(id);
+    });
+
+    socketRefChat.current.on('message', message => {
+      console.log('here');
+      receivedMessage(message);
+    });
+  }, []);
+
+  function receivedMessage(message) {
+    setMessages(oldMsgs => [...oldMsgs, message]);
+  }
+
+  function sendMessage(e) {
+    e.preventDefault();
+    const messageObject = {
+      body: message,
+      id: yourID,
+    };
+    setMessage('');
+    socketRefChat.current.emit('send message', messageObject);
+  }
+
+  function handleChange(e) {
+    setMessage(e.target.value);
+  }
 
   return (
     <>
+    <AllContainer>
       <Container>
         <StyledVideo muted ref={userVideo} autoPlay playsInline />
         {peers.map((peer, index) => {
           return <Video key={index} peer={peer} />;
         })}
+        <button onClick={pauseVideo}>pause</button>
       </Container>
-      <StyledMic>
-        <button onClick={() => alert('Click')}>Click Me!</button>
-      </StyledMic>
+
+      <S.Page>
+      <S.Container>
+        {messages.map((message, index) => {
+          if (message.id === yourID) {
+            return (
+              <MyRow key={index}>
+                <S.MyMessage>{message.body}</S.MyMessage>
+              </MyRow>
+            );
+          }
+          return (
+            <PartnerRow key={index}>
+              <S.PartnerMessage>{message.body}</S.PartnerMessage>
+            </PartnerRow>
+          );
+        })}
+      </S.Container>
+      <S.Form onSubmit={sendMessage}>
+        <S.TextArea
+          value={message}
+          onChange={handleChange}
+          placeholder="Say something..."
+        />
+        <S.Button>Send</S.Button>
+      </S.Form>
+    </S.Page>
+    </AllContainer>
     </>
   );
 };
