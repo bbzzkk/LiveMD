@@ -6,6 +6,7 @@ node_modules/
 /client/.vscode
 /client/yarn.lock
 /client/build
+/client/package-lock.json
 
 # dependencies
 /client/node_modules
@@ -28,10 +29,12 @@ node_modules/
 
 
 ###### server ######
-/server/**/.metadata
+/server/**/.metadata/
 /server/**/.env
 /server/**/node_modules
 /server/**/yarn.lock
+/server/.gitignore
+/server/**/.gitignore
 
 ### STS ###
 /server/**/.apt_generated
