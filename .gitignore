@@ -1,7 +1,11 @@
 ###### root ######
+node_modules/
+.metadata/
 
 ###### client ######
 /client/.vscode
+/client/yarn.lock
+/client/build
 
 # dependencies
 /client/node_modules
@@ -10,9 +14,6 @@
 
 # testing
 /client/coverage
-
-# production
-/client/build
 
 # misc
 /client/.DS_Store
@@ -27,7 +28,10 @@
 
 
 ###### server ######
-
+/server/**/.metadata
+/server/**/.env
+/server/**/node_modules
+/server/**/yarn.lock
 
 ### STS ###
 /server/**/.apt_generated
@@ -55,8 +59,6 @@
 /server/**/.gradle/
 
 ###  express ###
-/chat-server/node_modules
-/video-server/node_modules
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar
