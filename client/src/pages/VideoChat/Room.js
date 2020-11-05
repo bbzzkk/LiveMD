@@ -38,7 +38,6 @@ const StyledVideo = styled.video`
   width: 50%;
 `;
 
-
 const Video = props => {
   const ref = useRef();
   console.log(props);
@@ -65,6 +64,7 @@ const Room = props => {
 
   useEffect(() => {
     socketRef.current = io.connect('http://ec2-52-79-80-240.ap-northeast-2.compute.amazonaws.com:8000/');
+    // Navigator.mediaDevices.getUserMedia함수를 통해 유저의 카메라와 마이크에 권한을 요청한다.
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
       .then(stream => {
@@ -107,10 +107,7 @@ const Room = props => {
   }, [userVideo]); //userVideo가 업데이트 되면 useEffect 실행
 
   const pauseVideo = () => {
-    const stream = navigator.mediaDevices.getUserMedia({video : false, audio: false});
-    if (userVideo.current) {
-      userVideo.current.srcObject = stream;
-    }
+    navigator.mediaDevices.getUserMedia({video : false, audio: false});
   };
 
   function createPeer(userToSignal, callerID, stream) {
