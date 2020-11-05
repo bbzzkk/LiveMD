@@ -1,6 +1,9 @@
 ###### root ######
 node_modules/
 .metadata/
+yarn.lock
+package.json
+package-lock.json
 
 ###### client ######
 /client/.vscode
