@@ -3,12 +3,12 @@ import styled from 'styled-components';
 export default {
   Page: styled.div`
     display: flex;
-    height: 50vh;
-    width: 50%;
+    height: 100vh;
+    width: 60%;
     align-items: center;
     background-color: #46516e;
     flex-direction: column;
-    margin-top: 500px;
+    margin-top: 10px;
   `,
 
   Container: styled.div`
@@ -21,7 +21,7 @@ export default {
     border: 1px solid lightgray;
     border-radius: 10px;
     padding-bottom: 10px;
-    margin-top: 25px;
+    margin-top: 0px;
   `,
 
   TextArea: styled.textarea`
