@@ -4,7 +4,6 @@ import Peer from 'simple-peer';
 import styled from 'styled-components';
 import S from './style';
 
-
 const MyRow = styled.div`
   width: 100%;
   display: flex;
@@ -30,11 +29,10 @@ const Container = styled.div`
 
 //Chat + WebRTC Container
 const AllContainer = styled.div`
-  float : right;
+  float: right;
 `;
 
 // https://github.com/bbzzkk/LiveMD.git
-
 const StyledVideo = styled.video`
   height: 40%;
   width: 50%;
@@ -48,7 +46,7 @@ const Video = props => {
       ref.current.srcObject = stream;
     });
   }, []);
-
+  // 상대방 비디오 
   return <StyledVideo playsInline autoPlay ref={ref} />;
 };
 
@@ -63,6 +61,8 @@ const Room = props => {
   const userVideo = useRef(null);
   const peersRef = useRef([]);
   const roomID = props.match.params.roomID;
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPause, setIsPause] = useState(false);
 
   useEffect(() => {
     socketRef.current = io.connect('http://localhost:8000/');
@@ -75,6 +75,7 @@ const Room = props => {
           return;
         }
         userVideo.current.srcObject = stream;
+        userVideo.current.srcObject.getAudioTracks()[0].enabled = false; // 첫 입장 시 오디오는 off.
         socketRef.current.emit('join room', roomID); // ref는 우리가 방에 합류했다는 이벤트를 내보낸다.
         socketRef.current.on('all users', users => {
           const peers = [];
@@ -96,7 +97,6 @@ const Room = props => {
             peerID: payload.callerID,
             peer,
           });
-
           setPeers(users => [...users, peer]);
         });
 
@@ -106,10 +106,6 @@ const Room = props => {
         });
       });
   }, [userVideo]); //userVideo가 업데이트 되면 useEffect 실행
-
-  const pauseVideo = () => {
-    navigator.mediaDevices.getUserMedia({video : false, audio: false});
-  };
 
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
@@ -144,7 +140,32 @@ const Room = props => {
 
     return peer;
   }
-// 위에는 video 아래는 chat
+
+    //Mic on,off 기능
+    const micOnAndOff = () => {
+      if (isMuted) {
+        userVideo.current.srcObject.getAudioTracks()[0].enabled = true; 
+        setIsMuted(false);
+      } else {
+        userVideo.current.srcObject.getAudioTracks()[0].enabled = false;
+        setIsMuted(true);
+      }
+    }
+
+    //Video on,off 기능
+    const videoOnAndOff = () => {
+      if(!isPause) {
+        userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
+        setIsPause(true);
+      } 
+      else {
+        userVideo.current.srcObject.getVideoTracks()[0].enabled = true;
+        setIsPause(false);
+      }
+    }
+
+
+  // 위에는 video 아래는 chat
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
@@ -184,42 +205,45 @@ const Room = props => {
 
   return (
     <>
-    <AllContainer>
-      <Container>
-        <StyledVideo muted ref={userVideo} autoPlay playsInline />
-        {peers.map((peer, index) => {
-          return <Video key={index} peer={peer} />;
-        })}
-        <button onClick={pauseVideo}>pause</button>
-      </Container>
+      <AllContainer>
+        <Container>
+          {/* 내 비디오 */}
+          <StyledVideo muted ref={userVideo} autoPlay playsInline />
+          <button onClick={videoOnAndOff}>{isPause ? 'Video on' : 'Video off'}</button>
+          <button onClick={micOnAndOff}>{isMuted ? 'Mic on' : 'Mic off'}</button>
+          
+          {peers.map((peer, index) => {
+            return <Video key={index} peer={peer} />;
+          })}
+        </Container>
 
-      <S.Page>
-      <S.Container>
-        {messages.map((message, index) => {
-          if (message.id === yourID) {
-            return (
-              <MyRow key={index}>
-                <S.MyMessage>{message.body}</S.MyMessage>
-              </MyRow>
-            );
-          }
-          return (
-            <PartnerRow key={index}>
-              <S.PartnerMessage>{message.body}</S.PartnerMessage>
-            </PartnerRow>
-          );
-        })}
-      </S.Container>
-      <S.Form onSubmit={sendMessage}>
-        <S.TextArea
-          value={message}
-          onChange={handleChange}
-          placeholder="Say something..."
-        />
-        <S.Button>Send</S.Button>
-      </S.Form>
-    </S.Page>
-    </AllContainer>
+        <S.Page>
+          <S.Container>
+            {messages.map((message, index) => {
+              if (message.id === yourID) {
+                return (
+                  <MyRow key={index}>
+                    <S.MyMessage>{message.body}</S.MyMessage>
+                  </MyRow>
+                );
+              }
+              return (
+                <PartnerRow key={index}>
+                  <S.PartnerMessage>{message.body}</S.PartnerMessage>
+                </PartnerRow>
+              );
+            })}
+          </S.Container>
+          <S.Form onSubmit={sendMessage}>
+            <S.TextArea
+              value={message}
+              onChange={handleChange}
+              placeholder="Say something..."
+            />
+            <S.Button>Send</S.Button>
+          </S.Form>
+        </S.Page>
+      </AllContainer>
     </>
   );
 };
