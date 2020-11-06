@@ -4,6 +4,7 @@ import Peer from 'simple-peer';
 import styled from 'styled-components';
 import S from './style';
 
+// 내 채팅
 const MyRow = styled.div`
   width: 100%;
   display: flex;
@@ -11,6 +12,7 @@ const MyRow = styled.div`
   margin-top: 10px;
 `;
 
+// 상대방 채팅
 const PartnerRow = styled(MyRow)`
   justify-content: flex-start;
 `;
@@ -23,7 +25,7 @@ const Container = styled.div`
   height: 100vh;
   width: 100%;
 
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-direction: column;
 `;
 
