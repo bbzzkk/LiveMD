@@ -33,7 +33,6 @@ const AllContainer = styled.div`
 `;
 
 // https://github.com/bbzzkk/LiveMD.git
-
 const StyledVideo = styled.video`
   height: 40%;
   width: 50%;
@@ -98,7 +97,6 @@ const Room = props => {
             peerID: payload.callerID,
             peer,
           });
-
           setPeers(users => [...users, peer]);
         });
 
@@ -143,21 +141,29 @@ const Room = props => {
     return peer;
   }
 
-  //Mic on,off 기능
-  const micOnAndOff = () => {
-    if (isMuted) {
-      userVideo.current.srcObject.getAudioTracks()[0].enabled = true; 
-      setIsMuted(false);
-    } else {
-      userVideo.current.srcObject.getAudioTracks()[0].enabled = false;
-      setIsMuted(true);
+    //Mic on,off 기능
+    const micOnAndOff = () => {
+      if (isMuted) {
+        userVideo.current.srcObject.getAudioTracks()[0].enabled = true; 
+        setIsMuted(false);
+      } else {
+        userVideo.current.srcObject.getAudioTracks()[0].enabled = false;
+        setIsMuted(true);
+      }
     }
-  }
 
-  const videoOnAndOff = () => {
-    userVideo.current.srcObject.getVideoTracks()[0].stop();
+    //Video on,off 기능
+    const videoOnAndOff = () => {
+      if(!isPause) {
+        userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
+        setIsPause(true);
+      } 
+      else {
+        userVideo.current.srcObject.getVideoTracks()[0].enabled = true;
+        setIsPause(false);
+      }
+    }
 
-  }
 
   // 위에는 video 아래는 chat
   const [yourID, setYourID] = useState();
