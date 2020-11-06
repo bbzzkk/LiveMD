@@ -65,7 +65,7 @@ const Room = props => {
   const roomID = props.match.params.roomID;
 
   useEffect(() => {
-    socketRef.current = io.connect('https://chat.live-md.com');
+    socketRef.current = io.connect('http://localhost:8000/');
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
       .then(stream => {
