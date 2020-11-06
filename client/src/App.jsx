@@ -44,9 +44,9 @@ const App = () => {
     loadCurrentlyLoggedInUser();
   }, []);
 
-  if (loading) {
-    return <LoadingIndicator />;
-  }
+  // if (loading) {
+  //   return <LoadingIndicator />;
+  // }
 
   return (
     <>
