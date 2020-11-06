@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Login, Main, OAuth2RedirectHandler, Chat } from '@/pages';
+import { Login, Main, OAuth2RedirectHandler } from '@/pages';
 import { Workspace } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
 
@@ -14,39 +14,39 @@ import CreateRoom from '@/pages/VideoChat/CreateRoom';
 import Room from '@/pages/VideoChat/Room';
 
 const App = () => {
-  // const [authenticated, setAuthenticated] = useState(false);
-  // const [currentUser, setCurrentUser] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // const loadCurrentlyLoggedInUser = () => {
-  //   setLoading(true);
+  const loadCurrentlyLoggedInUser = () => {
+    setLoading(true);
 
-  //   getCurrentUser()
-  //     .then(response => {
-  //       setCurrentUser(response);
-  //       setAuthenticated(true);
-  //       setLoading(false);
-  //     })
-  //     .catch(() => {
-  //       setLoading(false);
-  //     });
-  // };
+    getCurrentUser()
+      .then(response => {
+        setCurrentUser(response);
+        setAuthenticated(true);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
 
-  // const handleLogout = e => {
-  //   localStorage.removeItem('accessToken');
-  //   setAuthenticated(false);
-  //   setCurrentUser(null);
-  //   alert('로그아웃 되었습니다.');
-  //   e.preventDefault();
-  // };
+  const handleLogout = e => {
+    localStorage.removeItem('accessToken');
+    setAuthenticated(false);
+    setCurrentUser(null);
+    alert('로그아웃 되었습니다.');
+    e.preventDefault();
+  };
 
-  // useEffect(() => {
-  //   loadCurrentlyLoggedInUser();
-  // }, []);
+  useEffect(() => {
+    loadCurrentlyLoggedInUser();
+  }, []);
 
-  // if (loading) {
-  //   return <LoadingIndicator />;
-  // }
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <>
@@ -56,7 +56,6 @@ const App = () => {
           <Route exact path="/" component={Main} />
           <Route path="/login" component={Login} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
-          {/* <Route path="/chat" component={Chat} /> */}
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
         </Switch>
