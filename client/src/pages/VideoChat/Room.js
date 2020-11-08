@@ -24,7 +24,7 @@ const Container = styled.div`
   display: flex;
   height: 100vh;
   width: 100%;
-
+  margin: auto;
   flex-wrap: nowrap;
   flex-direction: column;
 `;
@@ -34,10 +34,10 @@ const AllContainer = styled.div`
   float: right;
 `;
 
-// https://github.com/bbzzkk/LiveMD.git
+// 
 const StyledVideo = styled.video`
-  height: 40%;
-  width: 50%;
+  height: 30%;
+  width: 30%;
 `;
 
 const Video = props => {
@@ -69,7 +69,7 @@ const Room = props => {
   useEffect(() => {
     socketRef.current = io.connect('http://localhost:8000/');
     navigator.mediaDevices
-      .getUserMedia({ video: videoConstraints, audio: true })
+      .getUserMedia({ video: true, audio: true })
       .then(stream => {
         // 우리 자신의 스트림에서 얻은 스트림을 가져온다.
         if (!userVideo.current) {
@@ -207,17 +207,17 @@ const Room = props => {
 
   return (
     <>
-      <AllContainer>
-        <Container>
+
           {/* 내 비디오 */}
           <StyledVideo muted ref={userVideo} autoPlay playsInline />
           <button onClick={videoOnAndOff}>{isPause ? 'Video on' : 'Video off'}</button>
           <button onClick={micOnAndOff}>{isMuted ? 'Mic on' : 'Mic off'}</button>
           
           {peers.map((peer, index) => {
+                        alert("누가 들어옴요!");
             return <Video key={index} peer={peer} />;
           })}
-        </Container>
+
 
         <S.Page>
           <S.Container>
@@ -245,7 +245,6 @@ const Room = props => {
             <S.Button>Send</S.Button>
           </S.Form>
         </S.Page>
-      </AllContainer>
     </>
   );
 };
