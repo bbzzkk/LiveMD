@@ -22,7 +22,7 @@ public class DocumentsApiController {
     private final DocumentsService service;
 
     @PostMapping
-    public ResponseEntity<DocumentsIdResponseEnvelope> create(@RequestParam(value = "oid") String oid, @RequestBody DocumentsSaveRequestDto requestDto){
+    public ResponseEntity<DocumentsIdResponseEnvelope> create(@RequestParam(value = "oid") String oid, @RequestBody DocumentsSaveRequestDto requestDto) throws Exception {
         DocumentsIdResponseDto data = service.create(oid, requestDto);
         DocumentsIdResponseEnvelope envelope = new DocumentsIdResponseEnvelope(200, true, data);
         ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
