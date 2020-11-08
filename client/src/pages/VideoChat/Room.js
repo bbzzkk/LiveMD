@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import styled from 'styled-components';
 import S from './style';
+import { Grid, Image } from 'semantic-ui-react';
 
 // 내 채팅
 const MyRow = styled.div`
@@ -34,7 +35,7 @@ const AllContainer = styled.div`
   float: right;
 `;
 
-// 
+//
 const StyledVideo = styled.video`
   height: 30%;
   width: 30%;
@@ -48,7 +49,7 @@ const Video = props => {
       ref.current.srcObject = stream;
     });
   }, []);
-  // 상대방 비디오 
+  // 상대방 비디오
   return <StyledVideo playsInline autoPlay ref={ref} />;
 };
 
@@ -143,29 +144,27 @@ const Room = props => {
     return peer;
   }
 
-    //Mic on,off 기능
-    const micOnAndOff = () => {
-      if (isMuted) {
-        userVideo.current.srcObject.getAudioTracks()[0].enabled = true; 
-        setIsMuted(false);
-      } else {
-        userVideo.current.srcObject.getAudioTracks()[0].enabled = false;
-        setIsMuted(true);
-      }
+  //Mic on,off 기능
+  const micOnAndOff = () => {
+    if (isMuted) {
+      userVideo.current.srcObject.getAudioTracks()[0].enabled = true;
+      setIsMuted(false);
+    } else {
+      userVideo.current.srcObject.getAudioTracks()[0].enabled = false;
+      setIsMuted(true);
     }
+  };
 
-    //Video on,off 기능
-    const videoOnAndOff = () => {
-      if(!isPause) {
-        userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
-        setIsPause(true);
-      } 
-      else {
-        userVideo.current.srcObject.getVideoTracks()[0].enabled = true;
-        setIsPause(false);
-      }
+  //Video on,off 기능
+  const videoOnAndOff = () => {
+    if (!isPause) {
+      userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
+      setIsPause(true);
+    } else {
+      userVideo.current.srcObject.getVideoTracks()[0].enabled = true;
+      setIsPause(false);
     }
-
+  };
 
   // 위에는 video 아래는 chat
   const [yourID, setYourID] = useState();
@@ -207,44 +206,54 @@ const Room = props => {
 
   return (
     <>
+      <Grid>
+        <Grid.Row columns={2}>
+          <Grid.Column width={12}>
+            <Image src="/images/wireframe/paragraph.png" />
+          </Grid.Column>
+          <Grid.Column width={4} >
+            {/* 내 비디오 */}
+            <StyledVideo muted ref={userVideo} autoPlay playsInline />
+            <button onClick={videoOnAndOff}>
+              {isPause ? 'Video on' : 'Video off'}
+            </button>
+            <button onClick={micOnAndOff}>
+              {isMuted ? 'Mic on' : 'Mic off'}
+            </button>
 
-          {/* 내 비디오 */}
-          <StyledVideo muted ref={userVideo} autoPlay playsInline />
-          <button onClick={videoOnAndOff}>{isPause ? 'Video on' : 'Video off'}</button>
-          <button onClick={micOnAndOff}>{isMuted ? 'Mic on' : 'Mic off'}</button>
-          
-          {peers.map((peer, index) => {
-                        alert("누가 들어옴요!");
-            return <Video key={index} peer={peer} />;
-          })}
-
-
-        <S.Page>
-          <S.Container>
-            {messages.map((message, index) => {
-              if (message.id === yourID) {
-                return (
-                  <MyRow key={index}>
-                    <S.MyMessage>{message.body}</S.MyMessage>
-                  </MyRow>
-                );
-              }
-              return (
-                <PartnerRow key={index}>
-                  <S.PartnerMessage>{message.body}</S.PartnerMessage>
-                </PartnerRow>
-              );
+            {peers.map((peer, index) => {
+              return <Video key={index} peer={peer} />;
             })}
-          </S.Container>
-          <S.Form onSubmit={sendMessage}>
-            <S.TextArea
-              value={message}
-              onChange={handleChange}
-              placeholder="Say something..."
-            />
-            <S.Button>Send</S.Button>
-          </S.Form>
-        </S.Page>
+
+            <S.Page>
+              <S.Container>
+                {messages.map((message, index) => {
+                  if (message.id === yourID) {
+                    return (
+                      <MyRow key={index}>
+                        <S.MyMessage>{message.body}</S.MyMessage>
+                      </MyRow>
+                    );
+                  }
+                  return (
+                    <PartnerRow key={index}>
+                      <S.PartnerMessage>{message.body}</S.PartnerMessage>
+                    </PartnerRow>
+                  );
+                })}
+              </S.Container>
+              <S.Form onSubmit={sendMessage}>
+                <S.TextArea
+                  value={message}
+                  onChange={handleChange}
+                  placeholder="Say something..."
+                />
+                <S.Button>Send</S.Button>
+              </S.Form>
+            </S.Page>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </>
   );
 };
