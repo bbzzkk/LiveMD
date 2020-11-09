@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import styled from 'styled-components';
 import S from './style';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Image, Button } from 'semantic-ui-react';
 
 // 내 채팅
 const MyRow = styled.div`
@@ -38,7 +38,7 @@ const AllContainer = styled.div`
 //
 const StyledVideo = styled.video`
   height: 30%;
-  width: 30%;
+  width: 70%;
 `;
 
 const Video = props => {
@@ -211,18 +211,25 @@ const Room = props => {
           <Grid.Column width={12}>
             <Image src="/images/wireframe/paragraph.png" />
           </Grid.Column>
+
           <Grid.Column width={4} >
+            <div className="myVideo">
             {/* 내 비디오 */}
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
-            <button onClick={videoOnAndOff}>
+            <div className="myVideoControlButton">
+            <Button onClick={videoOnAndOff}>
               {isPause ? 'Video on' : 'Video off'}
-            </button>
-            <button onClick={micOnAndOff}>
+            </Button>
+            <Button onClick={micOnAndOff}>
               {isMuted ? 'Mic on' : 'Mic off'}
-            </button>
-
+            </Button>
+            </div>
+            </div>
+            {/* peer 비디오 */}
             {peers.map((peer, index) => {
-              return <Video key={index} peer={peer} />;
+              return <div className="peerVideo">
+                <Video key={index} peer={peer} />
+                </div>;
             })}
 
             <S.Page>
