@@ -44,6 +44,7 @@ const StyledVideo = styled.video`
 const Video = props => {
   const ref = useRef();
   console.log(props);
+
   useEffect(() => {
     props.peer.on('stream', stream => {
       ref.current.srcObject = stream;
@@ -80,41 +81,60 @@ const Room = props => {
         userVideo.current.srcObject = stream;
         userVideo.current.srcObject.getAudioTracks()[0].enabled = false; // 첫 입장 시 오디오는 off.
         socketRef.current.emit('join room', roomID); // ref는 우리가 방에 합류했다는 이벤트를 내보낸다.
-        socketRef.current.on('all users', users => {
-          const peers = [];
-          users.forEach(userID => {
-            const peer = createPeer(userID, socketRef.current.id, stream);
+        socketRef.current.on('all users', users => { 
+          const peers = []; // 방금 첫 사용자가 들어왔기 때문에 peers는 없는것.
+          users.forEach(userID => { // 서버에서 사용자들을 가져온다
+            const peer = createPeer(userID, socketRef.current.id, stream); // 사용자ID(누가 전화했는지 알 수 있음)
             peersRef.current.push({
               // peerID 전달,
+              peerID: userID, //방금 피어를 만든 사람의 소켓 ID
+              peer,
+            });
+            //peers에도 ID, peer 전달
+            peers.push({
               peerID: userID,
               peer,
             });
-            peers.push(peer);
           });
           setPeers(peers);
         });
 
         socketRef.current.on('user joined', payload => {
-          const peer = addPeer(payload.signal, payload.callerID, stream);
+          const peer = addPeer(payload.signal, payload.callerID, stream); //callerID : 발신자
           peersRef.current.push({
             peerID: payload.callerID,
             peer,
-          });
-          setPeers(users => [...users, peer]);
+          })
+          //peerObj 추가
+          const peerObj = {
+            peer,
+            peerID: payload.callerID
+          }
+          setPeers(users => [...users, peerObj]);
         });
 
         socketRef.current.on('receiving returned signal', payload => {
           const item = peersRef.current.find(p => p.peerID === payload.id);
           item.peer.signal(payload.signal);
         });
+        //user가 나갔을 때, disconnect
+        socketRef.current.on("user left", id => {
+          const peerObj = peersRef.current.find(p => p.peerID === id);
+          if(peerObj) {
+            peerObj.peer.destroy();
+          }
+          const peers = peersRef.current.filter(p => p.peerID !== id);
+          peersRef.current = peers;
+          setPeers(peers);
+        })
       });
   }, [userVideo]); //userVideo가 업데이트 되면 useEffect 실행
 
   function createPeer(userToSignal, callerID, stream) {
     const peer = new Peer({
-      initiator: true,
-      trickle: false,
-      stream,
+      initiator: true, //요청자 이므로 true
+      trickle: false,// 이건 유투버도 뭔지 모른다함. 근데 대부분 이것을 false로 설정한다고 했음
+      stream, //영상, 음성에 대한 액세스를 요청한 스트림
     });
 
     peer.on('signal', signal => {
@@ -130,7 +150,7 @@ const Room = props => {
 
   function addPeer(incomingSignal, callerID, stream) {
     const peer = new Peer({
-      initiator: false,
+      initiator: false,// 요청자가 아니므로 false
       trickle: false,
       stream,
     });
@@ -216,20 +236,20 @@ const Room = props => {
             <div className="myVideo">
             {/* 내 비디오 */}
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
-            <div className="myVideoControlButton">
-            <Button onClick={videoOnAndOff}>
-              {isPause ? 'Video on' : 'Video off'}
-            </Button>
-            <Button onClick={micOnAndOff}>
-              {isMuted ? 'Mic on' : 'Mic off'}
-            </Button>
+              <div className="myVideoControlButton">
+                <Button onClick={videoOnAndOff}>
+                  {isPause ? 'Video on' : 'Video off'}
+                </Button>
+                <Button onClick={micOnAndOff}>
+                  {isMuted ? 'Mic on' : 'Mic off'}
+                </Button>
+              </div>
             </div>
-            </div>
-            {/* peer 비디오 */}
-            {peers.map((peer, index) => {
-              return <div className="peerVideo">
-                <Video key={index} peer={peer} />
-                </div>;
+            {/* 상대방 비디오 */}
+            {peers.map((peer) => {
+              return <div className="peerVideo" key={peer.peerID}>
+                <Video key={peer.peerID} peer={peer.peer} /> {/*key값을 index가 아닌 peerID로 변경*/}
+                </div>
             })}
 
             <S.Page>
