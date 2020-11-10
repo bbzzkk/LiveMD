@@ -6,6 +6,7 @@ import com.livemd.document.envelope.DocumentsPageResponseEnvelope;
 import com.livemd.document.envelope.DocumentsResponseEnvelope;
 import com.livemd.document.service.DocumentsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class DocumentsApiController {
     private final DocumentsService service;
 
     @PostMapping
-    public ResponseEntity<DocumentsIdResponseEnvelope> create(@RequestParam(value = "oid") String oid, @RequestBody DocumentsSaveRequestDto requestDto) throws Exception {
+    public ResponseEntity<DocumentsIdResponseEnvelope> create(@RequestParam(value = "oid") String oid, @RequestBody DocumentsSaveRequestDto requestDto) throws Exception{
         DocumentsIdResponseDto data = service.create(oid, requestDto);
         DocumentsIdResponseEnvelope envelope = new DocumentsIdResponseEnvelope(200, true, data);
         ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
@@ -35,7 +36,7 @@ public class DocumentsApiController {
 //    }
 
     @GetMapping
-    public ResponseEntity<DocumentsPageResponseEnvelope> findAllByOwnerId(final Pageable pageable, @RequestParam(value = "oid") String oid){
+    public ResponseEntity<DocumentsPageResponseEnvelope> findAllByOwnerId(final Pageable pageable, @RequestParam(value = "oid") String oid) {
         Page data =  service.findAllByOwnerId(pageable, oid);
         DocumentsPageResponseEnvelope envelope = new DocumentsPageResponseEnvelope(200, true, data);
         ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
@@ -48,11 +49,16 @@ public class DocumentsApiController {
 //    }
 
     @GetMapping("/{docId}")
-    public ResponseEntity<DocumentsResponseEnvelope> findByDocId(@PathVariable String docId){
+    public ResponseEntity<DocumentsResponseEnvelope> findByDocId(@PathVariable String docId) throws RuntimeException {
+
+//        if(service.findByDocId(docId) == null){
+//
+//            throw new RuntimeException();
+//        }
         DocumentsResponseDto data =  service.findByDocId(docId);
         DocumentsResponseEnvelope envelop = new DocumentsResponseEnvelope(200, true, data);
         ResponseEntity<DocumentsResponseEnvelope> responseEntity = new ResponseEntity<>(envelop, HttpStatus.OK);
-            return responseEntity;
+        return responseEntity;
     }
 
 

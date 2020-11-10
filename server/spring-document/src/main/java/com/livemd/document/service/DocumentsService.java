@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -38,10 +39,17 @@ public class DocumentsService {
         return dtoPage;
     }
 
-    @Transactional
-    public DocumentsResponseDto findByDocId(String docId){
-        Documents documents = repository.findByDocId(docId).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. documents id" + docId));
+//    @Transactional
+//    public DocumentsResponseDto findByDocId(String docId){
+//        Documents documents = repository.findByDocId(docId).orElseThrow(() -> new IllegalArgumentException("해당 문서가 존재하지 않습니다. documents id" + docId));
+//
+//        return new DocumentsResponseDto(documents);
+//    }
 
+    @Transactional
+    public DocumentsResponseDto findByDocId(String docId) throws RuntimeException{
+        Optional<Documents> optional = repository.findByDocId(docId);
+        Documents documents = optional.get();
         return new DocumentsResponseDto(documents);
     }
 
