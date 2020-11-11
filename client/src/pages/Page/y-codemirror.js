@@ -272,6 +272,7 @@ export class CodemirrorBinding {
         })
       }
     }
+
     this._cursorListener = () => {
       if (codeMirror.getDoc() === cmDoc) {
         setTimeout(() => {
