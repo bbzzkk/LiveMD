@@ -70,6 +70,7 @@ const Room = props => {
           const peers = []; // 방금 첫 사용자가 들어왔기 때문에 peers는 없는것.
           users.forEach(userID => { // 서버에서 사용자들을 가져온다
             const peer = createPeer(userID, socketRef.current.id, stream); // 사용자ID(누가 전화했는지 알 수 있음)
+            console.log("사용자 가져옴");
             peersRef.current.push({
               // peerID 전달,
               peerID: userID, //방금 피어를 만든 사람의 소켓 ID
@@ -85,17 +86,22 @@ const Room = props => {
         });
 
         socketRef.current.on('user joined', payload => {
-          const peer = addPeer(payload.signal, payload.callerID, stream); //callerID : 발신자
-          peersRef.current.push({
-            peerID: payload.callerID,
-            peer,
-          })
-          //peerObj 추가
-          const peerObj = {
-            peer,
-            peerID: payload.callerID
+          console.log("user 들어옴");
+          const item = peersRef.current.find(p => p.peerID === payload.callerID);
+          if(!item){
+            const peer = addPeer(payload.signal, payload.callerID, stream); //callerID : 발신자
+            peersRef.current.push({
+              peerID: payload.callerID,
+              peer,
+            })
+            //peerObj 추가
+            const peerObj = {
+              peer,
+              peerID: payload.callerID
+            }
+            setPeers(users => [...users, peerObj]);
           }
-          setPeers(users => [...users, peerObj]);
+
         });
 
         socketRef.current.on('receiving returned signal', payload => {
@@ -115,11 +121,10 @@ const Room = props => {
         })
       });
       console.log("useEffect 실행됨")
-  }, [userVideo]); //userVideo가 업데이트 되면 useEffect 실행
+  }, []); //userVideo가 업데이트 되면 useEffect 실행
   // 빈 배열로 해놓으면 가장 처음 렌더링 될 때만 실행되고 업데이트 할 경우에는 실행 할 필요가 없는 경우엔 함수의 두 번째 파라미터로 비어있는 배열을 넣어주면 된다.
 
   function createPeer(userToSignal, callerID, stream) {
-    console.log("createPeer 생성됨");
     const peer = new Peer({
       initiator: true, //요청자 이므로 true
       trickle: false,// 이건 유투버도 뭔지 모른다함. 근데 대부분 이것을 false로 설정한다고 했음
@@ -149,7 +154,7 @@ const Room = props => {
     });
 
     peer.signal(incomingSignal);
-    console.log("사용자 추가됨, addpeer");
+
     return peer;
   }
 
@@ -197,6 +202,7 @@ const Room = props => {
               </div>
             </div>
             {/* 상대방 비디오 */}
+            {console.log(peers.length)}
             {peers.map((peer) => { {/*key값을 index가 아닌 peerID로 변경*/}
               console.log("비디오 불림 ㅋㄷㅋㄷ");
               return (
