@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export default {
+  // chat 배경색
   Page: styled.div`
     display: flex;
-    height: 100vh;
-    width: 60%;
+    height: 70vh;
+    width: 100%;
     align-items: center;
     background-color: #46516e;
     flex-direction: column;
