@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api/", apiRouter);
+app.use("/api/v1/", apiRouter);
 
 mongoose.Promise = global.Promise;
 mongoose

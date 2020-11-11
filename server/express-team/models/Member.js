@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongooseHidden = require("mongoose-hidden")();
 const { getUuid } = require("../utils/index");
 
 const MemberSchema = new mongoose.Schema({
@@ -12,7 +13,7 @@ const MemberSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true,
-    // index: true,
+    index: true,
   },
   teamId: {
     type: String,
@@ -22,7 +23,6 @@ const MemberSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    match: [/^.{4,12}$/, "Should be 4-12 characters!"],
     index: true,
   },
   role: {
@@ -35,5 +35,5 @@ const MemberSchema = new mongoose.Schema({
     default: "pending",
   },
 });
-
+MemberSchema.plugin(mongooseHidden, { hidden: { _id: true } });
 module.exports = mongoose.model("Member", MemberSchema);

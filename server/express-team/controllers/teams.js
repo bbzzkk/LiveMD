@@ -3,60 +3,76 @@ const { validationResult } = require("express-validator");
 
 exports.createTeam = async (req, res) => {
   try {
+    console.log(req.body);
     validationResult(req).throw();
-    const { userId, teamname, description } = req.body;
-    const team = await teamService.createTeam(teamname, description);
-    await memberService.createMember(team.teamId, userId, "owner", "active");
-    return res.status(200).json({ result: true, status: 200 });
+    const { userId, teamname, description, email } = req.body;
+    await teamService.createTeam(teamname, description, userId, email);
+    res.status(200).json({ result: true, status: 200 });
   } catch (e) {
-    res.status(e.status).json({
+    console.log(e);
+    res.status(500).json({
       result: false,
-      status: e.status,
-      error: e.message,
+      status: 500,
+      error: e.errors,
     });
   }
 };
 
 // get all Team by userId
-exports.getManyTeam = async (req, res) => {
+exports.getManyTeam = (req, res) => {
   try {
     validationResult(req).throw();
-    const teams = await memberService.getAffiliatedTeams(req.query.userId);
+    const teams = memberService.getAffiliatedTeams(req.query.userId);
     res.status(200).json({ result: true, status: 200, data: teams });
   } catch (e) {
-    res
-      .status(e.status)
-      .json({ result: false, status: e.status, error: e.message });
+    res.status(500).json({
+      result: false,
+      status: 500,
+      error: e.errors,
+    });
   }
 };
 
 // get one Team by teamId
 exports.getOneTeam = async (req, res) => {
   try {
-    const team = teamService.getTeamById(req.params.teamId);
+    validationResult(req).throw();
+    const team = await teamService.getTeamById(req.params.teamId);
     if (!team) {
       return res
         .status(404)
         .json({ result: false, status: 404, error: "Team Not Found" });
     }
-    res.status(200).json({ result: true, status: 200, data: team });
-  } catch (e) {
+    const role = await memberService.getOnesRole(
+      req.query.userId,
+      req.params.teamId
+    );
+
     res
-      .status(e.status)
-      .json({ result: false, status: e.status, error: e.message });
+      .status(200)
+      .json({ result: true, status: 200, data: { role: role, team: team } });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      result: false,
+      status: 500,
+      error: e.errors,
+    });
   }
 };
 
 // Update description by teamId
-exports.updateTeam = async (req, res) => {
+exports.updateTeam = (req, res) => {
   try {
     const { teamId, description } = req.body;
-    await teamService.updateDescription(teamId, description);
+    teamService.updateDescription(teamId, description);
     return res.status(200).json({ result: true, status: 200 });
   } catch (e) {
-    res
-      .status(e.status)
-      .json({ result: false, status: e.status, error: e.message });
+    res.status(500).json({
+      result: false,
+      status: 500,
+      error: e.errors,
+    });
   }
 };
 
@@ -75,8 +91,10 @@ exports.deleteTeam = async (req, res) => {
     await memberService.deleteMany(teamId);
     res.status(200).json({ result: true, status: 200 });
   } catch (e) {
-    res
-      .status(e.status)
-      .json({ result: false, status: e.status, error: e.message });
+    res.status(500).json({
+      result: false,
+      status: 500,
+      error: e.errors,
+    });
   }
 };

@@ -1,28 +1,42 @@
 const { memberService, invitationService } = require("../services/index");
 const { getCode, sendEmail } = require("../utils/index");
+const { validationResult } = require("express-validator");
 
-const inviteMembers = async (members) => {
+const inviteMembers = (req, res) => {
   try {
+    validationResult(req).throw();
+    const { userId, teamId, teamname, members } = req.body;
     members.map(async ({ email, role }) => {
-      validationResult(req).throw();
+      try {
+        const member = await memberService.create(
+          userId,
+          teamId,
+          role,
+          email,
+          "pending"
+        );
 
-      const member = await memberService.createMember(
-        userId,
-        teamId,
-        role,
-        "pending"
-      );
-      const code = getCode(10);
-      const url = `https://www.livemd.com/invitation?code=${code}`;
-      await invitationService.create(member.memberId, email, code);
-      sendEmail(email, url, teamname);
+        const code = getCode(16);
+        await invitationService.create(member.memberId, email, code);
+        await sendEmail(
+          email,
+          `http://localhost:3000/invitation?code=${code}`,
+          teamname
+        );
+      } catch (e) {
+        res.status(500).json({
+          result: false,
+          status: 500,
+          error: e.msg,
+        });
+      }
     });
     res.status(200).json({ result: true, status: 200 });
   } catch (e) {
-    res.status(e.status).json({
+    res.status(500).json({
       result: false,
-      status: e.status,
-      error: e.message,
+      status: 500,
+      error: e.errors,
     });
   }
 };
@@ -30,7 +44,7 @@ const inviteMembers = async (members) => {
 const confirmMember = async (req, res) => {
   try {
     validationResult(req).throw();
-    const invitation = InvitationService.getOneByCode(code);
+    const invitation = InvitationService.getOneByCode(req.body.code);
     if (!invitation) {
       return res.status(500).json({
         result: false,
@@ -41,10 +55,10 @@ const confirmMember = async (req, res) => {
     await memberService.updateOne(invitation.memberId);
     return res.status(200).json({ result: true, status: 200 });
   } catch (e) {
-    res.status(e.status).json({
+    res.status(500).json({
       result: false,
-      status: e.status,
-      error: e.message,
+      status: 500,
+      error: e.errors,
     });
   }
 };
@@ -52,13 +66,14 @@ const confirmMember = async (req, res) => {
 const getManyMember = async (req, res) => {
   try {
     validationResult(req).throw();
-    await memberService.getManyByteamId(req.query.teamId);
-    return res.status(200).json({ result: true, status: 200 });
+    const members = await memberService.getManyByteamId(req.query.teamId);
+    res.status(200).json({ result: true, status: 200, data: members });
   } catch (e) {
-    res.status(e.status).json({
+    console.log(e);
+    res.status(500).json({
       result: false,
-      status: e.status,
-      error: e.message,
+      status: 500,
+      error: e.errors,
     });
   }
 };
@@ -88,9 +103,11 @@ const updateMember = async (req, res) => {
       });
     }
   } catch (e) {
-    res
-      .status(e.status)
-      .json({ result: false, status: e.status, error: e.message });
+    res.status(500).json({
+      result: false,
+      status: 500,
+      error: e.errors,
+    });
   }
 };
 
@@ -124,9 +141,11 @@ const deleteOneMember = async (req, res) => {
       });
     }
   } catch (e) {
-    res
-      .status(e.status)
-      .json({ result: false, status: e.status, error: e.message });
+    res.status(500).json({
+      result: false,
+      status: 500,
+      error: e.msg,
+    });
   }
 };
 

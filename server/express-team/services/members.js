@@ -1,45 +1,24 @@
 const Member = require("../models/Member");
 
-exports.create = (userId, teamId, role, status) =>
-  Member.create({
+exports.create = (userId, teamId, role, email, status) => {
+  return Member.create({
     teamId: teamId,
     userId: userId,
     role: role,
+    email: email,
     status: status,
-  })
-    .then((member) => {
-      member.save();
-    })
-    .catch((e) =>
-      res.status(e.status).json({
-        result: false,
-        status: e.status,
-        error: e.message,
-      })
-    );
+  }).then((member) => member.save());
+};
 
 exports.getOneByEmail = (email) =>
   Member.findOne({
     email: email,
-  }).catch((e) =>
-    res.status(e.status).json({
-      result: false,
-      status: e.status,
-      error: e.message,
-    })
-  );
+  });
 
-exports.getManyByteamId = (teamId) => {
+exports.getManyByteamId = (teamId) =>
   Member.find({
     teamId: teamId,
-  }).catch((e) =>
-    res.status(e.status).json({
-      result: false,
-      status: e.status,
-      error: e.message,
-    })
-  );
-};
+  });
 
 exports.getAffiliatedTeams = (userId) =>
   Member.find({ userId: userId }).catch((e) =>
@@ -50,17 +29,13 @@ exports.getAffiliatedTeams = (userId) =>
     })
   );
 
-exports.getOnesRole = (userId, teamId) =>
-  Member.findOne({
-    userId: userId,
-    teamId: teamId,
-  }).role.catch((e) =>
-    res.status(e.status).json({
-      result: false,
-      status: e.status,
-      error: e.message,
-    })
-  );
+exports.getOnesRole = async (userId, teamId) =>
+  await Member.findOne()
+    .where("userId")
+    .equals(userId)
+    .where("teamId")
+    .equals(teamId)
+    .then((member) => member.role);
 
 exports.updateStatus = (memberId) =>
   Member.updateOne(

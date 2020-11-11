@@ -19,10 +19,10 @@ const InvitationSchema = new mongoose.Schema({
     unique: true,
     index: true,
   },
-  dateCreated: {
+  createdAt: {
     type: String,
     default: Date.now(),
-    expires: 600, // 10분 뒤 만료
+    index: { expires: 60 * 10 },
   },
 });
 

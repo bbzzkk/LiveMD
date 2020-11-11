@@ -1,39 +1,31 @@
 const Team = require("../models/Team");
+const Member = require("../models/Member");
 
-exports.createTeam = (teamname, description) =>
-  Team.create({
+exports.createTeam = async (teamname, description, userId, email) => {
+  const team = await Team.create({
     teamname: teamname,
     description: description,
     createdAt: Date.now(),
-  })
-    .then((team) => team.save())
-    .catch((e) =>
-      res.status(e.status).json({
-        result: false,
-        status: e.status,
-        error: e.message,
-      })
-    );
+  });
+  const member = await Member.create({
+    teamId: team.teamId,
+    userId: userId,
+    role: "owner",
+    status: "active",
+    email: email,
+  });
+  if (team && member) {
+    team.save();
+    member.save();
+  }
+};
 
 exports.getTeamByName = (teamname) =>
   Team.findOne({
     teamname: teamname,
-  }).catch((e) =>
-    res.status(e.status).json({
-      result: false,
-      status: e.status,
-      error: e.message,
-    })
-  );
+  });
 
-exports.getTeamById = (teamId) =>
-  Team.findOne({ teamId: teamId }).catch((e) =>
-    res.status(e.status).json({
-      result: false,
-      status: e.status,
-      error: e.message,
-    })
-  );
+exports.getTeamById = (teamId) => Team.findOne({ teamId: teamId });
 
 // Update description by teamId
 exports.updateDescription = (teamId, description) =>
@@ -41,20 +33,8 @@ exports.updateDescription = (teamId, description) =>
     { teamId: { $eq: teamId } },
     { $set: { description: description } },
     { upsert: false }
-  ).catch((e) =>
-    res.status(e.status).json({
-      result: false,
-      status: e.status,
-      error: e.message,
-    })
   );
 
 // Delete by teamId
 exports.deleteTeam = async (teamId) =>
-  await Team.findOneAndDelete({ teamId: teamId }).catch((e) =>
-    res.status(e.status).json({
-      result: false,
-      status: e.status,
-      error: e.message,
-    })
-  );
+  await Team.findOneAndDelete({ teamId: teamId });

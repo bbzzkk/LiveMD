@@ -507,6 +507,15 @@ express-asyncify@^1.0.0:
   resolved "https://registry.yarnpkg.com/express-asyncify/-/express-asyncify-1.0.1.tgz#cebe4cf932603d48101509e2cceee3bee3e2b535"
   integrity sha512-eaAtzRRUbZMHKrgAthIFIloci7pMmJf4PFAhFEof/caukFi6oroe8ps3FuDOk0h57epaEKuzTfF5wSWEsqFxXg==
 
+express-promise-router@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/express-promise-router/-/express-promise-router-4.0.1.tgz#7ed65473a12208ec1065c1358c398175b89d425c"
+  integrity sha512-kqan6QuMV7FdfN9b2uYpaKEJnxzfj57voI4IsMjgug5mBc6/hjuvoUT76Z/pvRqID2isl/NygTUe8S2MH2trMg==
+  dependencies:
+    is-promise "^4.0.0"
+    lodash.flattendeep "^4.0.0"
+    methods "^1.0.0"
+
 express-validator@^6.6.1:
   version "6.6.1"
   resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-6.6.1.tgz#c53046f615d27fcb78be786e018dcd60bd9c6c5c"
@@ -810,6 +819,11 @@ is-path-inside@^3.0.1:
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-3.0.2.tgz#f5220fc82a3e233757291dddc9c5877f2a1f3017"
   integrity sha512-/2UGPSgmtqwo1ktx8NDHjuPwZWmHhO+gj0f93EkhLB5RgW9RZevWYYlIkS6zePc6U2WpOdQYIwHe9YC4DWEBVg==
 
+is-promise@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-4.0.0.tgz#42ff9f84206c1991d26debf520dd5c01042dd2f3"
+  integrity sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==
+
 is-svg@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-svg/-/is-svg-2.1.0.tgz#cf61090da0d9efbcab8722deba6f032208dbb0e9"
@@ -866,6 +880,11 @@ latest-version@^5.0.0:
   dependencies:
     package-json "^6.3.0"
 
+lodash.flattendeep@^4.0.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
+  integrity sha1-+wMJF/hqMTTlvJvsDWngAT3f7bI=
+
 lodash@^4.17.19:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
@@ -903,7 +922,7 @@ merge-descriptors@1.0.1:
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
   integrity sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=
 
-methods@~1.1.2:
+methods@^1.0.0, methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
@@ -962,6 +981,13 @@ mongodb@3.6.2:
   optionalDependencies:
     saslprep "^1.0.0"
 
+mongoose-hidden@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/mongoose-hidden/-/mongoose-hidden-1.9.0.tgz#6cc7c0ce6e8134885f73ea7874061e88880f8d50"
+  integrity sha512-NnQiMmAhlUPyumo8L1kUFzf5l8W/XtYrHr8ACrOVZnx6JIk3yCsvMZfuXLcTNs68wGaB2yPXG8Szhh15j20Q2g==
+  dependencies:
+    mpath "^0.7.0"
+
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
@@ -995,7 +1021,7 @@ morgan@~1.9.1:
     on-finished "~2.3.0"
     on-headers "~1.0.1"
 
-mpath@0.7.0:
+mpath@0.7.0, mpath@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.7.0.tgz#20e8102e276b71709d6e07e9f8d4d0f641afbfb8"
   integrity sha512-Aiq04hILxhz1L+f7sjGyn7IxYzWm1zLNNXcfhDtx04kZ2Gk7uvFdgZ8ts1cWa/6d0TQmag2yR8zSGZUmp0tFNg==
