@@ -1,5 +1,71 @@
-*node_modules*
-*package-lock.json*
-# vscode
+###### root ######
+node_modules/
+.metadata/
+yarn.lock
+package.json
+package-lock.json
 
-/.vscode
+###### client ######
+/client/.vscode
+/client/yarn.lock
+/client/build
+/client/package-lock.json
+
+# dependencies
+/client/node_modules
+/client/.pnp
+/client/.pnp.js
+
+# testing
+/client/coverage
+
+# misc
+/client/.DS_Store
+/client/.env.local
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
+
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*
+
+
+###### server ######
+/server/**/.metadata/
+/server/**/.env
+/server/**/node_modules
+/server/**/yarn.lock
+/server/.gitignore
+/server/**/.gitignore
+
+### STS ###
+/server/**/.apt_generated
+/server/**/.classpath
+/server/**/.factorypath
+/server/**/.project
+/server/**/.settings
+/server/**/.springBeans
+/server/**/.sts4-cache
+
+### IntelliJ IDEA ###
+/server/**/.idea
+/server/**/*.iws
+/server/**/*.iml
+/server/**/*.ipr
+
+### NetBeans ###
+/server/**/nbproject/private/
+/server/**/build/
+/server/**/nbbuild/
+/server/**/dist/
+/server/**/nbdist/
+/server/**/.nb-gradle/
+/server/**/.metadata/
+/server/**/.gradle/
+
+###  express ###
+
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+

@@ -4,27 +4,25 @@ import com.livemd.document.domain.entity.Documents;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
 @Getter
 @NoArgsConstructor
 public class DocumentsSaveRequestDto {
 
-    private String owner;
-    private String title;
-    private String content;
+    private String ownerId;
+    private String docId;
 
     @Builder
-    public DocumentsSaveRequestDto(String owner, String title, String content){
-        this.owner = owner;
-        this.title = title;
-        this.content = content;
+    public DocumentsSaveRequestDto(String docId){
+        this.docId = docId;
     }
 
     public Documents toEntity(){
         return Documents.builder()
-                .owner(owner)
-                .title(title)
-                .content(content)
+                .ownerId(ownerId)
+                .docId(docId)
                 .build();
     }
 }
