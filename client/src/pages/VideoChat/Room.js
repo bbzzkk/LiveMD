@@ -49,7 +49,7 @@ const Room = props => {
   const socketRef = useRef();
   const userVideo = useRef(null);
   const peersRef = useRef([]);
-  const roomID = props.match.params.roomID;
+  const roomID = props.roomID;
   const [isMuted, setIsMuted] = useState(true);
   const [isPause, setIsPause] = useState(false);
 
@@ -185,7 +185,7 @@ const Room = props => {
       <Grid>
         <Grid.Row columns={2}>
           <Grid.Column width={12}>
-            <Image src="/images/wireframe/paragraph.png" />
+            {/* <Image src="/images/wireframe/paragraph.png" /> */}
           </Grid.Column>
 
           <Grid.Column width={4} >

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Editor from './Editor';
+import { Room } from '@/pages';
 
 const Page = ({ doc, match }) => {
   const [activeUser, setActiveUser] = useState(0);
@@ -84,6 +85,7 @@ const Page = ({ doc, match }) => {
         heightMargin={style.header.height + style.header.padding * 2}
         onActiveUser={handleActiveUserDisp}
       />
+      <Room roomID={pageName} />
     </React.Fragment>
   );
 };
