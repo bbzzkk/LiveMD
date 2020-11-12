@@ -41,6 +41,10 @@ package-lock.json
 /server/**/Dockerfile
 /server/**/.dockerignore
 
+### node js ###
+/server/**/node_modules
+/server/**/.env
+
 ### STS ###
 /server/**/.apt_generated
 /server/**/.classpath
@@ -70,4 +74,3 @@ package-lock.json
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-
