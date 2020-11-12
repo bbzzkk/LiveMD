@@ -2,37 +2,41 @@ const { memberService, invitationService } = require("../services/index");
 const { getCode, sendEmail } = require("../utils/index");
 const { validationResult } = require("express-validator");
 
-const inviteMembers = (req, res) => {
+const inviteMembers = async (req, res) => {
   try {
     validationResult(req).throw();
     const { userId, teamId, teamname, members } = req.body;
     members.map(async ({ email, role }) => {
       try {
+        const code = getCode(16);
+
         const member = await memberService.create(
           userId,
           teamId,
+          teamname,
           role,
           email,
           "pending"
         );
-
-        const code = getCode(16);
         await invitationService.create(member.memberId, email, code);
+
         await sendEmail(
           email,
           `http://localhost:3000/invitation?code=${code}`,
           teamname
         );
       } catch (e) {
+        console.log(e);
         res.status(500).json({
           result: false,
           status: 500,
-          error: e.msg,
+          error: e.errors,
         });
       }
     });
     res.status(200).json({ result: true, status: 200 });
   } catch (e) {
+    console.log(e);
     res.status(500).json({
       result: false,
       status: 500,
@@ -41,6 +45,24 @@ const inviteMembers = (req, res) => {
   }
 };
 
+const reinviteMember = async (req, res) => {
+  try {
+    validationResult(req).throw();
+    const { email, teamname } = req.body;
+    await sendEmail(
+      email,
+      `http://localhost:3000/invitation?code=${code}`,
+      teamname
+    );
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      result: false,
+      status: 500,
+      error: e.errors,
+    });
+  }
+};
 const confirmMember = async (req, res) => {
   try {
     validationResult(req).throw();
@@ -152,6 +174,7 @@ const deleteOneMember = async (req, res) => {
 module.exports = {
   inviteMembers,
   confirmMember,
+  reinviteMember,
   getManyMember,
   updateMember,
   deleteOneMember,

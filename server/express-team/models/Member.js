@@ -35,5 +35,6 @@ const MemberSchema = new mongoose.Schema({
     default: "pending",
   },
 });
+
 MemberSchema.plugin(mongooseHidden, { hidden: { _id: true } });
 module.exports = mongoose.model("Member", MemberSchema);

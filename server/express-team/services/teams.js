@@ -5,7 +5,6 @@ exports.createTeam = async (teamname, description, userId, email) => {
   const team = await Team.create({
     teamname: teamname,
     description: description,
-    createdAt: Date.now(),
   });
   const member = await Member.create({
     teamId: team.teamId,
@@ -31,8 +30,10 @@ exports.getTeamById = (teamId) => Team.findOne({ teamId: teamId });
 exports.updateDescription = (teamId, description) =>
   Team.updateOne(
     { teamId: { $eq: teamId } },
-    { $set: { description: description } },
-    { upsert: false }
+    { $set: { description: description, updatedAt: Date.now() } },
+    {
+      upsert: false,
+    }
   );
 
 // Delete by teamId

@@ -7,4 +7,5 @@ exports.create = (memberId, email, code) =>
     code: code,
   }).then((invitation) => invitation.save());
 
+exports.getOneByEmail = (email) => Invitation.findOne({ email: email });
 exports.getOneByCode = (code) => Invitation.findOne({ code: code });

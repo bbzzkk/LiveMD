@@ -9,9 +9,11 @@ const logger = require("morgan");
 const apiRouter = require("./routes/index");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 require("dotenv").config();
 
+// app.use(moment.tz.setDefault("Asia/Seoul"));
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());

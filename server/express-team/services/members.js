@@ -1,9 +1,10 @@
 const Member = require("../models/Member");
 
-exports.create = (userId, teamId, role, email, status) => {
+exports.create = (userId, teamId, teamname, role, email, status) => {
   return Member.create({
     teamId: teamId,
     userId: userId,
+    teamname: teamname,
     role: role,
     email: email,
     status: status,

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const mongooseHidden = require("mongoose-hidden")();
+const moment = require("moment-timezone");
 const { getUuid } = require("../utils/index");
 
 const TeamSchema = new mongoose.Schema({
@@ -20,9 +21,9 @@ const TeamSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    // required: true,
+    default: moment.tz(Date.now(), "Asia/Seoul"),
   },
-  updatedAt: { type: String },
+  updatedAt: { type: Date },
   imageAttr: {
     width: Number,
     height: Number,

@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const mongooseHidden = require("mongoose-hidden")();
+const moment = require("moment-timezone");
+const date = moment.tz(Date.now(), "Asia/Seoul");
 
 const InvitationSchema = new mongoose.Schema({
   memberId: {
@@ -19,12 +22,8 @@ const InvitationSchema = new mongoose.Schema({
     unique: true,
     index: true,
   },
-  createdAt: {
-    type: String,
-    default: Date.now(),
-    index: { expires: 60 * 10 },
-  },
+  createdAt: { type: Date, default: date, expires: "10s" },
 });
 
-// mongoose.set("invitationCreateIndex", true);
+InvitationSchema.plugin(mongooseHidden, { hidden: { _id: true } });
 module.exports = mongoose.model("Invitation", InvitationSchema);

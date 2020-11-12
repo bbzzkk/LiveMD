@@ -62,12 +62,20 @@ exports.getOneTeam = async (req, res) => {
 };
 
 // Update description by teamId
-exports.updateTeam = (req, res) => {
+exports.updateTeam = async (req, res) => {
   try {
-    const { teamId, description } = req.body;
-    teamService.updateDescription(teamId, description);
-    return res.status(200).json({ result: true, status: 200 });
+    validationResult(req).throw();
+    const { teamId } = req.params;
+    const { userId, description } = req.body;
+    const result = await teamService.updateDescription(teamId, description);
+    if (!result.nModified) {
+      return res
+        .status(500)
+        .json({ result: false, status: 500, error: "Nothing changed" });
+    }
+    res.status(200).json({ result: true, status: 200 });
   } catch (e) {
+    console.log(e);
     res.status(500).json({
       result: false,
       status: 500,
@@ -79,6 +87,7 @@ exports.updateTeam = (req, res) => {
 // Delete by teamId
 exports.deleteTeam = async (req, res) => {
   try {
+    validationResult(req).throw();
     const { teamId } = req.params;
     const result = teamService.deleteTeam(teamId);
     if (!result) {
