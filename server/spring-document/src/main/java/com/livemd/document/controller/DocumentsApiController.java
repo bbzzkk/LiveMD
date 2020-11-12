@@ -6,14 +6,12 @@ import com.livemd.document.envelope.DocumentsPageResponseEnvelope;
 import com.livemd.document.envelope.DocumentsResponseEnvelope;
 import com.livemd.document.service.DocumentsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.util.NoSuchElementException;
 
 @RequestMapping("/api/v1/documents")

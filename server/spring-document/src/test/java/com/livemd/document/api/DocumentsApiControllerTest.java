@@ -7,6 +7,7 @@ import com.livemd.document.dto.DocumentsSaveRequestDto;
 import com.livemd.document.dto.DocumentsTitleUpdateRequestDto;
 import com.livemd.document.envelope.DocumentsIdResponseEnvelope;
 import com.livemd.document.envelope.DocumentsPageResponseEnvelope;
+import com.livemd.document.envelope.DocumentsResponseEnvelope;
 import com.livemd.document.service.DocumentsService;
 import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.junit.After;
@@ -51,7 +52,6 @@ public class DocumentsApiControllerTest {
 
     @Test
     public void createDocuments () throws Exception{
-
         String ownerId = "ownerTest";
         String docId = "docIdTest";
         DocumentsSaveRequestDto dto = DocumentsSaveRequestDto.builder()
@@ -70,49 +70,35 @@ public class DocumentsApiControllerTest {
         assertThat(all.get(0).getDocId()).isEqualTo(docId);
     }
 
-//    @Test
-//    public void findAllDocuments () throws Exception{
-//        //given
-//        Documents documents = repository.save(Documents.builder()
-//                .ownerId("owner")
-//                .docId("docId")
-//                .build());
-//
-//        String url = "http://localhost:" + port + "/api/v1/documents?oid=" + documents.getOwnerId();
-//
-//        ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsPageResponseEnvelope.class);
-//
-//
-//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        assertThat(responseEntity.getBody()).isNotNull();
-//        assertThat(responseEntity.getBody()).isEqualTo()
-//
-//        assertThat(documentsList.get(0).getOwner()).isEqualTo(owner);
-//        assertThat(documentsList.get(0).getUuid()).isEqualTo(uuid);
-//    }
-//
-//    @Test
-//    public void findDocumentsById () throws Exception{
-//        String owner = "owner";
-//        String uuid = "uuid";
-//        DocumentsSaveRequestDto dto = DocumentsSaveRequestDto.builder()
-//                .owner(owner)
-//                .uuid(uuid)
-//                .build();
-//
-//        String url = "http://localhost:" + port + "/api/v1/user-documents";
-//
-//        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
-//
-//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        assertThat(responseEntity.getBody()).isGreaterThan(0L);
-//
-//        Optional<Documents> optUserDocuments = repository.findById(1L);
-//        Documents documents = optUserDocuments.get();
-//
-//        assertThat(documents.getOwner()).isEqualTo(owner);
-//        assertThat(documents.getUuid()).isEqualTo(uuid);
-//    }
+    @Test
+    public void findAllDocuments () throws Exception{
+        //given
+        Documents documents = repository.save(Documents.builder()
+                .ownerId("owner")
+                .docId("docId")
+                .build());
+
+        String url = "http://localhost:" + port + "/api/v1/documents?oid=" + documents.getOwnerId();
+
+        ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsPageResponseEnvelope.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void findDocumentsById () throws Exception{
+        //given
+        Documents documents = repository.save(Documents.builder()
+                .ownerId("owner")
+                .docId("docId")
+                .build());
+
+        String url = "http://localhost:" + port + "/api/v1/documents/" + documents.getDocId();
+
+        ResponseEntity<DocumentsResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsResponseEnvelope.class, documents.getDocId());
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 
     @Test
     public void updateDocumentsTitle() throws Exception{
@@ -144,26 +130,22 @@ public class DocumentsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
 
     }
-//
-//    @Test
-//    public void deleteUserDocuments () throws Exception{
-//        String owner = "owner";
-//        String uuid = "uuid";
-//        DocumentsSaveRequestDto dto = DocumentsSaveRequestDto.builder()
-//                .owner(owner)
-//                .uuid(uuid)
-//                .build();
-//
-//        String url = "http://localhost:" + port + "/api/v1/user-documents";
-//
-//        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, dto, Long.class);
-//
-//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        assertThat(responseEntity.getBody()).isGreaterThan(0L);
-//
-//        Optional<Documents> optUserDocuments = repository.findById(1L);
-//        Documents documents = optUserDocuments.get();
-//
-//        repository.delete(documents);
-//    }
+
+    @Test
+    public void deleteUserDocuments () throws Exception{
+        Documents documents = repository.save(Documents.builder()
+                .ownerId("owner")
+                .docId("docId")
+                .build());
+
+        String url = "http://localhost:" + port + "/api/v1/documents/" + documents.getDocId();
+
+        restTemplate.delete(url);
+
+        //http 상태 코드 확인하는 것 필요.
+
+        List<Documents> all = repository.findAll();
+        assertThat(all.isEmpty()).isTrue();
+    }
+
 }

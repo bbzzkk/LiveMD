@@ -2,11 +2,13 @@ package com.livemd.document.dto;
 
 import com.livemd.document.domain.entity.Documents;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class DocumentsResponseDto {
 
     private Long id;
