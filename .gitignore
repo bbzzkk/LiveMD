@@ -38,6 +38,8 @@ package-lock.json
 /server/**/yarn.lock
 /server/.gitignore
 /server/**/.gitignore
+/server/**/Dockerfile
+/server/**/.dockerignore
 
 ### STS ###
 /server/**/.apt_generated
