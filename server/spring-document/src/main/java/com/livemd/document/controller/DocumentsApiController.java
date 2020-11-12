@@ -25,6 +25,7 @@ public class DocumentsApiController {
 
     @PostMapping
     public ResponseEntity<DocumentsIdResponseEnvelope> create(@RequestParam(value = "oid") String oid, @RequestBody DocumentsSaveRequestDto requestDto) throws RuntimeException {
+        requestDto.setOwnerId(oid);
         DocumentsIdResponseDto data = service.create(oid, requestDto);
         DocumentsIdResponseEnvelope envelope = new DocumentsIdResponseEnvelope(200, true, data);
         ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
