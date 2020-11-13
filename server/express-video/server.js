@@ -3,6 +3,9 @@ require("dotenv").config();
 const express = require("express");
 /* Node.js 기본 내장 모듈 불러오기 */
 const http = require("http");
+
+const cors = require('cors');
+
 /* express 객체 생성 */
 const app = express();
 /* express http 서버 생성 */
@@ -19,9 +22,11 @@ const socketToRoom = {};
 // on()은 소켓에서 해당 이벤트를 받으면 콜백함수가 실행됨
 // connection이라는 이벤트가 발생할 경우 콜백함수가 실행된다.
 // on은 수신, emit은 전송이라고 이해하면 된다.
+app.use(cors());
 io.on("connection", (socket) => {
   socket.on("join room", (roomID) => {
-    if (users[roomID]) {
+    console.log(roomID);
+	    if (users[roomID]) {
       const length = users[roomID].length;
       if (length === 6) {
         socket.emit("room full");

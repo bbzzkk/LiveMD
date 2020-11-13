@@ -38,6 +38,12 @@ package-lock.json
 /server/**/yarn.lock
 /server/.gitignore
 /server/**/.gitignore
+/server/**/Dockerfile
+/server/**/.dockerignore
+
+### node js ###
+/server/**/node_modules
+/server/**/.env
 
 ### STS ###
 /server/**/.apt_generated
@@ -68,4 +74,3 @@ package-lock.json
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-
