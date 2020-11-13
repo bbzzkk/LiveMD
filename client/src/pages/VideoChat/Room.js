@@ -55,7 +55,7 @@ const Room = props => {
 
 
   useEffect(() => {
-    socketRef.current = io.connect('http://localhost:8000/');
+    socketRef.current = io.connect('http://ec2-52-79-80-240.ap-northeast-2.compute.amazonaws.com:8000');
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then(stream => {
