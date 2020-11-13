@@ -2,7 +2,7 @@
 node_modules/
 .metadata/
 yarn.lock
-package.json
+# package.json
 package-lock.json
 
 ###### client ######

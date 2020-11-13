@@ -49,9 +49,10 @@ const Room = props => {
   const socketRef = useRef();
   const userVideo = useRef(null);
   const peersRef = useRef([]);
-  const roomID = props.match.params.roomID;
+  const roomID = props.roomID;
   const [isMuted, setIsMuted] = useState(true);
   const [isPause, setIsPause] = useState(false);
+
 
   useEffect(() => {
     socketRef.current = io.connect('http://localhost:8000/');
@@ -86,19 +87,15 @@ const Room = props => {
         });
 
         socketRef.current.on('user joined', payload => {
-          console.log("user 들어옴");
           const item = peersRef.current.find(p => p.peerID === payload.callerID);
           if(!item){
             const peer = addPeer(payload.signal, payload.callerID, stream); //callerID : 발신자
-            peersRef.current.push({
+            const peerObj = {
               peerID: payload.callerID,
               peer,
-            })
-            //peerObj 추가
-            const peerObj = {
-              peer,
-              peerID: payload.callerID
-            }
+            };
+            peersRef.current.push(peerObj);
+
             setPeers(users => [...users, peerObj]);
           }
 
@@ -110,17 +107,16 @@ const Room = props => {
         });
         //user가 나갔을 때, disconnect
         socketRef.current.on("user left", id => {
-          console.log("사용자 나감");
           const peerObj = peersRef.current.find(p => p.peerID === id);
           if(peerObj) {
             peerObj.peer.destroy();
           }
           const peers = peersRef.current.filter(p => p.peerID !== id);
-          peersRef.current = peers;
+          peersRef.current = peers.slice();
           setPeers(peers);
         })
       });
-      console.log("useEffect 실행됨")
+
   }, []); //userVideo가 업데이트 되면 useEffect 실행
   // 빈 배열로 해놓으면 가장 처음 렌더링 될 때만 실행되고 업데이트 할 경우에는 실행 할 필요가 없는 경우엔 함수의 두 번째 파라미터로 비어있는 배열을 넣어주면 된다.
 
@@ -180,15 +176,12 @@ const Room = props => {
     }
   };
 
+  const onTest = () => {
+    console.log(peers.length);
+  }
+
   return (
     <>
-      <Grid>
-        <Grid.Row columns={2}>
-          <Grid.Column width={12}>
-            <Image src="/images/wireframe/paragraph.png" />
-          </Grid.Column>
-
-          <Grid.Column width={4} >
             <div className="myVideo">
             {/* 내 비디오 */}
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -202,7 +195,6 @@ const Room = props => {
               </div>
             </div>
             {/* 상대방 비디오 */}
-            {console.log(peers.length)}
             {peers.map((peer) => { {/*key값을 index가 아닌 peerID로 변경*/}
               console.log("비디오 불림 ㅋㄷㅋㄷ");
               return (
@@ -210,10 +202,6 @@ const Room = props => {
               );
             })}
           <Chat/>
-           
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
     </>
   );
 };

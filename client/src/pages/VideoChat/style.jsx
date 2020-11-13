@@ -18,7 +18,7 @@ export default {
     height: 500px;
     max-height: 500px;
     overflow: auto;
-    width: 400px;
+    width: 100%;
     border: 1px solid lightgray;
     border-radius: 10px;
     padding-bottom: 10px;
@@ -55,7 +55,7 @@ export default {
   `,
 
   Form: styled.form`
-    width: 400px;
+    width: 100%;
   `,
 
   // MyRow: styled.div`
