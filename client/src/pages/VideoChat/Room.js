@@ -182,14 +182,6 @@ const Room = props => {
 
   return (
     <>
-    <button onClick={onTest}>button</button>
-      <Grid>
-        <Grid.Row columns={2}>
-          <Grid.Column width={12}>
-            {/* <Image src="/images/wireframe/paragraph.png" /> */}
-          </Grid.Column>
-
-          <Grid.Column width={4} >
             <div className="myVideo">
             {/* 내 비디오 */}
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -210,10 +202,6 @@ const Room = props => {
               );
             })}
           <Chat/>
-           
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
     </>
   );
 };

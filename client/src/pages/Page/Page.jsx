@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Editor from './Editor';
 import { Room } from '@/pages';
+import { Grid, Image, Button } from 'semantic-ui-react';
 
 const Page = ({ doc, match }) => {
   const [activeUser, setActiveUser] = useState(0);
@@ -68,7 +69,10 @@ const Page = ({ doc, match }) => {
   };
 
   return (
-    <React.Fragment>
+    <Grid>
+    <Grid.Row columns={2}>
+      <Grid.Column width={13}>
+      <React.Fragment>
       <div style={style.header}>
         <div style={style.headerLeft}>
           <div style={style.pageName}>{pageName}</div>
@@ -85,8 +89,17 @@ const Page = ({ doc, match }) => {
         heightMargin={style.header.height + style.header.padding * 2}
         onActiveUser={handleActiveUserDisp}
       />
+          </React.Fragment>
+      </Grid.Column>
+
+      <Grid.Column width={3} >
       <Room roomID={pageName} />
-    </React.Fragment>
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
+    
+
+
   );
 };
 
