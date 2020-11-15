@@ -24,6 +24,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,20 +74,20 @@ public class DocumentsApiControllerTest {
         assertThat(all.get(0).getDocId()).isEqualTo(docId);
     }
 
-    @Test
-    public void findAllDocuments () throws Exception{
-        //given
-        Documents documents = repository.save(Documents.builder()
-                .ownerId("owner")
-                .docId("docId")
-                .build());
-
-        String url = "http://localhost:" + port + "/api/v1/documents?oid=" + documents.getOwnerId();
-
-        ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsPageResponseEnvelope.class);
-
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
+//    @Test
+//    public void findAllDocuments () throws Exception{
+//        //given
+//        Documents documents = repository.save(Documents.builder()
+//                .ownerId("owner")
+//                .docId("docId")
+//                .build());
+//
+//        String url = "http://localhost:" + port + "/api/v1/documents?oid=" + documents.getOwnerId();
+//
+//        ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsPageResponseEnvelope.class);
+//
+//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//    }
 
     @Test
     public void findDocumentsById () throws Exception{
@@ -143,7 +147,6 @@ public class DocumentsApiControllerTest {
         restTemplate.delete(url);
 
         //http 상태 코드 확인하는 것 필요.
-
         List<Documents> all = repository.findAll();
         assertThat(all.isEmpty()).isTrue();
     }
