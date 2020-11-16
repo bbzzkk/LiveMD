@@ -9,16 +9,15 @@ import { Grid, Image, Button } from 'semantic-ui-react';
 
 //video Container
 // margin: auto 없앰
-const Container = styled.div`
-  padding: 20px;
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  margin: auto;
-  flex-wrap: nowrap;
-  flex-direction: column;
-`;
-
+// const Container = styled.div`
+//   padding: 20px;
+//   display: flex;
+//   height: 100vh;
+//   width: 100%;
+//   margin: auto;
+//   flex-wrap: nowrap;
+//   flex-direction: column;
+// `;
 
 const StyledVideo = styled.video`
   height: 30%;
@@ -27,6 +26,7 @@ const StyledVideo = styled.video`
 
 const Video = props => {
   const ref = useRef();
+  console.log(props);
 
   useEffect(() => {
     props.peer.on('stream', stream => {
@@ -39,12 +39,12 @@ const Video = props => {
   return <StyledVideo playsInline autoPlay ref={ref} />;
 };
 
-const videoConstraints = {
-  height: window.innerHeight / 2,
-  width: window.innerWidth / 2,
-};
+// const videoConstraints = {
+//   height: window.innerHeight / 2,
+//   width: window.innerWidth / 2,
+// };
 
-const Room = props => {
+const Room = (props) => {
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef(null);
@@ -176,12 +176,9 @@ const Room = props => {
     }
   };
 
-  const onTest = () => {
-    console.log(peers.length);
-  }
-
   return (
     <>
+    <div style={{display: props.videoIsShowed}}>
             <div className="myVideo">
             {/* 내 비디오 */}
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
@@ -201,7 +198,8 @@ const Room = props => {
                 <Video  peer={peer.peer} key={peer.peerID}/>
               );
             })}
-          <Chat/>
+          {/* <Chat/> */}
+    </div>
     </>
   );
 };

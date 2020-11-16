@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Editor from './Editor';
 import { Room } from '@/pages';
 import { Grid, Image, Button } from 'semantic-ui-react';
+import Chat from '@/pages/VideoChat/Chat';
 
 const Page = ({ doc, match }) => {
   const [activeUser, setActiveUser] = useState(0);
@@ -13,6 +14,10 @@ const Page = ({ doc, match }) => {
     ? `loading ${pageName}...`
     : `syncing with ${pageName}...`;
   const docs = null;
+  const [videoIsShowed, setVideoIsShowed] = useState('none');
+  const [videoButton, setVideoButton] = useState(false);
+  const [chatIsShowed, setChatIsShowed] = useState('none');
+  const [chatButton, setChatButton] = useState(false);
 
   useEffect(() => {
     if (doc) {
@@ -66,40 +71,67 @@ const Page = ({ doc, match }) => {
       marginRight: '25px',
       fontSize: '18px',
     },
+    right: {},
+    editContent: {
+      display: 'block',
+    },
+    // Container: {
+    //   display: 'flex',
+    // },
+  };
+
+  const videoShowAndHide = () => {
+    if (videoIsShowed === 'none') {
+      setVideoIsShowed('inline');
+      setVideoButton(true);
+    } else {
+      setVideoIsShowed('none');
+      setVideoButton(false);
+    }
+  };
+
+  const chatShowAndHide = () => {
+    if (chatIsShowed === 'none') {
+      setChatIsShowed('inline');
+      setChatButton(true);
+    } else {
+      setChatIsShowed('none');
+      setChatButton(false);
+    }
   };
 
   return (
-    <Grid>
-    <Grid.Row columns={2}>
-      <Grid.Column width={13}>
-      <React.Fragment>
-      <div style={style.header}>
-        <div style={style.headerLeft}>
-          <div style={style.pageName}>{pageName}</div>
+    <React.Fragment>
+      <div style={style.Container}>
+        <div style={style.editContent}>
+          <div style={style.header}>
+            <div style={style.headerLeft}>
+              <div style={style.pageName}>{pageName}</div>
+            </div>
+            {activeUser > 0 ? (
+              <div style={style.active}>{`(active: ${activeUser})`}</div>
+            ) : null}
+            <Button onClick={videoShowAndHide}>
+              {videoButton ? 'Hide Video' : 'Show Video'}
+            </Button>
+            <Button onClick={chatShowAndHide}>
+              {chatButton ? 'Hide Chat' : 'Show Chat'}
+            </Button>
+          </div>
+          <Editor
+            key={`page/${pageName}`}
+            roomName={roomName}
+            defaultValue={defaultValue}
+            value={docText}
+            heightMargin={style.header.height + style.header.padding * 2}
+            onActiveUser={handleActiveUserDisp}
+          />
         </div>
-        {activeUser > 0 ? (
-          <div style={style.active}>{`(active: ${activeUser})`}</div>
-        ) : null}
+
+        <Chat chatIsShowed={chatIsShowed} />
+        <Room videoIsShowed={videoIsShowed} />
       </div>
-      <Editor
-        key={`page/${pageName}`}
-        roomName={roomName}
-        defaultValue={defaultValue}
-        value={docText}
-        heightMargin={style.header.height + style.header.padding * 2}
-        onActiveUser={handleActiveUserDisp}
-      />
-          </React.Fragment>
-      </Grid.Column>
-
-      <Grid.Column width={3} >
-      <Room roomID={pageName} />
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
-    
-
-
+    </React.Fragment>
   );
 };
 

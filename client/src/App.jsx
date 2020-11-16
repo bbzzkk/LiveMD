@@ -60,6 +60,7 @@ const App = () => {
           <Route exact path="/page/:page" component={Page} />
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
+          <Route path="/workspace" component={Workspace} />
         </Switch>
       </Router>
     </>
