@@ -71,19 +71,26 @@ const Page = ({ doc, match }) => {
       marginRight: '25px',
       fontSize: '18px',
     },
-    right: {},
-    editContent: {
+    editContainer: { // header + Editor
       display: 'block',
     },
-    // Container: {
-    //   display: 'flex',
-    // },
+    editContent: { // only Editor
+       width : '100%',
+       display: 'flex',
+    },
+    contents: { //헤더 제외한 Editor + RTC 
+      display: 'flex',
+    },
+    Container: { // 헤더 포함 Editor + RTC
+      display: 'flex',
+    },
   };
 
   const videoShowAndHide = () => {
     if (videoIsShowed === 'none') {
       setVideoIsShowed('inline');
       setVideoButton(true);
+
     } else {
       setVideoIsShowed('none');
       setVideoButton(false);
@@ -103,33 +110,43 @@ const Page = ({ doc, match }) => {
   return (
     <React.Fragment>
       <div style={style.Container}>
-        <div style={style.editContent}>
+        <div style={style.editContainer}>
           <div style={style.header}>
             <div style={style.headerLeft}>
               <div style={style.pageName}>{pageName}</div>
             </div>
-            {activeUser > 0 ? (
-              <div style={style.active}>{`(active: ${activeUser})`}</div>
-            ) : null}
+
             <Button onClick={videoShowAndHide}>
               {videoButton ? 'Hide Video' : 'Show Video'}
             </Button>
             <Button onClick={chatShowAndHide}>
               {chatButton ? 'Hide Chat' : 'Show Chat'}
             </Button>
-          </div>
-          <Editor
-            key={`page/${pageName}`}
-            roomName={roomName}
-            defaultValue={defaultValue}
-            value={docText}
-            heightMargin={style.header.height + style.header.padding * 2}
-            onActiveUser={handleActiveUserDisp}
-          />
-        </div>
 
-        <Chat chatIsShowed={chatIsShowed} />
-        <Room videoIsShowed={videoIsShowed} />
+            {activeUser > 0 ? (
+              <div style={style.active}>{`(active: ${activeUser})`}</div>
+            ) : null}
+          </div>
+          <div style={style.contents}>
+              <div style={{
+                ...style.editContent,
+                width: videoButton ? '80%' : '100%' &&
+                chatButton ? '80%' : '100%'}}>
+                <Editor
+                  key={`page/${pageName}`}
+                  roomName={roomName}
+                  defaultValue={defaultValue}
+                  value={docText}
+                  heightMargin={style.header.height + style.header.padding * 2}
+                  onActiveUser={handleActiveUserDisp}
+                />
+              </div>
+              <div className='RTC'>
+                <Room videoIsShowed={videoIsShowed} />
+                <Chat chatIsShowed={chatIsShowed} /> 
+              </div>
+          </div>
+        </div>    
       </div>
     </React.Fragment>
   );
