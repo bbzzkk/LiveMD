@@ -21,7 +21,7 @@ import { Grid, Image, Button } from 'semantic-ui-react';
 
 const StyledVideo = styled.video`
   height: 30%;
-  width: 70%;
+  width: 100%;
 `;
 
 const Video = props => {
@@ -198,7 +198,6 @@ const Room = (props) => {
                 <Video  peer={peer.peer} key={peer.peerID}/>
               );
             })}
-          {/* <Chat/> */}
     </div>
     </>
   );

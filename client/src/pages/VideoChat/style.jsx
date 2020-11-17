@@ -15,8 +15,8 @@ export default {
   Container: styled.div`
     display: flex;
     flex-direction: column;
-    height: 500px;
-    max-height: 500px;
+    height: 700px;
+    max-height: 700px;
     overflow: auto;
     width: 100%;
     border: 1px solid lightgray;

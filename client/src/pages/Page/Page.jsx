@@ -118,10 +118,10 @@ const Page = ({ doc, match }) => {
               <div style={style.pageName}>{pageName}</div>
             </div>
 
-            <Button onClick={videoShowAndHide} position='fixed'>
+            <Button color='black' onClick={videoShowAndHide}>
               {videoButton ? 'Hide Video' : 'Show Video'}
             </Button>
-            <Button onClick={chatShowAndHide}>
+            <Button color='black' onClick={chatShowAndHide}>
               {chatButton ? 'Hide Chat' : 'Show Chat'}
             </Button>
 
@@ -130,7 +130,7 @@ const Page = ({ doc, match }) => {
             ) : null}
           </div>
           <div style={style.contents}>
-              <div style={{
+              <div style={{ // Editor(header제외) 길이 맞춰주기
                 ...style.editContent,
                 width: videoButton ? '85%' : '100%' &&
                 chatButton ? '85%' : '100%'}}>
@@ -141,6 +141,8 @@ const Page = ({ doc, match }) => {
                   value={docText}
                   heightMargin={style.header.height + style.header.padding * 2}
                   onActiveUser={handleActiveUserDisp}
+                  videoButton={videoButton}
+                  chatButton={chatButton}
                 />
               </div>
               <div className='RTC'>
