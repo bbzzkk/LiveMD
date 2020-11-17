@@ -50,6 +50,7 @@ const Page = ({ doc, match }) => {
       margin: 0,
       padding: 7,
       backgroundColor: '#F1F1F1',
+      maxWidth: 'inherit',
     },
     headerLeft: {
       display: 'flex',
@@ -73,6 +74,7 @@ const Page = ({ doc, match }) => {
     },
     editContainer: { // header + Editor
       display: 'block',
+      width: '-webkit-fill-available',
     },
     editContent: { // only Editor
        width : '100%',
@@ -116,7 +118,7 @@ const Page = ({ doc, match }) => {
               <div style={style.pageName}>{pageName}</div>
             </div>
 
-            <Button onClick={videoShowAndHide}>
+            <Button onClick={videoShowAndHide} position='fixed'>
               {videoButton ? 'Hide Video' : 'Show Video'}
             </Button>
             <Button onClick={chatShowAndHide}>
@@ -130,8 +132,8 @@ const Page = ({ doc, match }) => {
           <div style={style.contents}>
               <div style={{
                 ...style.editContent,
-                width: videoButton ? '80%' : '100%' &&
-                chatButton ? '80%' : '100%'}}>
+                width: videoButton ? '85%' : '100%' &&
+                chatButton ? '85%' : '100%'}}>
                 <Editor
                   key={`page/${pageName}`}
                   roomName={roomName}
