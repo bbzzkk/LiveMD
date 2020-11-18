@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Footer } from '@/components/home';
+import { Header, Footer, Body } from '@/components/home';
 import S from './style';
 
 const Home = props => {
@@ -13,7 +13,8 @@ const Home = props => {
           onLogout={onLogout}
           currentUser={currentUser}
         />
-        <S.MainContent>
+        <Body/>
+        <S.MainContent>;
           {authenticated ? (
             <>
               <div>{currentUser?.name}</div>
@@ -21,6 +22,7 @@ const Home = props => {
             </>
           ) : null}
         </S.MainContent>
+
         <Footer />
       </S.Main>
     </>

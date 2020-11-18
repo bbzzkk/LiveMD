@@ -7,7 +7,8 @@ export default {
     padding-top: 10px;
     display: flex;
     justify-content: space-between;
-    background-color: #333;
+    background-color: #000000;
+    
 
     .logo-img {
       margin-left: 45px;

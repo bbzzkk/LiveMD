@@ -7,7 +7,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #333;
+    background-color: #000000;
     color: white;
   `,
 };
