@@ -10,7 +10,26 @@ const map = require('lib0/dist/map.cjs')
 const debounce = require('lodash.debounce')
 
 const path = require('path')
-require('dotenv').config({path: path.join(__dirname, '../.env')});
+require('dotenv').config({path: path.join(__dirname, './.env')});
+const mongoose = require('mongoose');
+mongoose
+  .connect('mongodb://localhost:27017/test', {
+  useNewUrlParser: true,
+  useCreateIndex: true
+  })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+const DocSchema = new mongoose.Schema({
+  docID: String,
+  content: String,
+});
+
+const Doc = mongoose.model("Doc", DocSchema);
 
 const callbackHandler = require('./callback.js').callbackHandler
 const isCallbackSet = require('./callback.js').isCallbackSet
@@ -30,7 +49,8 @@ const persistenceDir = process.env.YPERSISTENCE
 /**
  * @type {{bindState: function(string,WSSharedDoc):void, writeState:function(string,WSSharedDoc):Promise<any>}|null}
  */
-let persistence = null
+
+let persistence = null;
 if (typeof persistenceDir === 'string') {
   console.info('Persisting documents to "' + persistenceDir + '"')
   // @ts-ignore
@@ -39,6 +59,7 @@ if (typeof persistenceDir === 'string') {
   persistence = {
     bindState: async (docName, ydoc) => {
       const persistedYdoc = await ldb.getYDoc(docName)
+      console.log(persistedYdoc)
       const newUpdates = Y.encodeStateAsUpdate(ydoc)
       ldb.storeUpdate(docName, newUpdates)
       Y.applyUpdate(ydoc, Y.encodeStateAsUpdate(persistedYdoc))
@@ -177,11 +198,30 @@ const closeConn = (doc, conn) => {
     const controlledIds = doc.conns.get(conn)
     doc.conns.delete(conn)
     awarenessProtocol.removeAwarenessStates(doc.awareness, Array.from(controlledIds), null)
-    if (doc.conns.size === 0 && persistence !== null) {
+    // if (doc.conns.size === 0 && persistence !== null) {
+    if (doc.conns.size === 0) {
+      console.log("사용자 다 나감");
+      console.log(doc.getText(doc.name).toString())
+      Doc.update(
+        {
+          docID: {
+            $eq: doc.name
+          }
+        },
+        {
+          $set: {
+            content: doc.getText(doc.name).toString()
+          }
+        },
+        (err, res) => {
+          console.log(res);
+        }
+      );
       // if persisted, we store state and destroy ydocument
-      persistence.writeState(doc.name, doc).then(() => {
-        doc.destroy()
-      })
+      // persistence.writeState(doc.name, doc).then(() => {
+      //   doc.destroy()
+      // })
+      doc.destroy();
       docs.delete(doc.name)
     }
 
@@ -217,13 +257,20 @@ exports.setupWSConnection = (conn, req, { docName = req.url.slice(1).split('?')[
   console.log("setupWSConnection");
   conn.binaryType = 'arraybuffer'
   // get doc, create if it does not exist yet
+
+  // export const setIfUndefined = (map, key, createT) => {
+  //   let set = map.get(key)
+  //   if (set === undefined) {
+  //     map.set(key, set = createT())
+  //   }
+  //   return set
+  // }
+
   const doc = map.setIfUndefined(docs, docName, () => {
-    const doc = new WSSharedDoc(docName)
-    doc.gc = gc
-    if (persistence !== null) {
-      persistence.bindState(docName, doc)
-    }
-    docs.set(docName, doc)
+    const newDoc = new WSSharedDoc(docName)
+    const yText = newDoc.getText(docName);
+
+    newDoc.gc = gc
 
     metadata[docName] = {
       created: new Date(),
@@ -231,7 +278,33 @@ exports.setupWSConnection = (conn, req, { docName = req.url.slice(1).split('?')[
       active: 0,
     };
 
-    return doc
+    // 1. 사용자 첫 입장(문서가 서버 로컬엔 존재X, DB엔 존재)
+    // 2. 문서 첫 생성(문서가 서버 로컬에도 존재 X, DB에도 존재 X)
+
+    Doc.findOne({ docID: docName }, (err, doc) => {
+      if (doc) {
+        console.log('doc 있음');
+        yText.insert(0, doc.content);
+      } else {
+        console.log('doc 없음');
+        const newDoc = new Doc({
+          docID: docName,
+          content: '',
+        });
+        newDoc
+          .save()
+          .catch((err) => {
+            console.log("Error : " + err);
+          });
+      }
+    });
+
+    if (persistence !== null) {
+      persistence.bindState(docName, newDoc)
+    }
+    docs.set(docName, newDoc)
+
+    return newDoc
   })
   doc.conns.set(conn, new Set())
 

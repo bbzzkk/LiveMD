@@ -5,6 +5,7 @@
  */
 const crypto = require('crypto');
 const clone = require('lodash/clone');
+const Y = require('yjs');
 
 const WebSocket = require('ws')
 const http = require('http')
@@ -84,11 +85,6 @@ server.on('upgrade', (request, socket, head) => {
 
   wss.handleUpgrade(request, socket, head, handleAuth)
 })
-
-// setInterval(() => {
-//   console.log(`    docs size : ${docs.size}`)
-//   console.log(`metadata size : ${Object.keys(metadata).length}`)
-// }, 5000);
 
 server.listen(port)
 
