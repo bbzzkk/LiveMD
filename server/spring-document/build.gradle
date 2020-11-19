@@ -33,6 +33,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-devtools')
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
+    implementation 'com.auth0:java-jwt:3.8.2'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

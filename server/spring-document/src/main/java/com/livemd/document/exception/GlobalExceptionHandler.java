@@ -1,5 +1,6 @@
 package com.livemd.document.exception;
 
+import io.jsonwebtoken.JwtException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,4 +21,16 @@ public class GlobalExceptionHandler {
     public ErrorMessage handleDupilcateException(){
         return new ErrorMessage(500, false);
     }
+
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(value = RuntimeException.class)
+//    public String handleToken(String message){
+//        return message;
+//    }
+//
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(value = JwtException.class)
+//    public ErrorMessage handleToken(){
+//        return new ErrorMessage(900, false);
+//    }
 }
