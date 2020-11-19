@@ -3,27 +3,49 @@
 /**
  * @type {any}
  */
-const crypto = require('crypto');
-const clone = require('lodash/clone');
+
+// const crypto = require('crypto');
+// const clone = require('lodash/clone');
 const Y = require('yjs');
 
 const WebSocket = require('ws')
-const http = require('http')
+const https = require('https')
 const utils = require('./utils.js')
 const wss = new WebSocket.Server({ noServer: true })
 const setupWSConnection = utils.setupWSConnection
 
+const fs = require('fs');
 const express = require('express');
 const app = express();
-const server = http.createServer(app);
+const options = {
+  key: fs.readFileSync(./keys/private)
+}
+const server = https.createServer(options, app);
 const bodyParser = require('body-parser');
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 const bodyParserText = bodyParser.text();
+
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, './.env') });
+
+const mongoose = require('mongoose');
 
 const port = process.env.PORT || 1234
 
+const docService = require('./services/doc');
+
 const metadata = utils.metadata;
 const docs = utils.docs;
+
+mongoose.Promise = global.Promise;
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log("mongoDB connected successful"))
+  .catch((err) => console.error(err));
 
 app.get('/pages', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -89,3 +111,30 @@ server.on('upgrade', (request, socket, head) => {
 server.listen(port)
 
 console.log('running on port', port)
+
+
+// const getOneDoc = async (docName) => {
+//   console.log(docName);
+//   const doc = await docService.getDocById(docName);
+//   console.log(doc);
+// }
+
+// getOneDoc("test");
+
+// const updateDoc = (docId, content) => {
+//   docService.updateContent(docId, content);
+// }
+
+// updateDoc("test", "test test");
+
+// const delDoc = (docId) => {
+//   docService.deleteDoc(docId);
+// }
+
+// delDoc("test");
+
+const updateModi = (docId) => {
+  docService.updateModified(docId);
+}
+
+updateModi("test");

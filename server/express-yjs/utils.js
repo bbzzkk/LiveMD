@@ -11,25 +11,8 @@ const debounce = require('lodash.debounce')
 
 const path = require('path')
 require('dotenv').config({path: path.join(__dirname, './.env')});
-const mongoose = require('mongoose');
-mongoose
-  .connect('mongodb://localhost:27017/test', {
-  useNewUrlParser: true,
-  useCreateIndex: true
-  })
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
-const DocSchema = new mongoose.Schema({
-  docID: String,
-  content: String,
-});
-
-const Doc = mongoose.model("Doc", DocSchema);
+const docService = require('./services/doc');
 
 const callbackHandler = require('./callback.js').callbackHandler
 const isCallbackSet = require('./callback.js').isCallbackSet
@@ -201,22 +184,16 @@ const closeConn = (doc, conn) => {
     // if (doc.conns.size === 0 && persistence !== null) {
     if (doc.conns.size === 0) {
       console.log("사용자 다 나감");
-      console.log(doc.getText(doc.name).toString())
-      Doc.update(
-        {
-          docID: {
-            $eq: doc.name
-          }
-        },
-        {
-          $set: {
-            content: doc.getText(doc.name).toString()
-          }
-        },
-        (err, res) => {
-          console.log(res);
+
+      const preDocPromise = docService.getDocById(doc.name);
+      preDocPromise.then(preDoc => {
+        if (preDoc.content !== doc.getText(doc.name).toString()) {
+          docService.updateModified(doc.name);
         }
-      );
+
+      docService.updateContent(doc.name, doc.getText(doc.name).toString());
+      });
+
       // if persisted, we store state and destroy ydocument
       // persistence.writeState(doc.name, doc).then(() => {
       //   doc.destroy()
@@ -281,21 +258,13 @@ exports.setupWSConnection = (conn, req, { docName = req.url.slice(1).split('?')[
     // 1. 사용자 첫 입장(문서가 서버 로컬엔 존재X, DB엔 존재)
     // 2. 문서 첫 생성(문서가 서버 로컬에도 존재 X, DB에도 존재 X)
 
-    Doc.findOne({ docID: docName }, (err, doc) => {
+    const res = docService.getDocById(docName);
+    res.then((doc) => {
       if (doc) {
-        console.log('doc 있음');
         yText.insert(0, doc.content);
+
       } else {
-        console.log('doc 없음');
-        const newDoc = new Doc({
-          docID: docName,
-          content: '',
-        });
-        newDoc
-          .save()
-          .catch((err) => {
-            console.log("Error : " + err);
-          });
+        docService.createDoc(docName);
       }
     });
 
