@@ -13,4 +13,4 @@ io.on("connection", socket => {
 })
 
 
-server.listen(8001, () => console.log("server is running on port 8001"));
+server.listen(8001, () => console.log("chat server is running on port 8001"));

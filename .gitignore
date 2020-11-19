@@ -10,6 +10,12 @@ package-lock.json
 /client/yarn.lock
 /client/build
 /client/package-lock.json
+/client/logs
+/client/default.conf.*
+/client/node_modules
+/client/ssl
+/client/ssl-key
+/client/ssl_bak
 
 # dependencies
 /client/node_modules
@@ -38,7 +44,6 @@ package-lock.json
 /server/**/yarn.lock
 /server/.gitignore
 /server/**/.gitignore
-/server/**/Dockerfile
 /server/**/.dockerignore
 
 ### node js ###

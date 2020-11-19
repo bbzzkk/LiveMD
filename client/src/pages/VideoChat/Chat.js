@@ -24,7 +24,7 @@ const Chat = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect('http://chat-test.live-md.com:8000');
+    socketRef.current = io.connect('https://live-md.com:8001');
 
     socketRef.current.on("your id", id => {
       setYourID(id);
