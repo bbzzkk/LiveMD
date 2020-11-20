@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export default {
+  //col1
   col_1: styled.div`
     width: 100%;
     height: 400px;
@@ -14,32 +15,61 @@ export default {
     background-clip: text;
     -webkit-background-clip: text;
     font-size: 2.7em; 
-    height: 50px;
     font-weight: bold;
-    line-height: normal;
+    line-height: initial;
   `,
   col_1_2: styled.div`
   color: white;
   font-size: 1.3em; 
-  height: 20px;
+  text-align-last: center;
+  padding-top: 15px;
 `,
+  col_1_3: styled.div`
+  position : relative;
+  top : 65px;
+  `,
+
+  col_1_button: styled.button`
+    background: black;
+    color: #fff;
+    border: 1px solid;
+  `,
+
+  //col2
   col_2: styled.div`
   width: 100%;
   height: 600px;
-
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
   color: white;
 `,
+  col_2_1: styled.div`
 
-col_3: styled.div`
-width: 100%;
-height: 500px;
+  `,
+  col_2_2: styled.div`
 
-align-items: center;
-justify-content: center;
-background-color: #bbbbbb;
-color: white;
-`,
+  `,
+  col_2_3: styled.div`
+
+  `,
+
+  //col3
+  col_3: styled.div`
+  width: 100%;
+  height: 500px;
+  align-items: center;
+  justify-content: center;
+  background-color: #bbbbbb;
+  color: white;
+  `,
+  col_2_1: styled.div`
+
+  `,
+  col_2_2: styled.div`
+
+  `,
+  col_2_3: styled.div`
+
+  `,
 };
