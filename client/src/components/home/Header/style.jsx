@@ -8,7 +8,7 @@ export default {
     display: flex;
     justify-content: space-between;
     background-color: #000000;
-    
+    box-sizing: content-box;
 
     .logo-img {
       margin-left: 45px;
