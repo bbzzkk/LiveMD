@@ -49,7 +49,7 @@ const App = () => {
 
   return (
     <>
-      {/* <GlobalStyle /> */}
+      <GlobalStyle/> 
       {/* <Workspace /> */}
       <Router>
         <Switch>
