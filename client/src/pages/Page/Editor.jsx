@@ -102,7 +102,7 @@ const Editor = ({
     provider.current = new WebsocketProvider(
       //   'wss://demos.yjs.dev',
       //   'ws://3.35.98.199:1234',
-      'ws://localhost:1234',
+      'wss://live-md.com:8006/ws',
       // 'codemirror-large',
       roomName,
       ydoc,
