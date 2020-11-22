@@ -22,15 +22,9 @@ public class GlobalExceptionHandler {
         return new ErrorMessage(500, false);
     }
 
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ExceptionHandler(value = RuntimeException.class)
-//    public String handleToken(String message){
-//        return message;
-//    }
-//
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ExceptionHandler(value = JwtException.class)
-//    public ErrorMessage handleToken(){
-//        return new ErrorMessage(900, false);
-//    }
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(value = JwtException.class)
+    public ErrorMessage handleToken(String message){
+        return new ErrorMessage(403, false);
+    }
 }

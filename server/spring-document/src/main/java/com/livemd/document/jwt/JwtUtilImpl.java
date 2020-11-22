@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class JwtUtilImpl implements JwtUtil {
 
     //유효성 검사
-
     private static String SECRET_KEY;
 
     @Value("${jwt.secret}")
@@ -32,8 +31,7 @@ public class JwtUtilImpl implements JwtUtil {
             }else {
                 log.error(e.getMessage());
             }
-            throw new JwtException("JWT");
+            throw new JwtException("JWT Error");
         }
-//        return true;
     }
 }

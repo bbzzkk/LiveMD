@@ -53,12 +53,10 @@ public class JwtVerifyTest {
         Date newTime = new Date();
         now.setTime(now.getTime() + expiredTime);
 
-        System.out.println(">>>>>>>>>>>>>>>>>>");
         payloads.put("iss", "yzz");
         payloads.put("sub", "soyoung");
         payloads.put("iat", now);
         payloads.put("exp", newTime);
-        System.out.println(SECRET_KEY);
         String jwt = Jwts.builder()
                 .setHeader(headers)
                 .setClaims(payloads)
@@ -70,9 +68,6 @@ public class JwtVerifyTest {
     @Test
     public void testVerifyJwt(){
         String givenToken = createToken();
-//        System.out.println(givenToken);
-//        System.out.println(SECRET_KEY);
-//        System.out.println(jwtUtil);
         assertThat(jwtUtil.isUsable(givenToken)).isTrue();
     }
 }
