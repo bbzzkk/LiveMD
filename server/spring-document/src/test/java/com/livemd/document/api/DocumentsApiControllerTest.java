@@ -74,20 +74,21 @@ public class DocumentsApiControllerTest {
         assertThat(all.get(0).getDocId()).isEqualTo(docId);
     }
 
-//    @Test
-//    public void findAllDocuments () throws Exception{
-//        //given
-//        Documents documents = repository.save(Documents.builder()
-//                .ownerId("owner")
-//                .docId("docId")
-//                .build());
-//
-//        String url = "http://localhost:" + port + "/api/v1/documents?oid=" + documents.getOwnerId();
-//
-//        ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsPageResponseEnvelope.class);
-//
-//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-//    }
+    @Test
+    public void findAllByOwnerId () throws Exception{
+        //given
+        Documents documents = repository.save(Documents.builder()
+                .ownerId("owner")
+                .docId("docId")
+                .build());
+
+        String url = "http://localhost:" + port + "/api/v1/documents?oid=" + documents.getOwnerId();
+
+        ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsPageResponseEnvelope.class);
+
+        //page에 default construct가 없어서 테스트 통과되지 않음. -> page를 custom해서 써야 하는가?
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 
     @Test
     public void findDocumentsById () throws Exception{
@@ -102,6 +103,19 @@ public class DocumentsApiControllerTest {
         ResponseEntity<DocumentsResponseEnvelope> responseEntity = restTemplate.getForEntity(url, DocumentsResponseEnvelope.class, documents.getDocId());
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getData().getDocId()).isEqualTo(documents.getDocId());
+    }
+
+    @Test
+    public void searchByKeyword () throws Exception{
+        //given
+        Documents documents = repository.save(Documents.builder()
+                .ownerId("owner")
+                .docId("docId")
+                .title("title")
+                .build());
+
+        String url = "http://localhost:" + port + "/api/v1/documents/search" + documents.getTitle();
     }
 
     @Test
@@ -128,10 +142,11 @@ public class DocumentsApiControllerTest {
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isNotNull();
+        assertThat(responseEntity.getBody().getData().getDocId()).isEqualTo(updateDocId);
 
         List<Documents> all = repository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
+
 
     }
 
@@ -144,9 +159,12 @@ public class DocumentsApiControllerTest {
 
         String url = "http://localhost:" + port + "/api/v1/documents/" + documents.getDocId();
 
-        restTemplate.delete(url);
+        restTemplate.delete(url, documents.getDocId());
+//        delete의 return value는 없음. restTemplate.exchange()에서 method를 delete로 해준 뒤 받아와야 함. 하지만 request body가 없는 경우엔?
+//        ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, DocumentsIdResponseEnvelope.class, documents.getDocId());
 
-        //http 상태 코드 확인하는 것 필요.
+
+        //http 상태 코드 확인하는 것 필요. 하지만 restTemplate의 value를 받아올 수 없음.. ㅠ
         List<Documents> all = repository.findAll();
         assertThat(all.isEmpty()).isTrue();
     }
