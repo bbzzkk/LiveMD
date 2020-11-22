@@ -7,12 +7,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class DocumentsIdResponseEnvelope {
 
     private final int status;
     private final boolean result;
-    private DocumentsIdResponseDto data;
+    private final DocumentsIdResponseDto data;
 
 }

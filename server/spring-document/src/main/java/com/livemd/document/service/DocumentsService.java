@@ -24,7 +24,6 @@ public class DocumentsService {
 
     @Transactional
     public DocumentsIdResponseDto create(String oid, DocumentsSaveRequestDto requestDto) throws RuntimeException {
-        requestDto.setOwnerId(oid);
         Documents entity = repository.save(requestDto.toEntity());
         return new DocumentsIdResponseDto(entity);
 
