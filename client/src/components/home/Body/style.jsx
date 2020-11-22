@@ -8,13 +8,13 @@ export default {
     display: flex;
     background-color: #000000;
   `,
-  col_1_1: styled.div`
+  col_1_1: styled.h2`
     color: transparent;
     background: -webkit-gradient(linear,left top,right top,from(#ff7a1b),color-stop(#de3fe3),to(#22dcbd));
     background: linear-gradient(90deg,#ff7a1b,#de3fe3,#22dcbd);
     background-clip: text;
     -webkit-background-clip: text;
-    font-size: 2.7em; 
+    font-size: 60px; 
     font-weight: bold;
     line-height: initial;
   `,
