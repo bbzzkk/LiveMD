@@ -9,8 +9,8 @@ import S from './style';
 const Workspace = props => {
   return (
     <>
+      <Header />
       <S.Workspace>
-        <Header />
         <S.SidebarContainer>
           <Sidebar />
         </S.SidebarContainer>
