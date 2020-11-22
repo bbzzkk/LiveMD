@@ -6,14 +6,12 @@ import com.livemd.document.envelope.DocumentsPageResponseEnvelope;
 import com.livemd.document.envelope.DocumentsResponseEnvelope;
 import com.livemd.document.service.DocumentsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.util.NoSuchElementException;
 
 @RequestMapping("/api/v1/documents")
@@ -25,6 +23,7 @@ public class DocumentsApiController {
 
     @PostMapping
     public ResponseEntity<DocumentsIdResponseEnvelope> create(@RequestParam(value = "oid") String oid, @RequestBody DocumentsSaveRequestDto requestDto) throws RuntimeException {
+        requestDto.setOwnerId(oid);
         DocumentsIdResponseDto data = service.create(oid, requestDto);
         DocumentsIdResponseEnvelope envelope = new DocumentsIdResponseEnvelope(200, true, data);
         ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);

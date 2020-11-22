@@ -66,6 +66,8 @@ const Editor = ({
   value,
   heightMargin,
   onActiveUser,
+  videoButton,
+  chatButton
 }) => {
   const refEditor = useRef(null);
   const [previewWidth, setPreviewWidth] = useState(0);
@@ -100,7 +102,7 @@ const Editor = ({
     provider.current = new WebsocketProvider(
       //   'wss://demos.yjs.dev',
       //   'ws://3.35.98.199:1234',
-      'ws://localhost:1234',
+      'wss://live-md.com:8006/ws',
       // 'codemirror-large',
       roomName,
       ydoc,
@@ -356,10 +358,6 @@ const Editor = ({
     theme: '3024-night',
   };
 
-  const onTest = () => {
-    provider.current.ws.send('test');
-  }
-
   return (
     <>
       {/* <div id="wrapper">
@@ -369,7 +367,7 @@ const Editor = ({
       </div> */}
       <SplitPane
         split="vertical"
-        size={width + resizerMargin}
+        size={width + resizerMargin }
         onChange={handleSplitResized}
       >
         <ReactCodeMirror
@@ -384,7 +382,10 @@ const Editor = ({
         <div
           style={{
             overflow: 'auto',
-            width: previewWidth,
+            // Editor 길이는 Page에서 맞춰줬지만 Preview의 길이도 따로 설정해줘야함 안그러면 RTC들이 Preview침범.
+            // width : 85% === previewWidth - 200과 얼추 맞음.
+            width: videoButton ? previewWidth - 200 : previewWidth &&
+            chatButton ? previewWidth - 200 : previewWidth,
             height,
             paddingLeft: resizerMargin,
           }}

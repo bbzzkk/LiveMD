@@ -1,11 +1,9 @@
 package com.livemd.document.dto;
 
 import com.livemd.document.domain.entity.Documents;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@ToString
 @Setter
 @Getter
 @NoArgsConstructor
@@ -25,4 +23,5 @@ public class DocumentsSaveRequestDto {
                 .docId(docId)
                 .build();
     }
+
 }

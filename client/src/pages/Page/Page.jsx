@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Editor from './Editor';
+import { Room } from '@/pages';
+import { Grid, Image, Button } from 'semantic-ui-react';
+import Chat from '@/pages/VideoChat/Chat';
 
 const Page = ({ doc, match }) => {
   const [activeUser, setActiveUser] = useState(0);
@@ -11,6 +14,10 @@ const Page = ({ doc, match }) => {
     ? `loading ${pageName}...`
     : `syncing with ${pageName}...`;
   const docs = null;
+  const [videoIsShowed, setVideoIsShowed] = useState('none');
+  const [videoButton, setVideoButton] = useState(false);
+  const [chatIsShowed, setChatIsShowed] = useState('none');
+  const [chatButton, setChatButton] = useState(false);
 
   useEffect(() => {
     if (doc) {
@@ -43,6 +50,7 @@ const Page = ({ doc, match }) => {
       margin: 0,
       padding: 7,
       backgroundColor: '#F1F1F1',
+      maxWidth: 'inherit',
     },
     headerLeft: {
       display: 'flex',
@@ -64,26 +72,86 @@ const Page = ({ doc, match }) => {
       marginRight: '25px',
       fontSize: '18px',
     },
+    editContainer: { // header + Editor
+      display: 'block',
+      width: '-webkit-fill-available',
+    },
+    editContent: { // only Editor
+       width : '100%',
+       display: 'flex',
+    },
+    contents: { //헤더 제외한 Editor + RTC 
+      display: 'flex',
+    },
+    Container: { // 헤더 포함 Editor + RTC
+      display: 'flex',
+    },
+  };
+
+  const videoShowAndHide = () => {
+    if (videoIsShowed === 'none') {
+      setVideoIsShowed('inline');
+      setVideoButton(true);
+
+    } else {
+      setVideoIsShowed('none');
+      setVideoButton(false);
+    }
+  };
+
+  const chatShowAndHide = () => {
+    if (chatIsShowed === 'none') {
+      setChatIsShowed('inline');
+      setChatButton(true);
+    } else {
+      setChatIsShowed('none');
+      setChatButton(false);
+    }
   };
 
   return (
     <React.Fragment>
-      <div style={style.header}>
-        <div style={style.headerLeft}>
-          <div style={style.pageName}>{pageName}</div>
-        </div>
-        {activeUser > 0 ? (
-          <div style={style.active}>{`(active: ${activeUser})`}</div>
-        ) : null}
+      <div style={style.Container}>
+        <div style={style.editContainer}>
+          <div style={style.header}>
+            <div style={style.headerLeft}>
+              <div style={style.pageName}>{pageName}</div>
+            </div>
+
+            <Button color='black' onClick={videoShowAndHide}>
+              {videoButton ? 'Hide Video' : 'Show Video'}
+            </Button>
+            <Button color='black' onClick={chatShowAndHide}>
+              {chatButton ? 'Hide Chat' : 'Show Chat'}
+            </Button>
+
+            {activeUser > 0 ? (
+              <div style={style.active}>{`(active: ${activeUser})`}</div>
+            ) : null}
+          </div>
+          <div style={style.contents}>
+              <div style={{ // Editor(header제외) 길이 맞춰주기
+                ...style.editContent,
+                width: videoButton ? '85%' : '100%' &&
+                chatButton ? '85%' : '100%'}}>
+                <Editor
+                  key={`page/${pageName}`}
+                  roomName={roomName}
+                  defaultValue={defaultValue}
+                  value={docText}
+                  heightMargin={style.header.height + style.header.padding * 2}
+                  onActiveUser={handleActiveUserDisp}
+                  videoButton={videoButton}
+                  chatButton={chatButton}
+                />
+              </div>
+              <div className='RTC'>
+                <Room videoIsShowed={videoIsShowed} />
+                <Chat chatIsShowed={chatIsShowed} /> 
+              </div>
+          </div>
+        </div>    
       </div>
-      <Editor
-        key={`page/${pageName}`}
-        roomName={roomName}
-        defaultValue={defaultValue}
-        value={docText}
-        heightMargin={style.header.height + style.header.padding * 2}
-        onActiveUser={handleActiveUserDisp}
-      />
     </React.Fragment>
   );
 };
