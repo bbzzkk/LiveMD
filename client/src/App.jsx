@@ -3,58 +3,67 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { Workspace } from '@/pages';
-import { LoadingIndicator } from '@/components/common';
+// import { LoadingIndicator } from '@/components/common';
 
-import { GlobalStyle } from '@/styles';
-import getCurrentUser from '@/utils/APIUtils';
+// import { GlobalStyle } from '@/styles';
+// import getCurrentUser from '@/utils/APIUtils';
 
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [authenticated, setAuthenticated] = useState(false);
+  // const [currentUser, setCurrentUser] = useState(null);
+  // const [loading, setLoading] = useState(false);
 
-  const loadCurrentlyLoggedInUser = () => {
-    setLoading(true);
+  // const loadCurrentlyLoggedInUser = () => {
+  //   setLoading(true);
 
-    getCurrentUser()
-      .then(response => {
-        setCurrentUser(response);
-        setAuthenticated(true);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
+  //   getCurrentUser()
+  //     .then(response => {
+  //       setCurrentUser(response);
+  //       setAuthenticated(true);
+  //       setLoading(false);
+  //     })
+  //     .catch(() => {
+  //       setLoading(false);
+  //     });
+  // };
 
-  const handleLogout = e => {
-    localStorage.removeItem('accessToken');
-    setAuthenticated(false);
-    setCurrentUser(null);
-    alert('로그아웃 되었습니다.');
-    e.preventDefault();
-  };
+  // const handleLogout = e => {
+  //   localStorage.removeItem('accessToken');
+  //   setAuthenticated(false);
+  //   setCurrentUser(null);
+  //   alert('로그아웃 되었습니다.');
+  //   e.preventDefault();
+  // };
 
-  useEffect(() => {
-    loadCurrentlyLoggedInUser();
-  }, []);
+  // useEffect(() => {
+  //   loadCurrentlyLoggedInUser();
+  // }, []);
 
-  if (loading) {
-    return <LoadingIndicator />;
-  }
+  // if (loading) {
+  //   return <LoadingIndicator />;
+  // }
 
   return (
-    <Workspace />
-    /* {
-        <Router>
-        <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/login" component={Login} />
-          <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
-        </Switch>
-      </Router> 
-    } */
+    // <button onClick={test}>test</button>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Workspace} />
+        {/* <Route component={BoardIndex} />
+        <Route exact path="/teams/:teamName" component={Workspace} />
+        <Route exact path="/settings" component={Settings} /> */}
+      </Switch>
+    </Router>
   );
 };
 
+{
+  /* <Router>
+  <Switch>
+    // <Route exact path="/" component={Main} />
+    <Route exact path="/boards/:boardId" component={Board} />
+    // <Route path="/login" component={Login} />
+    // <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
+  </Switch>
+</Router>; */
+}
 export default App;

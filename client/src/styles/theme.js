@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@/components/workspace/Header/Account/node_modules/@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 export default createMuiTheme({
   palette: {
