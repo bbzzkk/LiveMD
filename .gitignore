@@ -16,6 +16,7 @@ package-lock.json
 /client/ssl
 /client/ssl-key
 /client/ssl_bak
+/client/.env
 
 # dependencies
 /client/node_modules

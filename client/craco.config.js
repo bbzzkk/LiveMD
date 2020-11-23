@@ -13,7 +13,7 @@ module.exports = {
       moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
       },
-      modulePathIgnorePatterns: ['<rootDir>/src/mocks']
+      modulePathIgnorePatterns: ['<rootDir>/src/mock'],
     },
   },
 };

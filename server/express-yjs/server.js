@@ -19,10 +19,14 @@ const bodyParser = require('body-parser');
 const io = require('socket.io')(server);
 const bodyParserText = bodyParser.text();
 
-const port = process.env.PORT || 1234
+const cors = require('cors');
+
+const port = process.env.PORT || 8005
 
 const metadata = utils.metadata;
 const docs = utils.docs;
+
+app.use(cors());
 
 app.get('/pages', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
