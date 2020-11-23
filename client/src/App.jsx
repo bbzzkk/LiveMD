@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Login, Main, OAuth2RedirectHandler, PageList, Page, Workspace } from '@/pages';
+import { Login, Main, OAuth2RedirectHandler, PageList, Page, Workspace, Editor } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
 
 // import { GlobalStyle } from '@/styles';
@@ -58,6 +58,7 @@ const App = () => {
           <Route exact path="/page/:page" component={Page} />
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
+          <Route exact path="/test/:page" component={Editor} />
         </Switch>
       </Router>
     </>
