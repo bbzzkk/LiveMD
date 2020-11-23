@@ -19,4 +19,5 @@ export default {
   font-weight: bold;
   font-size: inherit;
 `,
+
 };
