@@ -82,6 +82,7 @@ const Editor = ({
   );
   const socket = useRef(null);
   const provider = useRef(null);
+  const cursorColor = useRef('#008833');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,7 +103,7 @@ const Editor = ({
     provider.current = new WebsocketProvider(
       //   'wss://demos.yjs.dev',
       //   'ws://3.35.98.199:1234',
-      'ws://localhost:1234',
+      'wss://live-md.com:8006/ws',
       // 'codemirror-large',
       roomName,
       ydoc,
@@ -113,8 +114,8 @@ const Editor = ({
       refEditor.current.editor,
       provider.current.awareness,
     );
-
-    binding.awareness.setLocalStateField('user', { color: '#008833', name: ydoc.clientID });
+    cursorColor.current = '#' + (ydoc.clientID % 0xffffff).toString(16);
+    binding.awareness.setLocalStateField('user', { color: cursorColor.current, name: "tjddnjs9497@naver.com" })
 
     // provider.current.awareness.on('change', renderUsers);
     // setInterval(() => {

@@ -9,10 +9,10 @@ const S = {
   Drawer: styled(Drawer)`
     & > div {
       min-width: 10em;
-      margin-top: 8em;
+      // margin-top: 5em;
       border-color: 5em black;
       color: black;
-      border-top-right-radius: 2em 2em;
+      // border-top-right-radius: 2em 2em;
       width: 15%;
     }
   `,

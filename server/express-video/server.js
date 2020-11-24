@@ -69,6 +69,6 @@ io.on("connection", (socket) => {
 });
 
 /* 서버를 8000 포트로 listen*/
-server.listen(process.env.PORT || 8000, () =>
-  console.log("server is running on port 8000")
+server.listen(process.env.PORT || 8002, () =>
+  console.log("video server is running on port 8002")
 );

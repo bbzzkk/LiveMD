@@ -1,17 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Overview from './Overview'
-import Documents from './Documents'
-import Toolbar from './Toolbar'
+import Documents from './Documents';
+import Toolbar from '../Header/Toolbar';
 
 import S from './style';
 
 const Main = props => {
   return (
     <>
-      <Overview></Overview>
-      <Toolbar></Toolbar>
       <Documents></Documents>
     </>
   );

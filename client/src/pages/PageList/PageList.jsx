@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 import Modal from 'react-modal';
 
-const url = `http://${window.location.hostname}:${process.env.PORT || '1234'}`;
+const url = 'https://live-md.com:8006';
 const timeAgoMinPeriod = 10;
 const pagesListMax = 10;
 
@@ -32,7 +32,7 @@ const PageList = props => {
 
   const getListPages = async () => {
     try {
-      const response = await window.fetch(`${url}/pages`, {
+      const response = await window.fetch(`${url}`, {
         headers,
       });
       const data = await response.json();

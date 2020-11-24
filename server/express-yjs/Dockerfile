@@ -1,9 +1,18 @@
-FROM node:12-alpine
+# node 최신 이미지를 사용합니다.
+FROM node:latest
 
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
-WORKDIR /home/node/app
-COPY package*.json ./
-USER node
+# root 에 express-chat 폴더를 생성
+RUN mkdir /express-yjs
+
+# work dir 고정
+WORKDIR /express-yjs
+
+# host pc의 모든 파일 workdir 에 복사
+COPY . .
+
 RUN npm install
-COPY --chown=node:node . .
-CMD [ "npm", "start" ]
+
+CMD ["node", "server.js"]
+
+# 80 포트 오픈
+EXPOSE 8005

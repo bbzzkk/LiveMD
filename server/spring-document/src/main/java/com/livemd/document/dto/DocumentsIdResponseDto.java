@@ -1,15 +1,14 @@
 package com.livemd.document.dto;
 
 import com.livemd.document.domain.entity.Documents;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 
 @Getter
-
-public class DocumentsIdResponseDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class DocumentsIdResponseDto
+{
 
     private String docId;
 
