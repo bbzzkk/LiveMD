@@ -6,6 +6,7 @@ import Fade from 'react-reveal/Fade';
 import Block4 from './Block4';
 import Block1 from './Block1';
 import Block2 from './Block2';
+//import data from "./Block4Data.json";
 
 const styles = {
   block: {
@@ -15,15 +16,20 @@ const styles = {
     textAlign: 'center',
     width: '100%',
     height: '100%',
-    background: '#000',
+    background: '#fff',
     borderBottom: '1px solid rgba(255,255,255,.2)',
   },
 };
 
-const animateList = [<Block1/>, <Block2/>, '둠칫칫칫', <Block4/>, '둠칫칫둠'];
+const animateList = [
+  <Block1 />,
+  <Block2 />,
+  '둠칫칫칫',
+  <Block4/>,
+  '둠칫칫둠',
+];
 
 const Body = () => (
-  
   <Fragment>
     {animateList.map((item, key) => (
       <div style={styles.block} key={key}>
@@ -34,7 +40,6 @@ const Body = () => (
       </div>
     ))}
   </Fragment>
-
 );
 
 export default Body;
