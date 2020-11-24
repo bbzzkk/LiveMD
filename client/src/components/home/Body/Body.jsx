@@ -16,7 +16,7 @@ const styles = {
     textAlign: 'center',
     width: '100%',
     height: '100%',
-    background: '#fff',
+    background: '#000',
     borderBottom: '1px solid rgba(255,255,255,.2)',
   },
 };
@@ -25,21 +25,22 @@ const animateList = [
   <Block1 />,
   <Block2 />,
   '둠칫칫칫',
-  <Block4/>,
+  '둠칫칫둠',
   '둠칫칫둠',
 ];
 
 const Body = () => (
-  <Fragment>
-    {animateList.map((item, key) => (
-      <div style={styles.block} key={key}>
-        <Fade top>
-          {/* <h1 style={styles.title}>{`${item}`}</h1> */}
-          {item}
-        </Fade>
-      </div>
-    ))}
-  </Fragment>
+  <Block4/>
+  // <Fragment>
+  //   {animateList.map((item, key) => (
+  //     <div style={styles.block} key={key}>
+  //       <Fade top>
+  //         {/* <h1 style={styles.title}>{`${item}`}</h1> */}
+  //         {item}
+  //       </Fade>
+  //     </div>
+  //   ))}
+  // </Fragment>
 );
 
 export default Body;
