@@ -1,30 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import S from './style';
 import io from 'socket.io-client';
 
-// 내 채팅
-const MyRow = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-`;
-
-// 상대방 채팅
-const PartnerRow = styled(MyRow)`
-  justify-content: flex-start;
-`;
-
-const Chat = ({ chatIsShowed }) => {
+const Chat = ({ isChatShowed }) => {
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
 
+  const messagesRef = useRef(null);
   const socketRef = useRef();
 
   useEffect(() => {
-
     socketRef.current = io.connect('https://live-md.com:8001');
 
     socketRef.current.on('your id', id => {
@@ -32,58 +18,94 @@ const Chat = ({ chatIsShowed }) => {
     });
 
     socketRef.current.on('message', message => {
-      console.log('here');
       receivedMessage(message);
     });
   }, []);
 
-  function receivedMessage(message) {
-    setMessages(oldMsgs => [...oldMsgs, message]);
-  }
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
-  function sendMessage(e) {
+  const receivedMessage = message => {
+    setMessages(oldMsgs => [...oldMsgs, message]);
+  };
+
+  const sendMessage = e => {
     e.preventDefault();
+
+    if (message.length === 0) return;
+
     const messageObject = {
       body: message,
       id: yourID,
     };
     setMessage('');
     socketRef.current.emit('send message', messageObject);
-  }
+  };
 
-  function handleChange(e) {
+  const handleChange = e => {
     setMessage(e.target.value);
-  }
+  };
+
+  const onKeyPress = e => {
+    if (e.key === 'Enter') {
+      sendMessage(e);
+    }
+  };
+
+  const getNowTime = date => {
+    let hour = 1 + date.getHours();
+    hour = hour >= 10 ? hour : `0${hour}`;
+    let min = date.getMinutes();
+    min = min >= 10 ? min : `0${min}`;
+    return `${hour}:${min}`;
+  };
+
+  const scrollToBottom = () => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <div style={{display: chatIsShowed}}>
-      <S.Page>
-        <S.Container>
-          {messages.map((message, index) => {
-            if (message.id === yourID) {
-              return (
-                <MyRow key={index}>
-                  <S.MyMessage>{message.body}</S.MyMessage>
-                </MyRow>
-              );
-            }
+    <S.Chat isChatShowed={isChatShowed}>
+      <S.Content>
+        {messages.map((message, index) => {
+          const nowTime = getNowTime(new Date());
+          if (message.id === yourID) {
             return (
-              <PartnerRow key={index}>
-                <S.PartnerMessage>{message.body}</S.PartnerMessage>
-              </PartnerRow>
+              <S.MyMessage key={index}>
+                <S.MyMessageBox>
+                  <S.Date>{nowTime}</S.Date>
+                  <S.Message>{message.body}</S.Message>
+                </S.MyMessageBox>
+                <div ref={messagesRef}></div>
+              </S.MyMessage>
             );
-          })}
-        </S.Container>
-        <S.Form onSubmit={sendMessage}>
-          <S.TextArea
-            value={message}
-            onChange={handleChange}
-            placeholder="Say something..."
-          />
-          <S.Button>Send</S.Button>
-        </S.Form>
-      </S.Page>
-    </div>
+          } else {
+            return (
+              <S.PartnerMessage key={index}>
+                <S.ChatID>{yourID}</S.ChatID>
+                <S.PartnerMessageBox>
+                  <S.Message>{message.body}</S.Message>
+                  <S.Date>{nowTime}</S.Date>
+                </S.PartnerMessageBox>
+                <div ref={messagesRef}></div>
+              </S.PartnerMessage>
+            );
+          }
+        })}
+      </S.Content>
+      <S.Form onSubmit={sendMessage}>
+        <S.TextArea
+          value={message}
+          onChange={handleChange}
+          onKeyPress={onKeyPress}
+          placeholder="여기에 메세지 입력 ..."
+        />
+        <S.Button></S.Button>
+      </S.Form>
+    </S.Chat>
   );
 };
 

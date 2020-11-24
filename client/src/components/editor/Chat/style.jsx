@@ -1,101 +1,107 @@
 import styled from 'styled-components';
 
 export default {
-  // chat 배경색
-  Page: styled.div`
-    display: flex;
-    height: 70vh;
+  Chat: styled.div`
+    display: ${(props) => props.isChatShowed ? 'flex' : 'none'}; 
     width: 100%;
+    height: 100%;
     align-items: center;
-    // background-color: #46516e;
-    //background-color: #37474F;
+    flex-direction: column;
+    border-top: 1px solid #F1F1F1;
+    padding-top: 10px;
+  `,
+
+  Content: styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    overflow: auto;
+    padding-bottom: 10px;
+    
+  `,
+
+  MyMessage: styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 10px;
+  `,
+  
+  MyMessageBox: styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    max-width: 80%;
+    margin-right: 10px;
+  `,
+
+  PartnerMessage: styled.div`
+    display: flex;
     flex-direction: column;
     margin-top: 10px;
   `,
 
-  Container: styled.div`
-    background-color: #37474F;
+  PartnerMessageBox: styled.div`
     display: flex;
-    flex-direction: column;
-    height: 700px;
-    max-height: 700px;
-    overflow: auto;
-    width: 100%;
-    border: 1px solid lightgray;
-    border-radius: 10px;
+    flex-direction: row;
+    justify-content: flex-start;
+    max-width: 80%;
+    margin-left: 10px;
+  `,
+
+
+  Message: styled.div`
+    max-width: 70%;
+    background-color: #F1F1F1;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+    word-break:keep-artllr;
+    word-wrap:break-word;
+  `,
+
+  ChatID: styled.div`
+    padding-left: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+  `,
+
+  Date: styled.div`
+    margin-top: auto;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-bottom: 10px;
-    margin-top: 0px;
+    font-size: 12px;
+  `,
+
+  Form: styled.form`
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
   `,
 
   TextArea: styled.textarea`
-    width: 98%;
-    height: 100px;
-    border-radius: 10px;
-    margin-top: 10px;
-    padding-left: 10px;
-    padding-top: 10px;
-    font-size: 17px;
-    //background-color: transparent;
+    width: 85%;
+    padding-top: 5px;
+    padding-left: 5px;
+    font-size: 14px;
     background-color: #263238;
-    border: 1px solid lightgray;
     outline: none;
+    resize: none;
     color: lightgray;
     letter-spacing: 1px;
-    line-height: 20px;
     ::placeholder {
       color: lightgray;
     }
   `,
 
   Button: styled.button`
-    //background-color: pink;
     background-color: #B0BEC5;
-    width: 100%;
-    border: none;
-    height: 50px;
-    border-radius: 10px;
+    width: 15%;
+    outline: none;
     color: #46516e;
-    font-size: 17px;
-  `,
-
-  Form: styled.form`
-    width: 100%;
-  `,
-
-  // MyRow: styled.div`
-  //   width: 100%;
-  //   display: flex;
-  //   justify-content: flex-end;
-  //   margin-top: 10px;
-  // `,
-
-  MyMessage: styled.div`
-    width: 45%;
-    // background-color: pink;
-    background-color: #ECEFF1
-    //color: #46516e;
-    color: pink;
-    padding: 10px;
-    margin-right: 5px;
-    text-align: center;
-    border-top-right-radius: 10%;
-    border-bottom-right-radius: 10%;
-  `,
-
-  // PartnerRow: styled(MyRow)`
-  //   justify-content: flex-start;
-  // `,
-  // 77번째 줄에서 오류 발생. MyRow를 못 읽어옴. 이유는 모름. 그래서 MyRow와 PartnerRow는 Chat.jsx로 따로 빼놓음.
-  PartnerMessage: styled.div`
-    width: 45%;
-    //background-color: transparent;
-    background-color: white;
-    color: black;
-    border: 1px solid lightgray;
-    padding: 10px;
-    margin-left: 5px;
-    text-align: center;
-    border-top-left-radius: 10%;
-    border-bottom-left-radius: 10%;
   `,
 };

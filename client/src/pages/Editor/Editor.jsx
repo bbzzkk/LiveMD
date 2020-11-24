@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Chat, CodeMirror, Room } from '@/components/editor';
 import { Grid, Image, Button } from 'semantic-ui-react';
+import S from './style';
 
 const Editor = ({ doc, match }) => {
   const [activeUser, setActiveUser] = useState(0);
@@ -12,10 +13,10 @@ const Editor = ({ doc, match }) => {
     ? `loading ${pageName}...`
     : `syncing with ${pageName}...`;
   const docs = null;
-  const [videoIsShowed, setVideoIsShowed] = useState('none');
-  const [videoButton, setVideoButton] = useState(false);
-  const [chatIsShowed, setChatIsShowed] = useState('none');
-  const [chatButton, setChatButton] = useState(false);
+
+  const [docName, setDocName] = useState(pageName);
+  const [isVideoShowed, setVideoShowed] = useState(true);
+  const [isChatShowed, setChatShowed] = useState(true);
 
   useEffect(() => {
     if (doc) {
@@ -39,96 +40,77 @@ const Editor = ({ doc, match }) => {
     setActiveUser(userNum);
   };
 
-  const style = {
-    header: {
-      height: 33 + 4,
-      display: 'flex',
-      flexFlow: 'row',
-      alignItems: 'center',
-      margin: 0,
-      padding: 7,
-      backgroundColor: '#F1F1F1',
-      maxWidth: 'inherit',
-    },
-    headerLeft: {
-      display: 'flex',
-      flexFlow: 'row',
-      alignItems: 'center',
-      marginLeft: '5px',
-      marginRight: 'auto',
-    },
-    img: {
-      display: 'block',
-      margin: '0 auto',
-      padding: 0,
-    },
-    pageName: {
-      paddingLeft: '8px',
-      fontSize: '24px',
-    },
-    active: {
-      marginRight: '25px',
-      fontSize: '18px',
-    },
-    editContainer: { // header + Editor
-      display: 'block',
-      width: '-webkit-fill-available',
-    },
-    editContent: { // only Editor
-       width : '100%',
-       display: 'flex',
-    },
-    contents: { //헤더 제외한 Editor + RTC 
-      display: 'flex',
-    },
-    Container: { // 헤더 포함 Editor + RTC
-      display: 'flex',
-    },
-  };
-
   const videoShowAndHide = () => {
-    if (videoIsShowed === 'none') {
-      setVideoIsShowed('inline');
-      setVideoButton(true);
-
-    } else {
-      setVideoIsShowed('none');
-      setVideoButton(false);
-    }
+    if (isVideoShowed) setVideoShowed(false);
+    else setVideoShowed(true);
   };
 
   const chatShowAndHide = () => {
-    if (chatIsShowed === 'none') {
-      setChatIsShowed('inline');
-      setChatButton(true);
-    } else {
-      setChatIsShowed('none');
-      setChatButton(false);
-    }
+    if (isChatShowed) setChatShowed(false);
+    else setChatShowed(true);
   };
 
   return (
-    <React.Fragment>
-      <div style={style.Container}>
-        <div style={style.editContainer}>
-          <div style={style.header}>
-            <div style={style.headerLeft}>
-              <div style={style.pageName}>{pageName}</div>
-            </div>
-
+    <S.EditorContainer>
+      <S.Header>
+        <S.PageName
+          value={docName}
+          onChange={e => setDocName(e.target.value)}
+        />
+        <S.EditBtnGroup>
+          <button>edit</button>
+          <button>both</button>
+          <button>view</button>
+        </S.EditBtnGroup>
+        <S.VideoAndChatBtnGroup>
+          <button onClick={videoShowAndHide}>
+            {isVideoShowed ? 'Hide Video' : 'Show Video'}
+          </button>
+          <button onClick={chatShowAndHide}>
+            {isChatShowed ? 'Hide Chat' : 'Show Chat'}
+          </button>
+          <button>active</button>
+        </S.VideoAndChatBtnGroup>
+      </S.Header>
+      <S.Body>
+        <CodeMirror
+          key={`page/${pageName}`}
+          roomName={roomName}
+          defaultValue={defaultValue}
+          value={docText}
+          heightMargin={0}
+          onActiveUser={handleActiveUserDisp}
+        />
+        <S.VideoAndChatDiv
+          isChatShowed={isChatShowed}
+          isVideoShowed={isVideoShowed}
+        >
+          <S.VideoDiv>
+            test
+            {/* <Room videoIsShowed={videoIsShowed} /> */}
+          </S.VideoDiv>
+          <S.ChatDiv>
+            <Chat isChatShowed={isChatShowed} />
+          </S.ChatDiv>
+        </S.VideoAndChatDiv>
+      </S.Body>
+    </S.EditorContainer>
+  );
+};
+/*
             <Button color='black' onClick={videoShowAndHide}>
               {videoButton ? 'Hide Video' : 'Show Video'}
             </Button>
             <Button color='black' onClick={chatShowAndHide}>
               {chatButton ? 'Hide Chat' : 'Show Chat'}
-            </Button>
+            </Button> 
 
             {activeUser > 0 ? (
               <div style={style.active}>{`(active: ${activeUser})`}</div>
-            ) : null}
+            ) : null} 
           </div>
-          <div style={style.contents}>
-              <div style={{ // Editor(header제외) 길이 맞춰주기
+           <div style={style.contents}> 
+               <div style={{ // Editor(header제외) 길이 맞춰주기
                 ...style.editContent,
                 width: videoButton ? '85%' : '100%' &&
                 chatButton ? '85%' : '100%'}}>
@@ -142,17 +124,15 @@ const Editor = ({ doc, match }) => {
                   videoButton={videoButton}
                   chatButton={chatButton}
                 />
-              </div>
-              <div className='RTC'>
+              </div> 
+               <div className='RTC'>
                 <Room videoIsShowed={videoIsShowed} />
                 <Chat chatIsShowed={chatIsShowed} /> 
-              </div>
-          </div>
+              </div> 
+           </div>
         </div>    
-      </div>
-    </React.Fragment>
-  );
-};
+      </div> 
+*/
 
 Editor.propTypes = {
   match: PropTypes.shape({

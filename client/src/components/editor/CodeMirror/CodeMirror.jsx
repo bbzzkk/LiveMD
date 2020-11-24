@@ -385,10 +385,10 @@ const CodeMirror = ({
             overflow: 'auto',
             // Editor 길이는 Page에서 맞춰줬지만 Preview의 길이도 따로 설정해줘야함 안그러면 RTC들이 Preview침범.
             // width : 85% === previewWidth - 200과 얼추 맞음.
-            width: videoButton ? previewWidth - 200 : previewWidth &&
-            chatButton ? previewWidth - 200 : previewWidth,
-            height,
-            paddingLeft: resizerMargin,
+            // width: videoButton ? previewWidth - 200 : previewWidth &&
+            // chatButton ? previewWidth - 200 : previewWidth,
+            // height,
+            // paddingLeft: resizerMargin,
           }}
           className="markdown-body"
         >

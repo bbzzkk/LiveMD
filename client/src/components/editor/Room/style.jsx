@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export default {
-  // chat 배경색
   Page: styled.div`
     display: flex;
     height: 70vh;
