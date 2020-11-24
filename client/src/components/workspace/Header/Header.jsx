@@ -2,6 +2,7 @@ import React from 'react';
 
 import Others from './Others';
 import Account from './Account';
+import Toolbar from './Toolbar'
 
 import S from './style';
 import PropTypes from 'prop-types';
@@ -29,9 +30,10 @@ const Header = props => {
     <>
       <HideOnScroll {...props}>
         <S.Header>
-          <Others></Others>
-          <Account></Account>
-          {/* <S.Toolbar></S.Toolbar> */}
+          <S.Container>
+            <Toolbar></Toolbar>
+            <Account></Account>
+          </S.Container>
         </S.Header>
       </HideOnScroll>
     </>

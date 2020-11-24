@@ -51,7 +51,7 @@ const App = () => {
     <>
       <Router>
         <Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={Workspace} />
           <Route path="/login" component={Login} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />

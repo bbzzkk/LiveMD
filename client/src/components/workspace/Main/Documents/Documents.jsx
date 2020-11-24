@@ -32,25 +32,47 @@ const Documents = () => {
   // }, []);
 
   return (
-    // <>
+    <S.Container>
     <Document createdAt={Date.now()} title="hi" />
-    /* {loading ? (
-        <div>documents loading</div>
-      ) : (
-        documents.data.map(({ createdAt, title }) => {
-          return <Document createdAt={createdAt} title={title} />;
-        })
-      )} */
-    // </>
+    <Document createdAt={Date.now()} title="hi" />
+
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+
+    </S.Container>
   );
-  {
+  
     /* <div>
         <input></input>
         <S.NewNote variant="outlined" color="primary" onClick={handleAddNote}>
           New Note
         </S.NewNote>
       </div> */
-  }
+  
+  /* {loading ? (
+        <div>documents loading</div>
+      ) : (
+        documents.data.map(({ createdAt, title }) => {
+          return <Document createdAt={createdAt} title={title} />;
+        })
+      )} */
   // <div>
 };
 

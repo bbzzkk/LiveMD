@@ -4,13 +4,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Notifications from '@material-ui/icons/Notifications';
 
 const S = {
+  Container: styled.div`
+    display: flex;
+  `,
   Header: styled(AppBar)`
     z-index: 7;
-    height: 3em;
-
+    height: 4em;
     && {
-      background-color: rgba(0, 0, 255, 0);
-      box-shadow: none;
+      display: flex;
+      width: 85%;
+      background-color: white;
+      box-shadow: 10px 3px 3px transparent;
     }
   `,
   Nofication: styled(Notifications)`

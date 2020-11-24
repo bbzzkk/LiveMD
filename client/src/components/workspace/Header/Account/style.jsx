@@ -5,7 +5,7 @@ import Popover from '@material-ui/core/Popover';
 const S = {
   Profile: styled(Avatar)`
     position: absolute;
-    top: 10%;
+    top: 15%;
     left: 95%;
   `,
   Popover: styled(Popover)`

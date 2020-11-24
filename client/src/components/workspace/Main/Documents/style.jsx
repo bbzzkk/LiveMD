@@ -3,13 +3,10 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 
 const S = {
-  NewNote: styled(Button)`
-    && {
-      color: white;
-      width: 20%;
-      background: black;
-    }
-  `,
+  Container: styled.div`
+  display: flex;
+  flex-flow: row wrap
+`,
 };
 
 export default S;
