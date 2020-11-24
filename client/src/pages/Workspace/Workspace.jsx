@@ -9,13 +9,14 @@ import S from './style';
 const Workspace = props => {
   return (
     <>
-      <Header />
+      
       <S.Workspace>
         <S.SidebarContainer>
           <Sidebar />
         </S.SidebarContainer>
 
         <S.MainContainer>
+        <Header />
           <Main />
         </S.MainContainer>
       </S.Workspace>
