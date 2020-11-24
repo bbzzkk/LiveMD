@@ -1,57 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
-import styled from 'styled-components';
 import S from './style';
-import { Grid, Image, Button } from 'semantic-ui-react';
-
-
-//video Container
-// margin: auto 없앰
-// const Container = styled.div`
-//   padding: 20px;
-//   display: flex;
-//   height: 100vh;
-//   width: 100%;
-//   margin: auto;
-//   flex-wrap: nowrap;
-//   flex-direction: column;
-// `;
-
-const StyledVideo = styled.video`
-  height: 30%;
-  width: 100%;
-`;
 
 const Video = props => {
   const ref = useRef();
-  console.log(props);
-
   useEffect(() => {
     props.peer.on('stream', stream => {
       ref.current.srcObject = stream;
-
     });
   }, []);
 
   // 상대방 비디오
-  return <StyledVideo playsInline autoPlay ref={ref} />;
+  return <S.StyledVideo playsInline autoPlay ref={ref} />;
 };
 
-// const videoConstraints = {
-//   height: window.innerHeight / 2,
-//   width: window.innerWidth / 2,
-// };
-
-const Room = (props) => {
+const Room = ({ roomID, isVideoShowed }) => {
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef(null);
   const peersRef = useRef([]);
-  const roomID = props.roomID;
   const [isMuted, setIsMuted] = useState(true);
   const [isPause, setIsPause] = useState(false);
-
 
   useEffect(() => {
     socketRef.current = io.connect('https://live-md.com:8002');
@@ -70,7 +40,6 @@ const Room = (props) => {
           const peers = []; // 방금 첫 사용자가 들어왔기 때문에 peers는 없는것.
           users.forEach(userID => { // 서버에서 사용자들을 가져온다
             const peer = createPeer(userID, socketRef.current.id, stream); // 사용자ID(누가 전화했는지 알 수 있음)
-            console.log("사용자 가져옴");
             peersRef.current.push({
               // peerID 전달,
               peerID: userID, //방금 피어를 만든 사람의 소켓 ID
@@ -176,29 +145,32 @@ const Room = (props) => {
   };
 
   return (
-    <>
-    <div style={{display: props.videoIsShowed}}>
-            <div className="myVideo">
-            {/* 내 비디오 */}
-            <StyledVideo muted ref={userVideo} autoPlay playsInline />
-              <div className="myVideoControlButton">
-                <Button onClick={videoOnAndOff}>
-                  {isPause ? 'Video on' : 'Video off'}
-                </Button>
-                <Button onClick={micOnAndOff}>
-                  {isMuted ? 'Mic on' : 'Mic off'}
-                </Button>
-              </div>
-            </div>
-            {/* 상대방 비디오 */}
-            {peers.map((peer) => { {/*key값을 index가 아닌 peerID로 변경*/}
-              console.log("비디오 불림 ㅋㄷㅋㄷ");
-              return (
-                <Video  peer={peer.peer} key={peer.peerID}/>
-              );
-            })}
-    </div>
-    </>
+    <S.RoomContainer isVideoShowed={isVideoShowed}>
+      <S.VideoControlBtnDiv>
+          <button onClick={videoOnAndOff}>
+            {isPause ? 'Video on' : 'Video off'}
+          </button>
+          <button onClick={micOnAndOff}>
+            {isMuted ? 'Mic on' : 'Mic off'}
+          </button>
+      </S.VideoControlBtnDiv>
+      <S.VideoContent>
+        <S.VideoWrapper>
+          <S.StyledVideo muted ref={userVideo} autoPlay playsInline />
+        </S.VideoWrapper>
+        <S.UserName>me</S.UserName>
+          {peers.map((peer) => { {/*key값을 index가 아닌 peerID로 변경*/}
+            return (
+              <>
+                <S.VideoWrapper>
+                  <Video peer={peer.peer} key={peer.peerID}/>
+                </S.VideoWrapper>
+                <S.UserName>{peer.peerID}</S.UserName>
+              </>
+            );
+          })}
+      </S.VideoContent>
+    </S.RoomContainer>
   );
 };
 

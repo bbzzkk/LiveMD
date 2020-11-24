@@ -86,8 +86,7 @@ const Editor = ({ doc, match }) => {
           isVideoShowed={isVideoShowed}
         >
           <S.VideoDiv>
-            test
-            {/* <Room videoIsShowed={videoIsShowed} /> */}
+            <Room isVideoShowed={isVideoShowed} />
           </S.VideoDiv>
           <S.ChatDiv>
             <Chat isChatShowed={isChatShowed} />

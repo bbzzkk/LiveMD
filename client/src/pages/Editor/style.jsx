@@ -9,6 +9,7 @@ export default {
     flex-direction: column;
     position: absolute;
   `,
+
   Header: styled.div`
     height: 60px;
     display: flex;
@@ -16,6 +17,7 @@ export default {
     align-items: center;
     background-color: #f1f1f1;
   `,
+
   PageName: styled.input`
     background-color: #f1f1f1;
     border: none;
@@ -28,11 +30,14 @@ export default {
       outline: none;
     }
   `,
+
   EditBtnGroup: styled.div``,
+
   VideoAndChatBtnGroup: styled.div`
     margin-left: auto;
     margin-right: 50px;
   `,
+
   Body: styled.div`
     display: flex;
     width: 100%;
@@ -41,18 +46,20 @@ export default {
     position: relative;
     overflow: hidden;
   `,
+
   VideoAndChatDiv: styled.div`
-    /* display: ${props =>
-      props.isChatShowed || props.isVideoShowed ? 'flex' : 'none'}; */
-    display: flex;
+    display: ${props =>
+      props.isChatShowed || props.isVideoShowed ? 'flex' : 'none'};
     flex-direction: column;
     width: 20%;
     border-left: 1px solid #f1f1f1;
   `,
+
   VideoDiv: styled.div`
     margin-bottom: auto;
     height: 50%;
   `,
+
   ChatDiv: styled.div`
     margin-top: auto;
     height: 50%;
