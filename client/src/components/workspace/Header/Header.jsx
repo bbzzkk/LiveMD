@@ -30,10 +30,11 @@ const Header = props => {
     <>
       <HideOnScroll {...props}>
         <S.Header>
-          {/* <S.Container> */}
-            <Toolbar/>
-            <Account/>
-          {/* </S.Container> */}
+          <S.Container>
+            
+          <Account></Account>
+            <Toolbar></Toolbar>
+          </S.Container>
         </S.Header>
       </HideOnScroll>
     </>
