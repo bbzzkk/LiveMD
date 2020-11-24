@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
-import Popover from '@material-ui/core/Popover';
+import Popper from '@material-ui/core/Popper';
 
 const S = {
   Profile: styled(Avatar)`
     position: absolute;
-    top: 15%;
+    top: 35%;
     left: 95%;
   `,
-  Popover: styled(Popover)`
+  Popover: styled(Popper)`
     width: 25em;
     height: 25em;
+    z-index: -10;
   `,
 };
 
