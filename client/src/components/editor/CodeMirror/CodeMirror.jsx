@@ -16,65 +16,19 @@ import './style.css';
 
 const resizerMargin = 12;
 
-// class OtherClientCursor {
-//   constructor(id) {
-//     this.id = id;
-//     let hue = 0;
-//     for (let i = 0; i < id.length; i += 1) {
-//       hue *= 2;
-//       hue += id.charCodeAt(i);
-//       hue %= 360;
-//     }
-//     this.color = `#${ColorConvert.hsv.hex(hue, 100, 100)}`;
-//   }
-
-//   updateCursor(cursorPos, cm) {
-//     this.removeCursor();
-//     const svgSize = 8;
-//     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-//     svg.setAttribute('width', svgSize);
-//     svg.setAttribute('height', svgSize);
-//     svg.setAttribute('viewBox', `0 0 ${svgSize} ${svgSize}`);
-//     svg.style.position = 'absolute';
-//     svg.style.marginLeft = `-${svgSize / 2}px`;
-//     svg.style.marginTop = `${cm.defaultTextHeight()}px`;
-//     const polyline = document.createElementNS(
-//       'http://www.w3.org/2000/svg',
-//       'polyline',
-//     );
-//     polyline.setAttribute(
-//       'points',
-//       `0 ${svgSize}, ${svgSize / 2} 0, ${svgSize} ${svgSize}, 0 ${svgSize}`,
-//     );
-//     polyline.setAttribute('fill', this.color);
-//     polyline.setAttribute('fill-opacity', 0.9);
-//     svg.appendChild(polyline);
-//     this.marker = cm.setBookmark(cursorPos, { widget: svg, insertLeft: true });
-//   }
-
-//   removeCursor() {
-//     if (this.marker) {
-//       this.marker.clear();
-//       this.marker = null;
-//     }
-//   }
-// }
-
 const CodeMirror = ({
   roomName,
   defaultValue,
   value,
   heightMargin,
   onActiveUser,
-  videoButton,
-  chatButton
+  isVideoAndChatDivShowed,
 }) => {
   const refEditor = useRef(null);
   const [previewWidth, setPreviewWidth] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [editorPercentage, setEditorPercentage] = useState(50);
-  const otherClients = new Map();
   const [cursorPosition, setCursorPosition] = useState({});
   const [onFocus, setOnFocus] = useState(false);
   const [hast, setHast] = useState(
@@ -83,6 +37,8 @@ const CodeMirror = ({
   const socket = useRef(null);
   const provider = useRef(null);
   const cursorColor = useRef('#008833');
+
+  const codeMirrorRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,17 +81,6 @@ const CodeMirror = ({
     //       console.log(state.user.name));
     // }, 5000);
 
-    // const connectBtn = document.getElementById('y-connect-btn');
-    // connectBtn.addEventListener('click', () => {
-    //   if (provider.current.shouldConnect) {
-    //     provider.current.disconnect();
-    //     connectBtn.textContent = 'Connect';
-    //   } else {
-    //     provider.current.connect();
-    //     connectBtn.textContent = 'Disconnect';
-    //   }
-    // });
-
     return () => {
       window.removeEventListener('resize', handleResize, false);
       if (socket.current) {
@@ -152,27 +97,9 @@ const CodeMirror = ({
     refEditor.current.editor.setValue(value);
   }, [value]);
 
-  const renderUsers = () => {
-    console.log(provider.current.awareness.getStates().entries());
-    // const userTemplate = (name, color, colorLight, islocaluser) =>
-    //   <div
-    //     y-islocaluser="${islocaluser.toString()}"
-    //     style="background-color:${colorLight};border-color:${color}"
-    //   >
-    //     ${name}
-    //   </div>
-    // return (
-    //   Array.from(provider.current.awareness.getStates().entries())
-    //     .filter(([clientid, state]) => state.user != null)
-    //     .map(([clientid, state]) =>
-    //       userTemplate(
-    //         state.user.name,
-    //         state.user.color,
-    //         state.user.colorLight, clientid === provider.current.doc.clientID
-    //       )
-    //     )
-    // );
-  }
+  useEffect(() => {
+    updateWidth();
+  }, [isVideoAndChatDivShowed]);
 
   const updateHeight = () => {
     const newHeight = actual('height', 'px') - heightMargin;
@@ -185,7 +112,9 @@ const CodeMirror = ({
   };
 
   const updateWidth = () => {
-    const vw = actual('width', 'px');
+    const videoAndChatWidth = actual('width', 'px') - codeMirrorRef.current.offsetWidth;
+    const vw = actual('width', 'px') - videoAndChatWidth;
+
     let newWidth = vw * (editorPercentage / 100) - resizerMargin;
     if (newWidth < 0) {
       newWidth = 0;
@@ -360,12 +289,7 @@ const CodeMirror = ({
   };
 
   return (
-    <>
-      {/* <div id="wrapper">
-        <button type="button" id="y-connect-btn">
-          Disconnect
-        </button>
-      </div> */}
+    <div ref={codeMirrorRef}>
       <SplitPane
         split="vertical"
         size={width + resizerMargin }
@@ -383,12 +307,9 @@ const CodeMirror = ({
         <div
           style={{
             overflow: 'auto',
-            // Editor 길이는 Page에서 맞춰줬지만 Preview의 길이도 따로 설정해줘야함 안그러면 RTC들이 Preview침범.
-            // width : 85% === previewWidth - 200과 얼추 맞음.
-            // width: videoButton ? previewWidth - 200 : previewWidth &&
-            // chatButton ? previewWidth - 200 : previewWidth,
-            // height,
-            // paddingLeft: resizerMargin,
+            width : previewWidth,
+            height,
+            paddingLeft: resizerMargin,
           }}
           className="markdown-body"
         >
@@ -397,7 +318,7 @@ const CodeMirror = ({
           })}
         </div>
       </SplitPane>
-    </>
+    </div>
   );
 };
 
@@ -407,6 +328,7 @@ CodeMirror.propTypes = {
   value: PropTypes.string,
   roomName: PropTypes.string,
   heightMargin: PropTypes.number,
+  isVideoAndChatDivShowed: PropTypes.bool,
 };
 
 CodeMirror.defaultProps = {
@@ -415,6 +337,7 @@ CodeMirror.defaultProps = {
   value: null,
   roomName: null,
   heightMargin: 0,
+  isVideoAndChatDivShowed: true,
 };
 
 export default CodeMirror;

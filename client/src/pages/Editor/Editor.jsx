@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Chat, CodeMirror, Room } from '@/components/editor';
-import { Grid, Image, Button } from 'semantic-ui-react';
 import S from './style';
 
 const Editor = ({ doc, match }) => {
@@ -17,6 +16,7 @@ const Editor = ({ doc, match }) => {
   const [docName, setDocName] = useState(pageName);
   const [isVideoShowed, setVideoShowed] = useState(true);
   const [isChatShowed, setChatShowed] = useState(true);
+  const [isVideoAndChatDivShowed, setVideoAndChatDivShowed] = useState(true);
 
   useEffect(() => {
     if (doc) {
@@ -41,13 +41,23 @@ const Editor = ({ doc, match }) => {
   };
 
   const videoShowAndHide = () => {
-    if (isVideoShowed) setVideoShowed(false);
-    else setVideoShowed(true);
+    if (isVideoShowed) {
+      setVideoShowed(false);
+      if (!isChatShowed) setVideoAndChatDivShowed(false);
+    } else {
+      setVideoShowed(true);
+      setVideoAndChatDivShowed(true);
+    }
   };
 
   const chatShowAndHide = () => {
-    if (isChatShowed) setChatShowed(false);
-    else setChatShowed(true);
+    if (isChatShowed) {
+      setChatShowed(false);
+      if (!isVideoShowed) setVideoAndChatDivShowed(false);
+    } else {
+      setChatShowed(true);
+      setVideoAndChatDivShowed(true);
+    }
   };
 
   return (
@@ -73,18 +83,20 @@ const Editor = ({ doc, match }) => {
         </S.VideoAndChatBtnGroup>
       </S.Header>
       <S.Body>
-        <CodeMirror
-          key={`page/${pageName}`}
-          roomName={roomName}
-          defaultValue={defaultValue}
-          value={docText}
-          heightMargin={0}
-          onActiveUser={handleActiveUserDisp}
-        />
-        <S.VideoAndChatDiv
-          isChatShowed={isChatShowed}
-          isVideoShowed={isVideoShowed}
+        <S.CodeMirrorContainer
+          isVideoAndChatDivShowed={isVideoAndChatDivShowed}
         >
+          <CodeMirror
+            key={`page/${pageName}`}
+            roomName={roomName}
+            defaultValue={defaultValue}
+            value={docText}
+            heightMargin={0}
+            onActiveUser={handleActiveUserDisp}
+            isVideoAndChatDivShowed={isVideoAndChatDivShowed}
+          />
+        </S.CodeMirrorContainer>
+        <S.VideoAndChatDiv isVideoAndChatDivShowed={isVideoAndChatDivShowed}>
           <S.VideoDiv>
             <Room isVideoShowed={isVideoShowed} />
           </S.VideoDiv>

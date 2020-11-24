@@ -47,9 +47,12 @@ export default {
     overflow: hidden;
   `,
 
+  CodeMirrorContainer: styled.div`
+    width: ${props => (props.isVideoAndChatDivShowed ? '80%' : '100%')};
+  `,
+
   VideoAndChatDiv: styled.div`
-    display: ${props =>
-      props.isChatShowed || props.isVideoShowed ? 'flex' : 'none'};
+    display: ${props => (props.isVideoAndChatDivShowed ? 'flex' : 'none')};
     flex-direction: column;
     width: 20%;
     border-left: 1px solid #f1f1f1;

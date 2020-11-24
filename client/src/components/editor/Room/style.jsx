@@ -27,6 +27,7 @@ export default {
     position: relative;
     padding-bottom: 56.25%;
     width: 100%;
+    background: black;
   `,
 
   StyledVideo: styled.video`

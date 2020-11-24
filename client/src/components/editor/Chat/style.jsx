@@ -58,8 +58,8 @@ export default {
     text-align: left;
     padding: 10px;
     border-radius: 5px;
-    word-break:keep-artllr;
-    word-wrap:break-word;
+    word-break: keep-all;
+    word-wrap: break-word;
   `,
 
   ChatID: styled.div`
