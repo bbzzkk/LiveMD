@@ -5,8 +5,9 @@ import Popover from '@material-ui/core/Popover';
 const S = {
   Profile: styled(Avatar)`
     position: absolute;
-    top: 15%;
+    top: -80%;
     left: 95%;
+    body :: -webkit-scrollbar 
   `,
   Popover: styled(Popover)`
     width: 25em;

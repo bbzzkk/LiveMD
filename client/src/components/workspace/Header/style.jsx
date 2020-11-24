@@ -6,14 +6,15 @@ import Notifications from '@material-ui/icons/Notifications';
 const S = {
   Container: styled.div`
     display: flex;
+    background-color: pink;
   `,
   Header: styled(AppBar)`
     z-index: 7;
     height: 4em;
     && {
       display: flex;
-      width: 85%;
-      background-color: white;
+      width: 100%;
+      background-color: yellow;
       box-shadow: 10px 3px 3px transparent;
     }
   `,

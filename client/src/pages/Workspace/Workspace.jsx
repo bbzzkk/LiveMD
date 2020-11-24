@@ -10,16 +10,16 @@ const Workspace = props => {
   return (
     <>
       
-      <S.Workspace>
-        <S.SidebarContainer>
+      {/* <S.Workspace> */}
+        {/* <S.SidebarContainer>
           <Sidebar />
-        </S.SidebarContainer>
-
-        <S.MainContainer>
-        <Header />
-          <Main />
-        </S.MainContainer>
-      </S.Workspace>
+        </S.SidebarContainer> */}
+        <Sidebar/>
+        {/* <S.MainContainer> */}
+        <Header/>
+          <Main/>
+        {/* </S.MainContainer> */}
+      {/* </S.Workspace> */}
     </>
   );
 };
