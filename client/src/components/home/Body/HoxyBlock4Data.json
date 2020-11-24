@@ -1,0 +1,37 @@
+{
+  "leadingText": "가이드",
+  "slides": [
+    {
+      "introline": "2. 팀 생성",
+      "id": "dogs",
+      "content": {
+        "image": "https://via.placeholder.com/400x200?text=Dogs",
+        "copy": "Dog ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus."
+      }
+    },
+    {
+      "introline": "3. 문서 작업",
+      "id": "elephants",
+      "content": {
+        "image": "https://via.placeholder.com/400x200?text=Elephants",
+        "copy": "Elephant ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus."
+      }
+    },
+    {
+      "introline": "4. 실시간 소통",
+      "id": "bears",
+      "content": {
+        "image": "https://via.placeholder.com/400x200?text=Bears",
+        "copy": "Bears ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus."
+      }
+    },
+    {
+      "introline": "1. 구글 로그인",
+      "id": "lizards",
+      "content": {
+        "image": "https://via.placeholder.com/400x200?text=Lizards",
+        "copy": "Lizards ipsum dolor sit amet, consectetur adipiscing elit. Morbi accumsan est ornare, ultricies erat a, dapibus lectus."
+      }
+    }
+  ]
+}
