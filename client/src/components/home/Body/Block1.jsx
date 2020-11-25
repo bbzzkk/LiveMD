@@ -1,5 +1,6 @@
 import React from 'react';
 import S from './style';
+import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,7 +8,7 @@ const styles = {
   title: {
     position: 'relative',
     textAlign: 'center',
-    fontSize: 60,
+    fontSize: '400%',
     color: '#fff',
     fontFamily:
       'SF Pro KR,SF Pro Display,SF Pro Icons,Apple Gothic,HY Gulim,MalgunGothic,HY Dotum,Lexi Gulim,Helvetica Neue,Helvetica,Arial,sans-serif',
@@ -27,7 +28,7 @@ const ColorButton1 = withStyles(() => ({
     backgroundColor: '#000',
     fontWeight: 'bold',
     minWidth: '28px',
-    width: '300px',
+    width: '47%',
     bottom: '-150px',
     paddingTop: '10px',
 
@@ -45,7 +46,11 @@ const Block1 = () => {
 
       <S.ment1_sc>협업의 즐거움.</S.ment1_sc>
 
-      <ColorButton1 variant="contained">구글 로그인으로 시작하기</ColorButton1>
+      <Link to="/login">
+        <ColorButton1 variant="contained">
+          구글 로그인으로 시작하기
+        </ColorButton1>
+      </Link>
     </>
   );
 };
