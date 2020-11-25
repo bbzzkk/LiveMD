@@ -63,7 +63,7 @@ const Chat = ({ isChatShowed }) => {
 
   const scrollToBottom = () => {
     if (messagesRef.current) {
-      messagesRef.current.scrollIntoView({ behavior: 'smooth' });
+      messagesRef.current.scrollIntoView(false);
     }
   };
 
