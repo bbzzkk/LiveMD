@@ -23,6 +23,7 @@ const CodeMirror = ({
   heightMargin,
   onActiveUser,
   isVideoAndChatDivShowed,
+  editorRatio,
 }) => {
   const refEditor = useRef(null);
   const [previewWidth, setPreviewWidth] = useState(0);
@@ -71,7 +72,10 @@ const CodeMirror = ({
       provider.current.awareness,
     );
     cursorColor.current = '#' + (ydoc.clientID % 0xffffff).toString(16);
-    binding.awareness.setLocalStateField('user', { color: cursorColor.current, name: "tjddnjs9497@naver.com" })
+    binding.awareness.setLocalStateField('user', {
+      color: cursorColor.current,
+      name: 'tjddnjs9497@naver.com',
+    });
 
     // provider.current.awareness.on('change', renderUsers);
     // setInterval(() => {
@@ -92,14 +96,18 @@ const CodeMirror = ({
     };
   }, []);
 
-
   useEffect(() => {
     refEditor.current.editor.setValue(value);
   }, [value]);
 
   useEffect(() => {
-    updateWidth();
-  }, [isVideoAndChatDivShowed]);
+    if (editorPercentage === 50) updateWidth();
+    else setEditorPercentage(50);
+  }, [isVideoAndChatDivShowed, editorRatio]);
+
+  useEffect(() => {
+    if (editorPercentage === 50) updateWidth();
+  }, [editorPercentage]);
 
   const updateHeight = () => {
     const newHeight = actual('height', 'px') - heightMargin;
@@ -112,7 +120,8 @@ const CodeMirror = ({
   };
 
   const updateWidth = () => {
-    const videoAndChatWidth = actual('width', 'px') - codeMirrorRef.current.offsetWidth;
+    const videoAndChatWidth =
+      actual('width', 'px') - codeMirrorRef.current.offsetWidth;
     const vw = actual('width', 'px') - videoAndChatWidth;
 
     let newWidth = vw * (editorPercentage / 100) - resizerMargin;
@@ -120,10 +129,12 @@ const CodeMirror = ({
       newWidth = 0;
     }
     const previewWidth = vw - newWidth - 2 * resizerMargin - 1;
-    if (newWidth !== width) {
-      setWidth(newWidth);
-      setPreviewWidth(previewWidth);
-    }
+    // if (newWidth !== width) {
+      // setWidth(newWidth * editorRatio.edit);
+      // setPreviewWidth(previewWidth * editorRatio.preview);
+    // }
+    setWidth(newWidth * editorRatio.edit);
+    setPreviewWidth(previewWidth * editorRatio.preview);
   };
 
   const handleResize = () => {
@@ -131,7 +142,7 @@ const CodeMirror = ({
     updateHeight();
   };
 
-  const handleActiveUser = (userNum) => {
+  const handleActiveUser = userNum => {
     if (onActiveUser) onActiveUser(userNum);
   };
 
@@ -167,7 +178,9 @@ const CodeMirror = ({
   // };
 
   const handleSplitResized = newSize => {
-    const viewportWidth = actual('width', 'px');
+    const videoAndChatWidth =
+      actual('width', 'px') - codeMirrorRef.current.offsetWidth;
+    const viewportWidth = actual('width', 'px') - videoAndChatWidth;
     const newPercentage = (100.0 * newSize) / viewportWidth;
     if (newPercentage !== editorPercentage) {
       setEditorPercentage(newPercentage);
@@ -292,8 +305,19 @@ const CodeMirror = ({
     <div ref={codeMirrorRef}>
       <SplitPane
         split="vertical"
-        size={width + resizerMargin }
+        size={width + resizerMargin}
         onChange={handleSplitResized}
+        pane1Style={
+          editorRatio.edit ? { display: 'inline-block' } : { display: 'none' }
+        }
+        pane2Style={
+          editorRatio.preview ? { display: 'inline-block' } : { display: 'none' }
+        }
+        resizerStyle={
+          (!editorRatio.edit || !editorRatio.preview)
+          ? { display: 'none'}
+          : { display: 'inline-block'}
+        }
       >
         <ReactCodeMirror
           ref={refEditor}
@@ -307,7 +331,7 @@ const CodeMirror = ({
         <div
           style={{
             overflow: 'auto',
-            width : previewWidth,
+            width: previewWidth,
             height,
             paddingLeft: resizerMargin,
           }}

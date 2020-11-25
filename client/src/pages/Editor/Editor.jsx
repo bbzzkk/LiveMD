@@ -17,6 +17,7 @@ const Editor = ({ doc, match }) => {
   const [isVideoShowed, setVideoShowed] = useState(true);
   const [isChatShowed, setChatShowed] = useState(true);
   const [isVideoAndChatDivShowed, setVideoAndChatDivShowed] = useState(true);
+  const [editorRatio, setEditorRatio] = useState({ edit: 1, preview: 1 });
 
   useEffect(() => {
     if (doc) {
@@ -60,6 +61,10 @@ const Editor = ({ doc, match }) => {
     }
   };
 
+  const handleRatio = (edit, preview) => {
+    setEditorRatio({ ...editorRatio, edit: edit, preview: preview });
+  };
+
   return (
     <S.EditorContainer>
       <S.Header>
@@ -68,9 +73,9 @@ const Editor = ({ doc, match }) => {
           onChange={e => setDocName(e.target.value)}
         />
         <S.EditBtnGroup>
-          <button>edit</button>
-          <button>both</button>
-          <button>view</button>
+          <button onClick={() => handleRatio(2, 0)}>edit</button>
+          <button onClick={() => handleRatio(1, 1)}>both</button>
+          <button onClick={() => handleRatio(0, 2)}>view</button>
         </S.EditBtnGroup>
         <S.VideoAndChatBtnGroup>
           <button onClick={videoShowAndHide}>
@@ -91,9 +96,10 @@ const Editor = ({ doc, match }) => {
             roomName={roomName}
             defaultValue={defaultValue}
             value={docText}
-            heightMargin={0}
+            heightMargin={60}
             onActiveUser={handleActiveUserDisp}
             isVideoAndChatDivShowed={isVideoAndChatDivShowed}
+            editorRatio={editorRatio}
           />
         </S.CodeMirrorContainer>
         <S.VideoAndChatDiv isVideoAndChatDivShowed={isVideoAndChatDivShowed}>
