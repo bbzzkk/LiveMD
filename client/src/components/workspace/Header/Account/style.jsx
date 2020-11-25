@@ -6,8 +6,7 @@ const S = {
   Profile: styled(Avatar)`
     position: absolute;
     top: 35%;
-    left: 95%;
-    body :: -webkit-scrollbar 
+    left: 95%; 
   `,
   Popover: styled(Popper)`
     width: 25em;
