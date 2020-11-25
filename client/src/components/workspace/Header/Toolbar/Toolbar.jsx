@@ -9,15 +9,17 @@ import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 
 const AntTabs = withStyles({
   root: {
+    marginLeft: "0.3em",
+    padding: "0.1em",
     borderBottom: "1px solid #e8e8e8",
-    backgroundColor: "white",
+    backgroundColor: "none",
     color: "black",
-    width:"80%"
+    width:"100%",
     // boxShadow: "10px 1px 1px lightgrey",
-  
+    fontSize: '12em',
   },
   indicator: {
-    backgroundColor: "purple"
+    backgroundColor: "#1e6896",
   }
 })(Tabs);
 
@@ -26,7 +28,7 @@ const AntTab = withStyles((theme) => ({
     textTransform: "none",
     minWidth: 50,
     fontWeight: theme.typography.fontWeightRegular,
-    fontSize: "15px",
+    fontSize: "20px",
     marginRight: theme.spacing(30),
     fontFamily: [
       "-apple-system",
@@ -41,15 +43,15 @@ const AntTab = withStyles((theme) => ({
       '"Segoe UI Symbol"'
     ].join(","),
     "&:hover": {
-      color: "yellow",
+      color: "#1e6896",
       opacity: 10
     },
     "&$selected": {
-      color: "red",
+      color: "#1e6896",
       fontWeight: theme.typography.fontWeightMedium
     },
     "&:focus": {
-      color: "green"
+      color: "#1e6896"
     }
   },
   selected: {}
@@ -91,9 +93,6 @@ const useStyles = makeStyles((theme) => ({
   demo1: {
     backgroundColor: theme.palette.background.paper
   },
-  // demo2: {
-  //   backgroundColor: "green"
-  // }
 }));
 
 const Toolbar = () => {

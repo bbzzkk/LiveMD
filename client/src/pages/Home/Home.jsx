@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Footer } from '@/components/home';
+import { Header, Footer, Body } from '@/components/home';
 import S from './style';
 
 const Home = props => {
@@ -7,22 +7,23 @@ const Home = props => {
 
   return (
     <>
-      <S.Main>
+      {/* <S.Main> */}
         <Header
           authenticated={authenticated}
           onLogout={onLogout}
           currentUser={currentUser}
         />
-        <S.MainContent>
+        <Body/>
+        {/* <S.MainContent>;
           {authenticated ? (
             <>
               <div>{currentUser?.name}</div>
               <img src={currentUser.imageUrl} alt="img" />
             </>
-          ) : null}
-        </S.MainContent>
+          ) : 'null'}
+        </S.MainContent> */}
         <Footer />
-      </S.Main>
+      {/* </S.Main> */}
     </>
   );
 };
