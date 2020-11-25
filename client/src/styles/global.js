@@ -14,9 +14,7 @@ const GlobalStyle = createGlobalStyle`
   body > #root {
     height: inherit;
   }
-  body :: -webkit-scrollbar {
-    width : 0px;
-  }
+
   a { 
     text-decoration: none; 
   }
