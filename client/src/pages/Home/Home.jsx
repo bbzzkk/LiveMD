@@ -20,9 +20,9 @@ const Home = props => {
               <div>{currentUser?.name}</div>
               <img src={currentUser.imageUrl} alt="img" />
             </>
-          ) : null}
-        </S.MainContent>
-        <Footer /> */}
+          ) : 'null'}
+        </S.MainContent> */}
+        <Footer />
       {/* </S.Main> */}
     </>
   );
