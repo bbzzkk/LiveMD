@@ -6,6 +6,7 @@ import Fade from 'react-reveal/Fade';
 import Block4 from './Block4';
 import Block1 from './Block1';
 import Block2 from './Block2';
+import Block3 from './Block3';
 //import data from "./Block4Data.json";
 
 const styles = {
@@ -21,26 +22,19 @@ const styles = {
   },
 };
 
-const animateList = [
-  <Block1 />,
-  <Block2 />,
-  '둠칫칫칫',
-  '둠칫칫둠',
-  '둠칫칫둠',
-];
+const animateList = [<Block1 />, <Block2 />, <Block3 />, <Block4 />];
 
 const Body = () => (
-  <Block4/>
-  // <Fragment>
-  //   {animateList.map((item, key) => (
-  //     <div style={styles.block} key={key}>
-  //       <Fade top>
-  //         {/* <h1 style={styles.title}>{`${item}`}</h1> */}
-  //         {item}
-  //       </Fade>
-  //     </div>
-  //   ))}
-  // </Fragment>
+  <Fragment>
+    {animateList.map((item, key) => (
+      <div style={styles.block} key={key}>
+        <Fade top>
+          {/* <h1 style={styles.title}>{`${item}`}</h1> */}
+          {item}
+        </Fade>
+      </div>
+    ))}
+  </Fragment>
 );
 
 export default Body;
