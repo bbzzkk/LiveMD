@@ -13,7 +13,7 @@ const S = {
       border-color: 5em black;
       color: black;
       // border-top-right-radius: 2em 2em;
-      //width: 15%;
+      width: 15%;
     }
   `,
   DrawerList: styled(List)`

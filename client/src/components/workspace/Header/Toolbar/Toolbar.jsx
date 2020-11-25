@@ -14,7 +14,7 @@ const AntTabs = withStyles({
     borderBottom: "1px solid #e8e8e8",
     backgroundColor: "none",
     color: "black",
-    width:"85%",
+    width:"100%",
     // boxShadow: "10px 1px 1px lightgrey",
     fontSize: '12em',
   },
