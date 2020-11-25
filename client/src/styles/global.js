@@ -10,9 +10,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     min-width: 1366px;
   }
-  body :: -webkit-scrollbar {
-    width : 0px;
-  }
   a { 
     text-decoration: none; 
   }

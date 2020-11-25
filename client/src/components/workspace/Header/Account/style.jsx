@@ -5,7 +5,7 @@ import Popper from '@material-ui/core/Popper';
 const S = {
   Profile: styled(Avatar)`
     position: absolute;
-    top: 35%;
+    top: 13%;
     left: 95%;
   `,
   Popover: styled(Popper)`

@@ -14,9 +14,9 @@ const AntTabs = withStyles({
     borderBottom: "1px solid #e8e8e8",
     backgroundColor: "none",
     color: "black",
-    width:"85%",
+    width:"100%",
     // boxShadow: "10px 1px 1px lightgrey",
-    fontSize: '12em',
+    fontSize: '2em',
   },
   indicator: {
     backgroundColor: "#1e6896",
@@ -28,8 +28,8 @@ const AntTab = withStyles((theme) => ({
     textTransform: "none",
     minWidth: 50,
     fontWeight: theme.typography.fontWeightRegular,
-    fontSize: "20px",
-    marginRight: theme.spacing(30),
+    fontSize: "15px",
+    marginRight: theme.spacing(10),
     fontFamily: [
       "-apple-system",
       "BlinkMacSystemFont",

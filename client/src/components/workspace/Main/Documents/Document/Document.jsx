@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 200,
     minWidth: 250,
-    margin: theme.spacing(7),
+    margin: theme.spacing(3),
   },
   bullet: {
     display: 'inline-block',
