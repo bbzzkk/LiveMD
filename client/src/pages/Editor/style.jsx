@@ -38,6 +38,15 @@ export default {
     margin-right: 50px;
   `,
 
+  ActiveDiv: styled.div`
+    display: ${(props) => props.active ? 'block' : 'none'}; 
+    position: absolute;
+    right: 0;
+    margin-right: 50px;
+    z-index: 9999;
+    background-color: #F1F1F1;
+  `,
+
   Body: styled.div`
     display: flex;
     width: 100%;

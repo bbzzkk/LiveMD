@@ -24,6 +24,7 @@ const CodeMirror = ({
   onActiveUser,
   isVideoAndChatDivShowed,
   editorRatio,
+  setUsers,
 }) => {
   const refEditor = useRef(null);
   const [previewWidth, setPreviewWidth] = useState(0);
@@ -74,10 +75,12 @@ const CodeMirror = ({
     cursorColor.current = '#' + (ydoc.clientID % 0xffffff).toString(16);
     binding.awareness.setLocalStateField('user', {
       color: cursorColor.current,
-      name: 'tjddnjs9497@naver.com',
+      name: cursorColor.current,
     });
 
-    // provider.current.awareness.on('change', renderUsers);
+    provider.current.awareness.on('change', renderUsers);
+    renderUsers();
+
     // setInterval(() => {
     //   Array.from(binding.awareness.getStates().entries())
     //     .filter(([clientid, state]) => state.user != null)
@@ -95,6 +98,16 @@ const CodeMirror = ({
       provider.current.destroy();
     };
   }, []);
+
+  const renderUsers = () => {
+    const users = Array.from(provider.current.awareness.getStates().entries())
+      .filter(([clientid, state]) => state.user != null)
+      .map(([clientid, state]) => {
+        return state.user.name;
+      });
+
+    handleActiveUser(users);
+  }
 
   useEffect(() => {
     refEditor.current.editor.setValue(value);
@@ -142,8 +155,8 @@ const CodeMirror = ({
     updateHeight();
   };
 
-  const handleActiveUser = userNum => {
-    if (onActiveUser) onActiveUser(userNum);
+  const handleActiveUser = users => {
+    if (onActiveUser) onActiveUser(users);
   };
 
   // const handleClientCursor = msg => {

@@ -4,7 +4,7 @@ import { Chat, CodeMirror, Room } from '@/components/editor';
 import S from './style';
 
 const Editor = ({ doc, match }) => {
-  const [activeUser, setActiveUser] = useState(0);
+  const [activeUsers, setActiveUsers] = useState([]);
   const [docText, setDocText] = useState('');
   const pageName = match.params.page;
   const roomName = doc ? null : pageName;
@@ -18,6 +18,7 @@ const Editor = ({ doc, match }) => {
   const [isChatShowed, setChatShowed] = useState(true);
   const [isVideoAndChatDivShowed, setVideoAndChatDivShowed] = useState(true);
   const [editorRatio, setEditorRatio] = useState({ edit: 1, preview: 1 });
+  const [activeBtnClick, setActiveBtnClick] = useState(false);
 
   useEffect(() => {
     if (doc) {
@@ -37,8 +38,8 @@ const Editor = ({ doc, match }) => {
     setDocText(text);
   };
 
-  const handleActiveUserDisp = userNum => {
-    setActiveUser(userNum);
+  const handleActiveUserDisp = users => {
+    setActiveUsers(users);
   };
 
   const videoShowAndHide = () => {
@@ -84,7 +85,16 @@ const Editor = ({ doc, match }) => {
           <button onClick={chatShowAndHide}>
             {isChatShowed ? 'Hide Chat' : 'Show Chat'}
           </button>
-          <button>active</button>
+          <button
+            onClick={() => setActiveBtnClick(!activeBtnClick)}
+          >{`ONLINE: ${activeUsers.length}`}</button>
+          <S.ActiveDiv active={activeBtnClick}>
+            <ul>
+              {activeUsers.map(user => (
+                <li>{user}</li>
+              ))}
+            </ul>
+          </S.ActiveDiv>
         </S.VideoAndChatBtnGroup>
       </S.Header>
       <S.Body>
@@ -114,42 +124,6 @@ const Editor = ({ doc, match }) => {
     </S.EditorContainer>
   );
 };
-/*
-            <Button color='black' onClick={videoShowAndHide}>
-              {videoButton ? 'Hide Video' : 'Show Video'}
-            </Button>
-            <Button color='black' onClick={chatShowAndHide}>
-              {chatButton ? 'Hide Chat' : 'Show Chat'}
-            </Button> 
-
-            {activeUser > 0 ? (
-              <div style={style.active}>{`(active: ${activeUser})`}</div>
-            ) : null} 
-          </div>
-           <div style={style.contents}> 
-               <div style={{ // Editor(header제외) 길이 맞춰주기
-                ...style.editContent,
-                width: videoButton ? '85%' : '100%' &&
-                chatButton ? '85%' : '100%'}}>
-                <CodeMirror
-                  key={`page/${pageName}`}
-                  roomName={roomName}
-                  defaultValue={defaultValue}
-                  value={docText}
-                  heightMargin={style.header.height + style.header.padding * 2}
-                  onActiveUser={handleActiveUserDisp}
-                  videoButton={videoButton}
-                  chatButton={chatButton}
-                />
-              </div> 
-               <div className='RTC'>
-                <Room videoIsShowed={videoIsShowed} />
-                <Chat chatIsShowed={chatIsShowed} /> 
-              </div> 
-           </div>
-        </div>    
-      </div> 
-*/
 
 Editor.propTypes = {
   match: PropTypes.shape({
