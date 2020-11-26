@@ -29,7 +29,7 @@ const ColorButton2 = withStyles(() => ({
     border: '2px solid',
     borderImage: 'linear-gradient(to right, #005e7f, #61b6cd)',
     borderImageSlice: 1,
-    borderImageWidth: 3,
+    borderImageWidth: 2,
     color: '#fff',
     background: '#000',
     fontWeight: 'bold',
@@ -69,7 +69,7 @@ const Block2 = () => {
       </h2>
 
       <a href="#howTo">
-        <ColorButton2 variant="contained">가이드</ColorButton2>
+        <ColorButton2 variant="contained">이용 방법</ColorButton2>
       </a>
     </>
   );
