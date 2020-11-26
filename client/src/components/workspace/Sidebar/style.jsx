@@ -4,6 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import AddIcon from '@material-ui/icons/Add';
 import {
   createMuiTheme,
   withStyles,
@@ -17,8 +18,11 @@ const ColorButton = withStyles(theme => ({
   root: {
     color: theme.palette.getContrastText(purple[500]),
     backgroundColor: '#1e6896',
-    letterSpacing: '0.6em',
+    letterSpacing: '0.4em',
+
     '&:hover': {
+      letterSpacing: '0.3em',
+
       color: '#1e6896',
       border: '1px solid #1e6896',
       backgroundColor: theme.palette.getContrastText('#1e6896'),
@@ -31,9 +35,10 @@ const S = {
     & > div {
       min-width: 10em;
       // margin-top: 5em;
-      border-color: 5em black;
-      color: black;
-      // border-top-right-radius: 2em 2em;
+      border-color: 5em gray;
+      background-color: #131236;
+      color: white;
+      border-top-right-radius: 2em 2em;
       width: 15%;
     }
   `,
@@ -61,6 +66,16 @@ const S = {
     border: none;
     outline: none;
     width: 100%;
+  `,
+  AddIcon: styled(AddIcon)`
+    margin-right: 0.3vw;
+      &:hover {
+      letterSpacing: '0.3em',
+
+      color: '#1e6896',
+      border: '1px solid #1e6896',
+      backgroundColor: theme.palette.getContrastText('#1e6896'),
+    },
   `,
 };
 

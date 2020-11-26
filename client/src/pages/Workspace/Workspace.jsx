@@ -7,7 +7,7 @@ import Main from '@/components/workspace/Main';
 import S from './style';
 
 const Workspace = props => {
-  console.log(props.match);
+  console.log('This is workspace!!!!!');
   return (
     <>
       <S.Workspace>

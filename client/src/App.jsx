@@ -17,14 +17,11 @@ const App = props => {
       <Router>
         <Switch>
           <Route exact path="/" component={Auth(0, Main, authStore)} />
-          {/* <Route exact path="/workspace" component={Workspace} /> */}
-          {/* <Route path="/login/redirect" component={Login} /> */}
-          <Route path="/login" component={Auth(0, Login, authStore)} />
+          <Route exact path="/login" component={Auth(0, Login, authStore)} />
           <Route exact path="/page/" component={PageList} />
           <Route exact path="/page/:page" component={Page} />
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
-          <Route path="/board/redirect" component={Workspace} />
           <Route
             exact
             path="/board/:team"

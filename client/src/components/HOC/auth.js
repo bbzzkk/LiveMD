@@ -9,8 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AuthProtection = (option, RouteComponent, authStore) => {
   const token = localStorage.getItem('ACCESS_TOKEN');
-  const { user, get } = authStore;
-
+  const user = JSON.parse(localStorage.getItem('USER_INFO'));
+  const { setUser } = authStore;
+  if (user) {
+    setUser(user);
+  }
   if (option !== 0) {
     if (token) {
       return inject('store')(observer(RouteComponent));
@@ -30,8 +33,8 @@ const AuthProtection = (option, RouteComponent, authStore) => {
     if (!token) {
       return RouteComponent;
     } else {
-      console.log('111111111');
-      return () => <Redirect to="/board" />;
+      console.log('hihihihihihihihi I AM BOARD!!!!!!!');
+      return () => <Redirect exact to="/board" />;
     }
   }
 };
