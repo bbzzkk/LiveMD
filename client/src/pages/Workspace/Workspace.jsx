@@ -10,14 +10,14 @@ const Workspace = props => {
   return (
     <>
       
-      <S.Workspace>
-        <S.SidebarContainer>
+      <S.Workspace> 
+         <S.SidebarContainer>
           <Sidebar />
         </S.SidebarContainer>
-
+        
         <S.MainContainer>
-        <Header />
-          <Main />
+        <Header/>
+          <Main/>
         </S.MainContainer>
       </S.Workspace>
     </>

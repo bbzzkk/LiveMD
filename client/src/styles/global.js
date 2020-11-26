@@ -8,8 +8,13 @@ const GlobalStyle = createGlobalStyle`
 
   html, body {
     height: 100%;
-    min-width: 1366px;
+    //min-width: 1366px;
   }
+
+  body > #root {
+    height: inherit;
+  }
+
   a { 
     text-decoration: none; 
   }
