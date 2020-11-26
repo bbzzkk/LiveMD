@@ -11,8 +11,7 @@ export default {
 
   MainContainer: styled.div`
     flexgrow: 1;
-    margin-top: 7em;
-    margin-left: min(15em, 14em);
-    flexgrow: 1;
+    margin-top: 5em;
+    margin-left: min(18em, 20em);
   `,
 };

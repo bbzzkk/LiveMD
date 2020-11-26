@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Document from '@/components/workspace/Main/Documents/Document';
 // import { documents as documentsMock } from '@/utils/Mock';
-
+import Searching from '@/components/workspace/Main/Documents/Filtering/Searching';
 import S from './style';
 
 const Documents = () => {
@@ -32,25 +32,53 @@ const Documents = () => {
   // }, []);
 
   return (
-    // <>
+    <S.Container>
+    <Searching/>
+    <S.Horizon><S.Text>Pinned</S.Text></S.Horizon>
     <Document createdAt={Date.now()} title="hi" />
-    /* {loading ? (
-        <div>documents loading</div>
-      ) : (
-        documents.data.map(({ createdAt, title }) => {
-          return <Document createdAt={createdAt} title={title} />;
-        })
-      )} */
-    // </>
+    <Document createdAt={Date.now()} title="hi" />
+
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />  
+    <Document createdAt={Date.now()} title="hi" />
+    <S.Horizon><S.Text>Untagged</S.Text></S.Horizon>
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+
+    </S.Container>
   );
-  {
+  
     /* <div>
         <input></input>
         <S.NewNote variant="outlined" color="primary" onClick={handleAddNote}>
           New Note
         </S.NewNote>
       </div> */
-  }
+  
+  /* {loading ? (
+        <div>documents loading</div>
+      ) : (
+        documents.data.map(({ createdAt, title }) => {
+          return <Document createdAt={createdAt} title={title} />;
+        })
+      )} */
   // <div>
 };
 
