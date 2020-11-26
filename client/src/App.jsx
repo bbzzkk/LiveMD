@@ -30,6 +30,9 @@ const App = props => {
       <Router>
         <Switch>
           <Route exact path="/" component={Auth(0, Main, authStore)} />
+          <Route path="/board/redirect" component={Workspace} />
+          <Route path="/board" component={Auth(1, Workspace, authStore)} />
+
           <Route exact path="/login" component={Auth(0, Login, authStore)} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
@@ -41,7 +44,6 @@ const App = props => {
             path="/board/:team"
             component={Auth(1, Workspace, authStore)}
           />
-          <Route path="/board" component={Auth(1, Workspace, authStore)} />
         </Switch>
       </Router>
     </>

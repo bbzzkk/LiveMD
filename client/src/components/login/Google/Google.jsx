@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
 import GoogleLogin from 'react-google-login';
@@ -19,6 +19,9 @@ const Google = props => {
         boardStore.setBoard(authStore.user.board);
       })
       .catch(e => console.log(e.error));
+    // return () => <Redirect to="/board" />;
+    console.log(props.history);
+    props.history.push('/board/redirect');
 
     toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
       position: 'top-center',
@@ -29,8 +32,6 @@ const Google = props => {
       draggable: true,
       progress: undefined,
     });
-    return () => <Redirect to="/board" />;
-    // props.history.push('/board');
   };
   const responseFail = () => {
     toast.error('로그인에 실패하셨습니다..😥', {
@@ -61,4 +62,4 @@ const Google = props => {
     />
   );
 };
-export default inject('store')(observer(Google));
+export default withRouter(inject('store')(observer(Google)));

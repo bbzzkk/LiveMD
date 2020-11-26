@@ -34,7 +34,7 @@ const AuthProtection = (option, RouteComponent, authStore) => {
       return RouteComponent;
     } else {
       console.log('hihihihihihihihi I AM BOARD!!!!!!!');
-      return () => <Redirect exact to="/board" />;
+      return () => <Redirect to="/board" />;
     }
   }
 };
