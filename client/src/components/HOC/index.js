@@ -1,1 +1,2 @@
-export { default as LoadingIndicator } from './LoadingIndicator';
+export { default as Auth } from './auth';
+export { default as LandingCheck } from './landing';

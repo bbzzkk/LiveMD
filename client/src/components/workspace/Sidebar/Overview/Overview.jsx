@@ -1,11 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { inject, observer } from 'mobx-react';
+import S from './style';
 
-const Overview = () => {
-  return(
-    <div>
-      개인 워크스페이 / 팀 워크스페이스
-    </div>
-  )
-}
+const Overview = props => {
+  const { user } = props.store.authStore;
+  return (
+    <S.Container>
+      <S.Avatar src={user.thumbnail} />
+      <S.Username>{`${user.username}`}</S.Username>
+    </S.Container>
+  );
+};
 
-export default Overview;
+export default inject('store')(observer(Overview));

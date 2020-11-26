@@ -35,8 +35,8 @@ const generateRefreshToken = (user, ipAddress) =>
   }).then((token) => token.save());
 
 const basicDetails = (user) => {
-  const { id, username, email } = user;
-  return { id, username, email };
+  const { id, username, email, thumbnail } = user;
+  return { id, username, email, thumbnail };
 };
 
 async function authenticate({ profile, ipAddress }) {

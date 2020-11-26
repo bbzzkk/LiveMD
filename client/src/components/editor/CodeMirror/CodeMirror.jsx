@@ -16,65 +16,21 @@ import './style.css';
 
 const resizerMargin = 12;
 
-// class OtherClientCursor {
-//   constructor(id) {
-//     this.id = id;
-//     let hue = 0;
-//     for (let i = 0; i < id.length; i += 1) {
-//       hue *= 2;
-//       hue += id.charCodeAt(i);
-//       hue %= 360;
-//     }
-//     this.color = `#${ColorConvert.hsv.hex(hue, 100, 100)}`;
-//   }
-
-//   updateCursor(cursorPos, cm) {
-//     this.removeCursor();
-//     const svgSize = 8;
-//     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-//     svg.setAttribute('width', svgSize);
-//     svg.setAttribute('height', svgSize);
-//     svg.setAttribute('viewBox', `0 0 ${svgSize} ${svgSize}`);
-//     svg.style.position = 'absolute';
-//     svg.style.marginLeft = `-${svgSize / 2}px`;
-//     svg.style.marginTop = `${cm.defaultTextHeight()}px`;
-//     const polyline = document.createElementNS(
-//       'http://www.w3.org/2000/svg',
-//       'polyline',
-//     );
-//     polyline.setAttribute(
-//       'points',
-//       `0 ${svgSize}, ${svgSize / 2} 0, ${svgSize} ${svgSize}, 0 ${svgSize}`,
-//     );
-//     polyline.setAttribute('fill', this.color);
-//     polyline.setAttribute('fill-opacity', 0.9);
-//     svg.appendChild(polyline);
-//     this.marker = cm.setBookmark(cursorPos, { widget: svg, insertLeft: true });
-//   }t
-
-//   removeCursor() {
-//     if (this.marker) {
-//       this.marker.clear();
-//       this.marker = null;
-//     }
-//   }
-// }
-
-const Editor = ({
+const CodeMirror = ({
   roomName,
   defaultValue,
   value,
   heightMargin,
   onActiveUser,
-  videoButton,
-  chatButton
+  isVideoAndChatDivShowed,
+  editorRatio,
+  setUsers,
 }) => {
   const refEditor = useRef(null);
   const [previewWidth, setPreviewWidth] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [editorPercentage, setEditorPercentage] = useState(50);
-  const otherClients = new Map();
   const [cursorPosition, setCursorPosition] = useState({});
   const [onFocus, setOnFocus] = useState(false);
   const [hast, setHast] = useState(
@@ -83,6 +39,8 @@ const Editor = ({
   const socket = useRef(null);
   const provider = useRef(null);
   const cursorColor = useRef('#008833');
+
+  const codeMirrorRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,26 +73,20 @@ const Editor = ({
       provider.current.awareness,
     );
     cursorColor.current = '#' + (ydoc.clientID % 0xffffff).toString(16);
-    binding.awareness.setLocalStateField('user', { color: cursorColor.current, name: "tjddnjs9497@naver.com" })
+    binding.awareness.setLocalStateField('user', {
+      color: cursorColor.current,
+      name: cursorColor.current,
+    });
 
-    // provider.current.awareness.on('change', renderUsers);
+    provider.current.awareness.on('change', renderUsers);
+    renderUsers();
+
     // setInterval(() => {
     //   Array.from(binding.awareness.getStates().entries())
     //     .filter(([clientid, state]) => state.user != null)
     //     .map(([clientid, state]) =>
     //       console.log(state.user.name));
     // }, 5000);
-
-    // const connectBtn = document.getElementById('y-connect-btn');
-    // connectBtn.addEventListener('click', () => {
-    //   if (provider.current.shouldConnect) {
-    //     provider.current.disconnect();
-    //     connectBtn.textContent = 'Connect';
-    //   } else {
-    //     provider.current.connect();
-    //     connectBtn.textContent = 'Disconnect';
-    //   }
-    // });
 
     return () => {
       window.removeEventListener('resize', handleResize, false);
@@ -147,32 +99,28 @@ const Editor = ({
     };
   }, []);
 
+  const renderUsers = () => {
+    const users = Array.from(provider.current.awareness.getStates().entries())
+      .filter(([clientid, state]) => state.user != null)
+      .map(([clientid, state]) => {
+        return state.user.name;
+      });
+
+    handleActiveUser(users);
+  }
 
   useEffect(() => {
     refEditor.current.editor.setValue(value);
   }, [value]);
 
-  const renderUsers = () => {
-    console.log(provider.current.awareness.getStates().entries());
-    // const userTemplate = (name, color, colorLight, islocaluser) =>
-    //   <div
-    //     y-islocaluser="${islocaluser.toString()}"
-    //     style="background-color:${colorLight};border-color:${color}"
-    //   >
-    //     ${name}
-    //   </div>
-    // return (
-    //   Array.from(provider.current.awareness.getStates().entries())
-    //     .filter(([clientid, state]) => state.user != null)
-    //     .map(([clientid, state]) =>
-    //       userTemplate(
-    //         state.user.name,
-    //         state.user.color,
-    //         state.user.colorLight, clientid === provider.current.doc.clientID
-    //       )
-    //     )
-    // );
-  }
+  useEffect(() => {
+    if (editorPercentage === 50) updateWidth();
+    else setEditorPercentage(50);
+  }, [isVideoAndChatDivShowed, editorRatio]);
+
+  useEffect(() => {
+    if (editorPercentage === 50) updateWidth();
+  }, [editorPercentage]);
 
   const updateHeight = () => {
     const newHeight = actual('height', 'px') - heightMargin;
@@ -185,16 +133,21 @@ const Editor = ({
   };
 
   const updateWidth = () => {
-    const vw = actual('width', 'px');
+    const videoAndChatWidth =
+      actual('width', 'px') - codeMirrorRef.current.offsetWidth;
+    const vw = actual('width', 'px') - videoAndChatWidth;
+
     let newWidth = vw * (editorPercentage / 100) - resizerMargin;
     if (newWidth < 0) {
       newWidth = 0;
     }
     const previewWidth = vw - newWidth - 2 * resizerMargin - 1;
-    if (newWidth !== width) {
-      setWidth(newWidth);
-      setPreviewWidth(previewWidth);
-    }
+    // if (newWidth !== width) {
+      // setWidth(newWidth * editorRatio.edit);
+      // setPreviewWidth(previewWidth * editorRatio.preview);
+    // }
+    setWidth(newWidth * editorRatio.edit);
+    setPreviewWidth(previewWidth * editorRatio.preview);
   };
 
   const handleResize = () => {
@@ -202,8 +155,8 @@ const Editor = ({
     updateHeight();
   };
 
-  const handleActiveUser = (userNum) => {
-    if (onActiveUser) onActiveUser(userNum);
+  const handleActiveUser = users => {
+    if (onActiveUser) onActiveUser(users);
   };
 
   // const handleClientCursor = msg => {
@@ -238,7 +191,9 @@ const Editor = ({
   // };
 
   const handleSplitResized = newSize => {
-    const viewportWidth = actual('width', 'px');
+    const videoAndChatWidth =
+      actual('width', 'px') - codeMirrorRef.current.offsetWidth;
+    const viewportWidth = actual('width', 'px') - videoAndChatWidth;
     const newPercentage = (100.0 * newSize) / viewportWidth;
     if (newPercentage !== editorPercentage) {
       setEditorPercentage(newPercentage);
@@ -360,16 +315,22 @@ const Editor = ({
   };
 
   return (
-    <>
-      {/* <div id="wrapper">
-        <button type="button" id="y-connect-btn">
-          Disconnect
-        </button>
-      </div> */}
+    <div ref={codeMirrorRef}>
       <SplitPane
         split="vertical"
-        size={width + resizerMargin }
+        size={width + resizerMargin}
         onChange={handleSplitResized}
+        pane1Style={
+          editorRatio.edit ? { display: 'inline-block' } : { display: 'none' }
+        }
+        pane2Style={
+          editorRatio.preview ? { display: 'inline-block' } : { display: 'none' }
+        }
+        resizerStyle={
+          (!editorRatio.edit || !editorRatio.preview)
+          ? { display: 'none'}
+          : { display: 'inline-block'}
+        }
       >
         <ReactCodeMirror
           ref={refEditor}
@@ -383,7 +344,7 @@ const Editor = ({
         <div
           style={{
             overflow: 'auto',
-            width : previewWidth,
+            width: previewWidth,
             height,
             paddingLeft: resizerMargin,
           }}
@@ -394,24 +355,26 @@ const Editor = ({
           })}
         </div>
       </SplitPane>
-    </>
+    </div>
   );
 };
 
-Editor.propTypes = {
+CodeMirror.propTypes = {
   onActiveUser: PropTypes.func,
   defaultValue: PropTypes.string,
   value: PropTypes.string,
   roomName: PropTypes.string,
   heightMargin: PropTypes.number,
+  isVideoAndChatDivShowed: PropTypes.bool,
 };
 
-Editor.defaultProps = {
+CodeMirror.defaultProps = {
   onActiveUser: () => {},
   defaultValue: '',
   value: null,
   roomName: null,
   heightMargin: 0,
+  isVideoAndChatDivShowed: true,
 };
 
-export default Editor;
+export default CodeMirror;

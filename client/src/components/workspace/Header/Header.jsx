@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Others from './Others';
-import Account from './Account';
-import Toolbar from './Toolbar'
+import Toolbar from './Toolbar';
 
 import S from './style';
 import PropTypes from 'prop-types';
@@ -31,8 +30,6 @@ const Header = props => {
       <HideOnScroll {...props}>
         <S.Header>
           <S.Container>
-            
-          <Account></Account>
             <Toolbar></Toolbar>
           </S.Container>
         </S.Header>
