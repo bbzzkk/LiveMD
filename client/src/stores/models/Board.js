@@ -6,8 +6,8 @@ import Team from './Team';
 import Document from './Document';
 
 export const BoardBase = types.model('BoardBase', {
-  id: types.identifier,
-  owner: types.maybe(User),
+  // id: types.identifier,
+  // owner: types.optional(User, {}),
   documents: types.optional(types.array(Document), []),
 });
 

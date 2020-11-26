@@ -12,9 +12,10 @@ const S = {
     height: 4em;
     && {
       display: flex;
-      width: 85%;
+      width: 100%;
       background-color: white;
       box-shadow: 10px 3px 3px transparent;
+      // border-bottom: "1px solid #e8e8e8";
     }
   `,
   Nofication: styled(Notifications)`

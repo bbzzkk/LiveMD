@@ -40,7 +40,7 @@ const Account = () => {
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <div className={classes.paper}>
+            <div className={classes.paper}>s
               <button>Sign Out</button>
             </div>
           </Fade>
