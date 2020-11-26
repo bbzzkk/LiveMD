@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import {
-  Login,
-  Main,
-  OAuth2RedirectHandler,
-  PageList,
-  Page,
-  Workspace,
-} from '@/pages';
+import { Login, Main, OAuth2RedirectHandler, PageList, Page, Workspace, Editor } from '@/pages';
+import { LoadingIndicator } from '@/components/common';
 
-import { GlobalStyle } from '@/styles';
+// import { GlobalStyle } from '@/styles';
 // import getCurrentUser from '@/utils/APIUtils';
 
 import CreateRoom from '@/pages/VideoChat/CreateRoom';
@@ -21,7 +15,7 @@ import '@/cattaz.css';
 const App = () => {
   return (
     <>
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       {/* <Workspace /> */}
       <Router>
         <Switch>
@@ -30,7 +24,7 @@ const App = () => {
           {/* <Route path="/login" component={Login} /> */}
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
-          <Route exact path="/page/:page" component={Page} />
+          <Route exact path="/page/:page" component={Editor} />
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
         </Switch>
