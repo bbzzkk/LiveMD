@@ -62,7 +62,7 @@ const S = {
   border: 3px solid #1e6896;
   border-right: none;
   padding: 5px;
-  height: 36px;
+  height: 20px;
   border-radius: 20px 0 0 20px;
   outline: none;
   color: grey;

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     // minHeight: 10
   },
   iconControl: {
-    marginLeft: theme.spacing(100),
+    marginLeft: theme.spacing(90),
     marginRight: theme.spacing(1),
     marginTop: theme.spacing(0.7),
     fontSize: 25,
