@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '@/components/workspace/Header';
 import Sidebar from '@/components/workspace/Sidebar';
 import Main from '@/components/workspace/Main';
+import PeopleMain from '@/components/workspace/PeopleMain';
 
 import S from './style';
 
@@ -17,9 +18,10 @@ const Workspace = props => {
         
         <S.MainContainer>
         <Header/>
-          <Main/>
+          <PeopleMain/>
         </S.MainContainer>
       </S.Workspace>
+
     </>
   );
 };
