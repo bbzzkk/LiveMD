@@ -48,7 +48,7 @@ const Block1 = () => {
 
       <Link to="/login">
         <ColorButton1 variant="contained">
-          구글 로그인으로 시작하기
+          지금 시작하기
         </ColorButton1>
       </Link>
     </>

@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { Login, Main, PageList, Page, Workspace } from '@/pages';
+import {
+  Login,
+  Main,
+  OAuth2RedirectHandler,
+  PageList,
+  Page,
+  Workspace,
+  Editor,
+} from '@/pages';
+import { LoadingIndicator } from '@/components/common';
+
+// import { GlobalStyle } from '@/styles';
+// import getCurrentUser from '@/utils/APIUtils';
+
 import CreateRoom from '@/pages/VideoChat/CreateRoom';
 import Room from '@/pages/VideoChat/Room';
 
@@ -13,13 +26,14 @@ const App = props => {
   const { authStore } = props.store;
   return (
     <>
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <Router>
         <Switch>
           <Route exact path="/" component={Auth(0, Main, authStore)} />
           <Route exact path="/login" component={Auth(0, Login, authStore)} />
+          <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
-          <Route exact path="/page/:page" component={Page} />
+          <Route exact path="/page/:page" component={Editor} />
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
           <Route
