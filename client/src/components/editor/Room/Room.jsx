@@ -2,6 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
 import S from './style';
+import { IconButton } from '@material-ui/core';
+import {
+  VideocamRounded,
+  VideocamOffRounded,
+  MicRounded,
+  MicOffRounded,
+} from '@material-ui/icons';
 
 const Video = props => {
   const ref = useRef();
@@ -15,13 +22,13 @@ const Video = props => {
   return <S.StyledVideo playsInline autoPlay ref={ref} />;
 };
 
-const Room = ({ roomID, isVideoShowed }) => {
+const Room = ({ roomID }) => {
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef(null);
   const peersRef = useRef([]);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPause, setIsPause] = useState(false);
+  const [isPause, setIsPause] = useState(true);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
@@ -38,6 +45,7 @@ const Room = ({ roomID, isVideoShowed }) => {
 
         userVideo.current.srcObject = stream;
         userVideo.current.srcObject.getAudioTracks()[0].enabled = false; // 첫 입장 시 오디오는 off.
+        userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
         socketRef.current.emit('join room', roomID); // ref는 우리가 방에 합류했다는 이벤트를 내보낸다.
         socketRef.current.on('all users', users => {
           const peers = []; // 방금 첫 사용자가 들어왔기 때문에 peers는 없는것.
@@ -93,9 +101,9 @@ const Room = ({ roomID, isVideoShowed }) => {
         setDisabled(true);
       });
 
-    return (() => {
+    return () => {
       socketRef.current.destroy();
-    });
+    };
   }, []); //userVideo가 업데이트 되면 useEffect 실행
   // 빈 배열로 해놓으면 가장 처음 렌더링 될 때만 실행되고 업데이트 할 경우에는 실행 할 필요가 없는 경우엔 함수의 두 번째 파라미터로 비어있는 배열을 넣어주면 된다.
 
@@ -157,14 +165,42 @@ const Room = ({ roomID, isVideoShowed }) => {
   };
 
   return (
-    <S.RoomContainer isVideoShowed={isVideoShowed}>
+    <S.RoomContainer>
       <S.VideoControlBtnDiv>
-        <button onClick={videoOnAndOff} disabled={disabled}>
-          {isPause ? 'Video on' : 'Video off'}
-        </button>
-        <button onClick={micOnAndOff} disabled={disabled}>
-          {isMuted ? 'Mic on' : 'Mic off'}
-        </button>
+        <IconButton
+          onClick={videoOnAndOff}
+          aria-label="VideocamRoundedIcon"
+          size="medium"
+          disabled={disabled}
+          disableRipple
+          disableFocusRipple
+        >
+          {isPause ? (
+            <VideocamOffRounded
+              fontSize="large"
+              color={disabled ? "disabled" : "secondary"}
+            />
+          ) : (
+            <VideocamRounded fontSize="large" color="primary" />
+          )}
+        </IconButton>
+        <IconButton
+          onClick={micOnAndOff}
+          aria-label="MicRoundedIcon"
+          size="medium"
+          disabled={disabled}
+          disableRipple
+          disableFocusRipple
+        >
+          {isMuted ? (
+            <MicOffRounded
+              fontSize="large"
+              color={disabled ? "disabled" : "secondary"}
+            />
+          ) : (
+            <MicRounded fontSize="large" color="primary" />
+          )}
+        </IconButton>
       </S.VideoControlBtnDiv>
       <S.VideoContent>
         <S.VideoWrapper>
@@ -172,16 +208,13 @@ const Room = ({ roomID, isVideoShowed }) => {
         </S.VideoWrapper>
         <S.UserName>me</S.UserName>
         {peers.map(peer => {
-          {
-            /*key값을 index가 아닌 peerID로 변경*/
-          }
           return (
-            <>
+            <div key={peer.peerID}>
               <S.VideoWrapper>
-                <Video peer={peer.peer} key={peer.peerID} />
+                <Video peer={peer.peer} />
               </S.VideoWrapper>
               <S.UserName>{peer.peerID}</S.UserName>
-            </>
+            </div>
           );
         })}
       </S.VideoContent>

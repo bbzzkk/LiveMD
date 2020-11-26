@@ -31,3 +31,7 @@
   opacity: 1;
   transition-delay: 0s;
 }
+
+.react-codemirror2 {
+  font-size: 16px;
+}

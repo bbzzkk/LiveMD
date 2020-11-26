@@ -1,7 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Chat, CodeMirror, Room } from '@/components/editor';
 import S from './style';
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Button,
+  IconButton,
+  Badge,
+  Popper,
+  Fade,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core';
+import {
+  CreateRounded,
+  ImportContactsRounded,
+  VisibilityRounded,
+  PeopleOutlineRounded,
+  ChatRounded,
+} from '@material-ui/icons';
 
 const Editor = ({ doc, match }) => {
   const [activeUsers, setActiveUsers] = useState([]);
@@ -18,7 +37,9 @@ const Editor = ({ doc, match }) => {
   const [isChatShowed, setChatShowed] = useState(true);
   const [isVideoAndChatDivShowed, setVideoAndChatDivShowed] = useState(true);
   const [editorRatio, setEditorRatio] = useState({ edit: 1, preview: 1 });
-  const [activeBtnClick, setActiveBtnClick] = useState(false);
+  const [msgCount, setMsgCount] = useState(0);
+  const [openActive, setOpenActive] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     if (doc) {
@@ -57,14 +78,36 @@ const Editor = ({ doc, match }) => {
       setChatShowed(false);
       if (!isVideoShowed) setVideoAndChatDivShowed(false);
     } else {
+      setMsgCount(0);
       setChatShowed(true);
       setVideoAndChatDivShowed(true);
     }
   };
 
   const handleRatio = (edit, preview) => {
-    setEditorRatio({ ...editorRatio, edit: edit, preview: preview });
+    setEditorRatio({ edit: edit, preview: preview });
   };
+
+  const handleActive = (openActive) => event => {
+    setAnchorEl(event.currentTarget);
+    setOpenActive(openActive);
+  };
+
+  const useStyles = makeStyles(theme => ({
+    root: {
+      width: 500,
+    },
+    activeList: {
+      width: '100%',
+      minWidth: 100,
+      backgroundColor: '#f1f1f1',
+    },
+    listItemText: {
+      fontSize: '14px',
+    }
+  }));
+
+  const classes = useStyles();
 
   return (
     <S.EditorContainer>
@@ -74,27 +117,104 @@ const Editor = ({ doc, match }) => {
           onChange={e => setDocName(e.target.value)}
         />
         <S.EditBtnGroup>
-          <button onClick={() => handleRatio(2, 0)}>edit</button>
-          <button onClick={() => handleRatio(1, 1)}>both</button>
-          <button onClick={() => handleRatio(0, 2)}>view</button>
+          <IconButton
+            style={{
+              color: !editorRatio.preview ? '#1e6896' : '#bdbdbd',
+            }}
+            onClick={() => handleRatio(2, 0)}
+            aria-label="CreateOutlinedIcon"
+            size="medium"
+            disableRipple
+          >
+            <CreateRounded />
+          </IconButton>
+          <IconButton
+            style={{
+              color:
+                editorRatio.edit && editorRatio.preview ? '#1e6896' : '#bdbdbd',
+            }}
+            onClick={() => handleRatio(1, 1)}
+            aria-label="ImportContactsRoundedIcon"
+            size="medium"
+            disableRipple
+          >
+            <ImportContactsRounded />
+          </IconButton>
+          <IconButton
+            style={{
+              color: !editorRatio.edit ? '#1e6896' : '#bdbdbd',
+            }}
+            onClick={() => handleRatio(0, 2)}
+            aria-label="VisibilityRoundedIcon"
+            size="medium"
+            disableRipple
+          >
+            <VisibilityRounded />
+          </IconButton>
         </S.EditBtnGroup>
         <S.VideoAndChatBtnGroup>
-          <button onClick={videoShowAndHide}>
-            {isVideoShowed ? 'Hide Video' : 'Show Video'}
-          </button>
-          <button onClick={chatShowAndHide}>
-            {isChatShowed ? 'Hide Chat' : 'Show Chat'}
-          </button>
-          <button
-            onClick={() => setActiveBtnClick(!activeBtnClick)}
-          >{`ONLINE: ${activeUsers.length}`}</button>
-          <S.ActiveDiv active={activeBtnClick}>
-            <ul>
-              {activeUsers.map(user => (
-                <li>{user}</li>
-              ))}
-            </ul>
-          </S.ActiveDiv>
+          <IconButton
+            style={{
+              color: isVideoShowed ? '#1e6896' : '#bdbdbd',
+            }}
+            onClick={videoShowAndHide}
+            aria-label="VisibilityRoundedIcon"
+            size="medium"
+            disableRipple
+          >
+            <PeopleOutlineRounded fontSize="large" />
+          </IconButton>
+          <IconButton
+            style={{
+              color: isChatShowed ? '#1e6896' : '#bdbdbd',
+            }}
+            onClick={chatShowAndHide}
+            aria-label="ChatRoundedIcon"
+            size="medium"
+            disableRipple
+          >
+            <Badge badgeContent={msgCount} max={99} color="error">
+              <ChatRounded fontSize="large" />
+            </Badge>
+          </IconButton>
+          <Button
+            style={{
+              color: 'white',
+              backgroundColor: '#1e6896',
+              fontWeight: 'bold',
+              marginLeft: '10px',
+            }}
+            onClick={handleActive(!openActive)}
+          >
+            {`ONLINE: ${activeUsers.length}`}
+          </Button>
+          <Popper
+            open={openActive}
+            anchorEl={anchorEl}
+            placement='bottom-end'
+            transition
+          >
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <Paper>
+                  <div className={classes.activeList}>
+                    <List
+                      component="nav"
+                      aria-label="activeList">
+                        {activeUsers.map((user, index) => (
+                          <ListItem key={index} >
+                            <ListItemText
+                              classes={{ primary: classes.listItemText }}
+                              primary={user}
+                            />
+                          </ListItem>
+                        ))}
+                    </List>
+                  </div>
+                </Paper>
+              </Fade>
+            )}
+          </Popper>
         </S.VideoAndChatBtnGroup>
       </S.Header>
       <S.Body>
@@ -113,11 +233,15 @@ const Editor = ({ doc, match }) => {
           />
         </S.CodeMirrorContainer>
         <S.VideoAndChatDiv isVideoAndChatDivShowed={isVideoAndChatDivShowed}>
-          <S.VideoDiv>
-            <Room isVideoShowed={isVideoShowed} />
+          <S.VideoDiv isChatShowed={isChatShowed} isVideoShowed={isVideoShowed}>
+            <Room />
           </S.VideoDiv>
-          <S.ChatDiv>
-            <Chat isChatShowed={isChatShowed} />
+          <S.ChatDiv isChatShowed={isChatShowed} isVideoShowed={isVideoShowed}>
+            <Chat
+              isVideoShowed={isVideoShowed}
+              isChatShowed={isChatShowed}
+              setMsgCount={setMsgCount}
+            />
           </S.ChatDiv>
         </S.VideoAndChatDiv>
       </S.Body>

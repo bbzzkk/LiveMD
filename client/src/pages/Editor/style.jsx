@@ -4,7 +4,6 @@ export default {
   EditorContainer: styled.div`
     display: flex;
     width: 100%;
-    min-width: 1366px;
     height: 100%;
     flex-direction: column;
     position: absolute;
@@ -39,12 +38,12 @@ export default {
   `,
 
   ActiveDiv: styled.div`
-    display: ${(props) => props.active ? 'block' : 'none'}; 
+    display: ${props => (props.active ? 'block' : 'none')};
     position: absolute;
     right: 0;
     margin-right: 50px;
     z-index: 9999;
-    background-color: #F1F1F1;
+    background-color: #f1f1f1;
   `,
 
   Body: styled.div`
@@ -64,16 +63,18 @@ export default {
     display: ${props => (props.isVideoAndChatDivShowed ? 'flex' : 'none')};
     flex-direction: column;
     width: 20%;
-    border-left: 1px solid #f1f1f1;
+    border-left: 5px solid #f1f1f1;
   `,
 
   VideoDiv: styled.div`
+    display: ${props => (props.isVideoShowed ? 'block' : 'none')};
+    height: ${props => (props.isChatShowed ? '50%' : '100%')};
     margin-bottom: auto;
-    height: 50%;
   `,
 
   ChatDiv: styled.div`
+    display: ${props => (props.isChatShowed ? 'block' : 'none')};
+    height: ${props => (props.isVideoShowed ? '50%' : '100%')};
     margin-top: auto;
-    height: 50%;
   `,
 };

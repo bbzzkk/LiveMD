@@ -1,13 +1,15 @@
 import styled from 'styled-components';
+import mStyled from '@material-ui/core/styles/styled';
+import { IconButton } from '@material-ui/core';
 
 export default {
   Chat: styled.div`
-    display: ${(props) => props.isChatShowed ? 'flex' : 'none'}; 
+    display: flex;
     width: 100%;
     height: 100%;
     align-items: center;
     flex-direction: column;
-    border-top: 1px solid #F1F1F1;
+    border-top: ${props => (props.isVideoShowed ? '5px solid #F1F1F1' : 'none')};
     padding-top: 10px;
   `,
 
@@ -16,10 +18,9 @@ export default {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: white;
     overflow: auto;
     padding-bottom: 10px;
-    
+    background-color: white;
   `,
 
   MyMessage: styled.div`
@@ -28,7 +29,7 @@ export default {
     justify-content: flex-end;
     margin-top: 10px;
   `,
-  
+
   MyMessageBox: styled.div`
     display: flex;
     flex-direction: row;
@@ -51,20 +52,21 @@ export default {
     margin-left: 10px;
   `,
 
-
   Message: styled.div`
     max-width: 70%;
-    background-color: #F1F1F1;
+    background-color: ${props => props.backColor};
+    color: ${props => props.fontColor};
     text-align: left;
+    font-size: 16px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     word-break: keep-all;
     word-wrap: break-word;
   `,
 
   ChatID: styled.div`
     padding-left: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 12px;
   `,
 
@@ -78,9 +80,10 @@ export default {
 
   Form: styled.form`
     width: 100%;
-    height: 15%;
+    /* height: 15%; */
     display: flex;
     flex-direction: row;
+    /* border-top: 1px solid black; */
   `,
 
   TextArea: styled.textarea`
@@ -88,20 +91,23 @@ export default {
     padding-top: 5px;
     padding-left: 5px;
     font-size: 14px;
-    background-color: #263238;
+    background-color: white;
     outline: none;
     resize: none;
-    color: lightgray;
+    color: black;
     letter-spacing: 1px;
+    border-radius: 3px solid #bdbdbd;
+    border: none;
     ::placeholder {
-      color: lightgray;
+      color: #616161;
     }
   `,
 
-  Button: styled.button`
-    background-color: #B0BEC5;
-    width: 15%;
-    outline: none;
-    color: #46516e;
-  `,
+  Button: mStyled(IconButton)({
+    width: '15%',
+    outline: 'none',
+    marginLeft: '5px',
+    marginRight: '5px',
+    color: props => props.msglen ? '#1e6896' : 'default',
+  }),
 };

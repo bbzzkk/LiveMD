@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default {
   RoomContainer: styled.div`
-    display: ${(props) => props.isVideoShowed ? 'flex' : 'none'}; 
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -13,7 +13,6 @@ export default {
   VideoControlBtnDiv: styled.div`
     display: flex;
     flex-direction: row;
-    margin: 10px;
   `,
 
   VideoContent: styled.div`
@@ -28,6 +27,7 @@ export default {
     padding-bottom: 56.25%;
     width: 100%;
     background: black;
+    border-bottom: 1px solid white;
   `,
 
   StyledVideo: styled.video`
@@ -49,5 +49,7 @@ export default {
     font-weight: bold;
     color: white;
     background: black;
+    opacity: 0.8;
+    border-radius: 3px;
   `,
 };

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import S from './style';
 import io from 'socket.io-client';
+import { SendRounded } from '@material-ui/icons';
 
-const Chat = ({ isChatShowed }) => {
+const Chat = ({ isVideoShowed, isChatShowed, setMsgCount }) => {
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
@@ -12,19 +13,24 @@ const Chat = ({ isChatShowed }) => {
 
   useEffect(() => {
     socketRef.current = io.connect('https://live-md.com:8001');
-
     socketRef.current.on('your id', id => {
       setYourID(id);
     });
-
     socketRef.current.on('message', message => {
       receivedMessage(message);
     });
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
+    if (!isChatShowed) {
+      setMsgCount((cnt) => cnt + 1);
+    }
   }, [messages]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isVideoShowed, isChatShowed]);
+
 
   const receivedMessage = message => {
     setMessages(oldMsgs => [...oldMsgs, message]);
@@ -54,7 +60,7 @@ const Chat = ({ isChatShowed }) => {
   };
 
   const getNowTime = date => {
-    let hour = 1 + date.getHours();
+    let hour = date.getHours();
     hour = hour >= 10 ? hour : `0${hour}`;
     let min = date.getMinutes();
     min = min >= 10 ? min : `0${min}`;
@@ -68,7 +74,7 @@ const Chat = ({ isChatShowed }) => {
   };
 
   return (
-    <S.Chat isChatShowed={isChatShowed}>
+    <S.Chat isVideoShowed={isVideoShowed}>
       <S.Content>
         {messages.map((message, index) => {
           const nowTime = getNowTime(new Date());
@@ -77,9 +83,13 @@ const Chat = ({ isChatShowed }) => {
               <S.MyMessage key={index}>
                 <S.MyMessageBox>
                   <S.Date>{nowTime}</S.Date>
-                  <S.Message>{message.body}</S.Message>
+                  <S.Message
+                    backColor="#1e6896" 
+                    fontColor="white"
+                  >
+                    {message.body}
+                  </S.Message>
                 </S.MyMessageBox>
-                <div ref={messagesRef}></div>
               </S.MyMessage>
             );
           } else {
@@ -87,14 +97,19 @@ const Chat = ({ isChatShowed }) => {
               <S.PartnerMessage key={index}>
                 <S.ChatID>{yourID}</S.ChatID>
                 <S.PartnerMessageBox>
-                  <S.Message>{message.body}</S.Message>
+                  <S.Message
+                    backColor="#bdbdbd"
+                    fontColor="black"
+                  >
+                    {message.body}
+                  </S.Message>
                   <S.Date>{nowTime}</S.Date>
                 </S.PartnerMessageBox>
-                <div ref={messagesRef}></div>
               </S.PartnerMessage>
             );
           }
         })}
+        <div ref={messagesRef}></div>
       </S.Content>
       <S.Form onSubmit={sendMessage}>
         <S.TextArea
@@ -103,7 +118,17 @@ const Chat = ({ isChatShowed }) => {
           onKeyPress={onKeyPress}
           placeholder="여기에 메세지 입력 ..."
         />
-        <S.Button></S.Button>
+        <S.Button
+          msglen={message.length}
+          onClick={sendMessage}
+          aria-label="SendRoundedIcon"
+          size="medium"
+          disabled={message.length ? false : true}
+          disableRipple
+          disableFocusRipple
+        >
+          <SendRounded fontSize="large" />
+        </S.Button>
       </S.Form>
     </S.Chat>
   );

@@ -55,10 +55,9 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
-          <Route exact path="/page/:page" component={Page} />
+          <Route exact path="/page/:page" component={Editor} />
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
-          <Route exact path="/test/:page" component={Editor} />
         </Switch>
       </Router>
     </>
