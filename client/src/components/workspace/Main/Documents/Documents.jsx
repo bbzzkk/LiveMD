@@ -34,6 +34,7 @@ const Documents = () => {
   return (
     <S.Container>
     <Searching/>
+    <S.Horizon><S.Text>Pinned</S.Text></S.Horizon>
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
 
@@ -41,6 +42,10 @@ const Documents = () => {
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />  
+    <Document createdAt={Date.now()} title="hi" />
+    <S.Horizon><S.Text>Untagged</S.Text></S.Horizon>
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
