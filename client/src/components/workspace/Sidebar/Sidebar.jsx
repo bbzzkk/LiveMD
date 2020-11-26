@@ -11,6 +11,9 @@ const Sidebar = () => {
   return (
     <S.Drawer open variant="permanent">
       <Overview></Overview>
+
+      <S.TeamButton>New Team</S.TeamButton>
+
       <S.DrawerList>
         <S.My button onClick={handleClickMy}>
           <S.MyText primary="My Workspace" />

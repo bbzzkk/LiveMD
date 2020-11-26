@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-const S = {
- 
-};
+const S = {};
 
 export default S;

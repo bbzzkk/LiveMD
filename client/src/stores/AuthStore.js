@@ -15,6 +15,10 @@ const AuthStore = types
     };
 
     return {
+      getUser: flow(function* () {
+        console.log('11111111111111');
+        console.log(api.defaults.headers.common['Authorization']);
+      }),
       signInGoogle2: flow(function* (data) {
         let user = { username: '', id: '', email: '' };
         yield api
