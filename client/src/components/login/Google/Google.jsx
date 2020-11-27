@@ -12,25 +12,26 @@ import S from './style';
 const Google = props => {
   const responseGoogle = async data => {
     const { teamStore, boardStore, authStore } = props.store;
-
+    console.log(teamStore);
     await authStore
       .signInGoogle2(data)
       .then(async () => {
+        console.log('로그인 바로 직후 then!');
         boardStore.setBoard(authStore.user.board);
-        await teamStore.getTeamList(authStore.user.id);
       })
       .catch(e => console.log(e.error));
+    await teamStore.getTeamList(authStore.user.id).then(() => {
+      props.history.push('/board');
 
-    props.history.push('/board/redirect');
-
-    toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
-      position: 'top-center',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+      toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     });
   };
   const responseFail = () => {

@@ -11,6 +11,11 @@ const TeamSchema = new mongoose.Schema({
     default: getUuid,
     index: true,
   },
+  ownerId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   teamname: {
     type: String,
     match: [/^.{3,12}$/, "Should be 4-12 characters!"],
@@ -29,6 +34,7 @@ const TeamSchema = new mongoose.Schema({
     height: Number,
     imageURL: { type: String, default: "" },
   },
+  marked: { type: Boolean, default: false },
 });
 
 TeamSchema.plugin(mongooseHidden, { hidden: { _id: true } });

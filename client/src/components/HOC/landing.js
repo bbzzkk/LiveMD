@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Redirect, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { Main } from '@/pages';
+import { Home } from '@/pages';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

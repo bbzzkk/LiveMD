@@ -1,6 +1,9 @@
 import React, { useState, useRef } from 'react';
+import { inject, observer } from 'mobx-react';
 
 import S from './style';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddTeamButton = props => {
   const [open, setOpen] = useState(false);
@@ -13,14 +16,35 @@ const AddTeamButton = props => {
   const handleChange = e => {
     setName(e.target.value);
   };
-  const handleAddTeam = () => {
-    console.log(nameRef.current.value);
-    console.log(descriptionRef.current.value);
+  const handleAddTeam = async () => {
+    const { authStore, teamStore } = props.store;
+    const { id, email } = authStore.user;
+    const teamname = nameRef.current.value;
+    const description = descriptionRef.current.value;
+    if (teamname.length < 4 && teamname.length > 12) {
+      toast.error(`팀 이름을 확인해주세요 😕`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    const data = {
+      userId: id,
+      teamname: teamname,
+      description: description,
+      email: email,
+    };
+    await teamStore.createTeam(data).then(res => setOpen(false));
   };
   return (
     <>
       <S.AddIcon onClick={handleOpen}>
-        <span>+</span>
+        <S.PlusText>+</S.PlusText>
       </S.AddIcon>
       <S.Dialog open={open} onClose={handleClose}>
         <S.Header>
@@ -35,7 +59,7 @@ const AddTeamButton = props => {
             label="Team Name"
             inputRef={nameRef}
             onChange={handleChange}
-            helperText="Must exceed 3 letters"
+            helperText="Exceed 3 letters and less than 4 letters"
             error={name.length < 3 ? true : false}
           />
           <S.Input label="Team Description" inputRef={descriptionRef} />
@@ -51,4 +75,4 @@ const AddTeamButton = props => {
   );
 };
 
-export default AddTeamButton;
+export default inject('store')(observer(AddTeamButton));
