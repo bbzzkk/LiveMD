@@ -29,17 +29,11 @@ const App = props => {
       {/* <GlobalStyle /> */}
       <Router>
         <Switch>
-<<<<<<< HEAD
-          <Route exact path="/" component={Main} />
-          <Route exact path="/workspace" component={Workspace} />
-          <Route path="/login" component={Login} />
-=======
           <Route exact path="/" component={Auth(0, Main, authStore)} />
           <Route path="/board/redirect" component={Workspace} />
           <Route path="/board" component={Auth(1, Workspace, authStore)} />
 
           <Route exact path="/login" component={Auth(0, Login, authStore)} />
->>>>>>> 7a2466cd20a512a937ed5c5e8fe60f9d8187ff58
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
           <Route exact path="/page/:page" component={Editor} />
