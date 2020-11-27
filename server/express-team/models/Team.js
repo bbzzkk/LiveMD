@@ -14,7 +14,6 @@ const TeamSchema = new mongoose.Schema({
   ownerId: {
     type: String,
     required: true,
-    unique: true,
   },
   teamname: {
     type: String,
