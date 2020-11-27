@@ -8,11 +8,15 @@ const Searching = (props) => {
   <>
     <S.Container>
     
-      <S.Searchbox type="text" placeholder="Search with Title..."/>
+    <S.SearchContainer>
+    <S.Searchbox type="text" placeholder="Search with Title..."/>
       <S.Searchbutton type="submit" > 
         <SearchIcon/>
       </S.Searchbutton>
-    <Sorting />
+
+    </S.SearchContainer>
+
+      <Sorting />
     </S.Container>
   </>
   )

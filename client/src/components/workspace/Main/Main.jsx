@@ -8,9 +8,9 @@ import S from './style';
 
 const Main = props => {
   return (
-    <>
+    <div className="document_wrap">
       <Documents></Documents>
-    </>
+    </div>
   );
 };
 

@@ -55,21 +55,21 @@ const S = {
   position: relative;
   display: flex;
   margin-left: 10px;
-  // justify-content: space-between;
+  justify-content: space-between;
   `,
   Searchbox: styled.input`
-  width: 15%;
+  // width: 15%;
   border: 3px solid #1e6896;
   border-right: none;
   padding: 5px;
-  height: 20px;
+  // height: 20%;
   border-radius: 20px 0 0 20px;
   outline: none;
   color: grey;
   `,
   Searchbutton: styled.button`
-  width: 40px;
-  height: 36px;
+  // width: 4%;
+  // height: 46%;
   border: 1px solid #1e6896;
   background: #1e6896;
   text-align: center;
@@ -77,6 +77,9 @@ const S = {
   border-radius: 0 20px 20px 0;
   cursor: pointer;
   font-size: 20px;
+  `,
+  SearchContainer: styled.div`
+   display:flex;
   `
 };
 

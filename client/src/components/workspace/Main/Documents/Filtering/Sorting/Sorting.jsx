@@ -10,17 +10,27 @@ import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    marginLeft: theme.spacing(0),
+    // marginLeft: '200%',
     minWidth: 200,
-    marginTop: theme.spacing(0.7),
-    // minHeight: 10
+    marginTop: '0%',
+    // minHeight: 10,
+    // borderBottom: "5px solid red",
   },
   iconControl: {
-    marginLeft: theme.spacing(90),
+    marginLeft: '0%',
     marginRight: theme.spacing(1),
-    marginTop: theme.spacing(0.7),
+    marginTop: '0%',
     fontSize: 25,
+    fill: '#1e6896'
   },
+  selectcontrol:{
+    '&:before':{
+      borderColor: '#1e6896',
+    },
+    '&:after':{
+      borderColor:'#1e6896'
+    }
+  }
 }));
 
 
@@ -47,6 +57,7 @@ const Sorting = () => {
       <FormControl className={classes.formControl}>
         {/* <InputLabel id="demo-controlled-open-select-label">정렬</InputLabel> */}
         <Select
+          className={classes.selectcontrol}
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
@@ -54,6 +65,8 @@ const Sorting = () => {
           onOpen={handleOpen}
           value={age}
           onChange={handleChange}
+          // onMouseOver={handleOpen}
+          
         >
           {/* <MenuItem value="">
             <em>None</em>

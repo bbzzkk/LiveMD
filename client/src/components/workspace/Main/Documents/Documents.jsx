@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Document from '@/components/workspace/Main/Documents/Document';
 // import { documents as documentsMock } from '@/utils/Mock';
 import Searching from '@/components/workspace/Main/Documents/Filtering/Searching';
 import S from './style';
+
+const useStyles = makeStyles((theme)=> ({
+  document:{
+    top: '10%',
+    left: '10%',
+  },
+})
+)
 
 const Documents = () => {
   //  const [documents, setDocuments] = useState(documentsMock);
@@ -34,18 +43,18 @@ const Documents = () => {
   return (
     <S.Container>
     <Searching/>
-    <S.Horizon><S.Text>Pinned</S.Text></S.Horizon>
+    <S.Horizon style={{marginTop:"5%"}}><S.Text>Pinned</S.Text></S.Horizon>
+    {/* <S.DocumentContainer> */}
+
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
 
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />  
-    <Document createdAt={Date.now()} title="hi" />
-    <S.Horizon><S.Text>Untagged</S.Text></S.Horizon>
+    {/* </S.DocumentContainer> */}
+
+    <S.Horizon style={{marginTop:"8%"}}><S.Text>Untagged</S.Text></S.Horizon>
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />

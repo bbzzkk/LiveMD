@@ -18,22 +18,24 @@ const Google = props => {
       .then(async () => {
         console.log('로그인 바로 직후 then!');
         boardStore.setBoard(authStore.user.board);
+        // console.log("TEST@");
+        // await teamStore.getTeamList(authStore.user.id);
       })
-      .catch(e => console.log(e.error));
-    await teamStore.getTeamList(authStore.user.id).then(() => {
-      props.history.push('/board');
+      .catch(e => console.log('error'));
 
-      toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
-        position: 'top-center',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+    props.history.push('/board');
+
+    toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
+
   const responseFail = () => {
     toast.error('로그인에 실패하셨습니다..😥', {
       position: 'top-center',

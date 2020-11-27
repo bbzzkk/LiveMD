@@ -6,9 +6,10 @@ const S = {
   Container: styled.div`
   display: flex;
   flex-flow: row wrap;
-  // background-color: white;
+  // background-color: yellow;
   // margin-left: 0%;
-  margin-right: 1%;
+    margin-right: 3%;
+   margin-left: 5%;
 `,
   Horizon: styled.h1`
   width: 100%; 
@@ -16,12 +17,17 @@ const S = {
   border-bottom: 1px solid #9fbedf; 
   line-height: 0.1em;
   margin: 10px 0 20px;
-  margin-top: 3%;
   `,
   Text: styled.span`
   background:#fff; 
   padding:0 10px;
   // font-size: 50%;
+  `,
+  DocumentContainer: styled.div`
+  position: relative;
+  background: yellow;
+  width: 100%;
+  height: fit-content;
   `
 };
 
