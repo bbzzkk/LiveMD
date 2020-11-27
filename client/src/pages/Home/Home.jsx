@@ -22,7 +22,7 @@ const Home = props => {
             </>
           ) : 'null'}
         </S.MainContent> */}
-        <Footer />
+        <Footer/>
       {/* </S.Main> */}
     </>
   );

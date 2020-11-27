@@ -27,7 +27,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/workspace" component={Workspace} />
-          {/* <Route path="/login" component={Login} /> */}
+          <Route path="/login" component={Login} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
           <Route exact path="/page/:page" component={Page} />
