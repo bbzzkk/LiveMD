@@ -3,11 +3,20 @@ const { validationResult } = require("express-validator");
 
 exports.createTeam = async (req, res) => {
   try {
-    console.log(req.body);
     validationResult(req).throw();
     const { userId, teamname, description, email } = req.body;
-    await teamService.createTeam(teamname, description, userId, email);
-    res.status(200).json({ result: true, status: 200 });
+    const data = await teamService.createTeam(
+      teamname,
+      description,
+      userId,
+      email
+    );
+    res.status(200).json({
+      memberId: data.memberId,
+      teamId: data.teamId,
+      result: true,
+      status: 200,
+    });
   } catch (e) {
     console.log(e);
     res.status(500).json({
@@ -18,13 +27,31 @@ exports.createTeam = async (req, res) => {
   }
 };
 
+const asyncMap = async (members, predicate) =>
+  Promise.all(members.map(predicate)).then((results) =>
+    members.map((_v, index) => results[index])
+  );
+
 // get all Team by userId
 exports.getManyTeam = async (req, res) => {
   try {
     validationResult(req).throw();
     const teams = await memberService.getAffiliatedTeams(req.query.userId);
-    console.log(teams);
-    res.status(200).json({ result: true, status: 200, data: teams });
+
+    const data = await Promise.all(
+      teams.map(async (team) => {
+        console.log(team);
+        const target = await teamService.getTeamById(team.teamId);
+        console.log(target);
+        return {
+          teamId: team.teamId,
+          // ownerId:
+          marked: target.marked,
+          teamname: target.teamname,
+        };
+      })
+    );
+    res.status(200).json({ result: true, status: 200, data: data });
   } catch (e) {
     res.status(500).json({
       result: false,

@@ -29,6 +29,10 @@ const S = {
       transition: all 0.35s ease;
     }
   `,
+  PlusText: styled.span`
+    margin-top: auto;
+    margin-bottom: auto;
+  `,
   Dialog: styled(Dialog)`
     min-width: 15em;
   `,
@@ -42,6 +46,7 @@ const S = {
   CloseButton: styled(Button)`
     &&& {
       color: #131236;
+      outline: none;
     }
   `,
   Contents: styled(DialogContent)`
@@ -53,6 +58,7 @@ const S = {
   Input: styled(TextField)`
     && {
       min-width: 10em;
+      width: 15em;
       margin: 1em;
     }
   `,

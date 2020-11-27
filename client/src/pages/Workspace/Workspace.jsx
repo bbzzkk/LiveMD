@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  Header,
-  Sidebar,
-  Main,
-  TeamSettings,
-} from '@/components/workspace';
+import { Header, Sidebar, Main, TeamSettings } from '@/components/workspace';
 
 import S from './style';
 
