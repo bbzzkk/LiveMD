@@ -11,28 +11,25 @@ import {
   Editor,
 } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
+import { GlobalStyle } from '@/styles';
 
-// import { GlobalStyle } from '@/styles';
 // import getCurrentUser from '@/utils/APIUtils';
 
 import CreateRoom from '@/pages/VideoChat/CreateRoom';
 import Room from '@/pages/VideoChat/Room';
 
 import { Auth, LandingCheck } from '@/components/HOC';
-import { GlobalStyle } from '@/styles';
 import '@/cattaz.css';
 
 const App = props => {
   const { authStore } = props.store;
   return (
     <>
-      {/* <GlobalStyle /> */}
       <Router>
         <Switch>
           <Route exact path="/" component={Auth(0, Main, authStore)} />
           <Route path="/board/redirect" component={Workspace} />
           <Route path="/board" component={Auth(1, Workspace, authStore)} />
-
           <Route exact path="/login" component={Auth(0, Login, authStore)} />
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
