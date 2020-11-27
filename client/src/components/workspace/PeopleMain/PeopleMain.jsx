@@ -6,18 +6,18 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const PeopleMain = () => {
   return (
     <S.container className="container">
-      <h3 className="h3Member">Member</h3>
+      <h3 className="h3Member">Members</h3>
       <form className="form-horizontal" role="form">
         {/* Add New Member */}
         <div className="form-group">
-          <label for="inputAddNewMember">Add New Member</label>
+          <label for="inputAddNewMember" id="inputAddNewMemberLabel">Add New Member</label>
           <input
             type="text"
             class="form-control search-user"
             id="inputAddNewMember"
             placeholder="Username or email address"
           />
-          <div className="dropdown select">
+          <div className="dropdown select addNewMemberSelect">
             <button
               class="btn btn-default dropdown-toggle"
               type="button"
@@ -27,7 +27,9 @@ const PeopleMain = () => {
               aria-expanded="false"
             >
               <span className="dropdown-label pull-left">Admin</span>
-              <span class="caret"></span>
+              <span className="caretSpan">
+                <span class="caret"></span>
+              </span>
             </button>
             <ul
               className="dropdown-menu role-dropdown"
@@ -57,10 +59,10 @@ const PeopleMain = () => {
               </li>
             </ul>
           </div>
-          <Button variant="outlined">Add</Button>
+          <Button variant="outlined" className="AddNewMemberButton">추가</Button>
         </div>
         <br />
-        <br />
+
         {/* Member List */}
         <div className="form-group">
           <div className="member-list">
@@ -69,7 +71,7 @@ const PeopleMain = () => {
               <span className="id" style={{ display: 'none' }}>
                 7104fdbc-c0e9-4c5a-af04-62607ef52db2
               </span>
-              <div className="col-sm-8 col-xs-12">
+              <div className="col-sm-8 col-xs-12 ListimageAndName">
                 <img
                   className="ui-avatar circle"
                   width="20"
@@ -87,7 +89,7 @@ const PeopleMain = () => {
                   style={{ cursor: 'pointer' }}
                 />
               </div>
-              <div className="col-sm-2 col-xs-6 col-role">
+              <div className="col-sm-2 col-xs-6 col-role ListDropdown">
                 <div className="dropdown select" style={{ minWidth: '100%' }}>
                   <button
                     className="btn btn-default dropdown-toggle no-border disabled"
@@ -95,6 +97,7 @@ const PeopleMain = () => {
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="true"
+                    id="teamRoleMenu"
                   >
                     <span className="dropdown-label pull-left">Owner</span>
                   </button>
@@ -108,7 +111,7 @@ const PeopleMain = () => {
               <span className="id" style={{ display: 'none' }}>
                 f21c2d60-7be8-4d97-a2f9-311e88819f13
               </span>
-              <div className="col-sm-8 col-xs-12">
+              <div className="col-sm-8 col-xs-12 ListimageAndName">
                 <img
                   className="ui-avatar circle"
                   width="20"
@@ -126,7 +129,7 @@ const PeopleMain = () => {
                   style={{ cursor: 'pointer' }}
                 />
               </div>
-              <div className="col-sm-2 col-xs-6 col-role">
+              <div className="col-sm-2 col-xs-6 col-role ListDropdown">
                 <div className="dropdown select" style={{ minWidth: '100%' }}>
                   <button
                     className="btn btn-default dropdown-toggle no-border"
@@ -134,6 +137,7 @@ const PeopleMain = () => {
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="true"
+                    id="teamRoleMenu"
                   >
                     <span className="dropdown-label pull-left">Admin</span>
                   </button>
