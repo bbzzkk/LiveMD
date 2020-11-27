@@ -7,6 +7,11 @@ export default {
     height: 100%;
     flex-direction: column;
     position: absolute;
+
+    button {
+      text-transform: none;
+      outline: none;
+    }
   `,
 
   Header: styled.div`
