@@ -41,7 +41,7 @@ export default {
 
   UserName: styled.div`
     position: relative;
-    margin-top: -20px;
+    margin-top: -30px;
     padding-left: 10px;
     padding-right: 10px;
     width: fit-content;
