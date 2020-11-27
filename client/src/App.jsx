@@ -12,21 +12,20 @@ import {
 } from '@/pages';
 import { LoadingIndicator } from '@/components/common';
 
-// import { GlobalStyle } from '@/styles';
+
 // import getCurrentUser from '@/utils/APIUtils';
 
 import CreateRoom from '@/pages/VideoChat/CreateRoom';
 import Room from '@/pages/VideoChat/Room';
 
 import { Auth } from '@/components/HOC';
-import { GlobalStyle } from '@/styles';
+
 import '@/cattaz.css';
 
 const App = props => {
   const { authStore } = props.store;
   return (
     <>
-      {/* <GlobalStyle /> */}
       <Router>
         <Switch>
           <Route
