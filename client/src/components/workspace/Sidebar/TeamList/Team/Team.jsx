@@ -16,11 +16,8 @@ const Team = props => {
   };
   return (
     <S.ListItem button>
-      <S.ListItemContainer>
-        <S.StarIcon
-          onClick={handleMarked}
-          style={{ color: isMarked ? 'yellow' : 'green' }}
-        />
+      <S.ListItemContainer onClick={handleMarked}>
+        <S.StarIcon style={{ color: isMarked ? 'yellow' : 'green' }} />
       </S.ListItemContainer>
       <S.ListItemText>{teamname}</S.ListItemText>
     </S.ListItem>

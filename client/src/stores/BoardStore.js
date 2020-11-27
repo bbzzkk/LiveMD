@@ -7,7 +7,7 @@ import getUuid from 'src/utils/uuid';
 
 const BoardStore = types
   .model('BoardStore', {
-    board: types.maybe(Board),
+    board: types.optional(types.reference(types.late(() => Board)), ''),
   })
   .actions(self => ({
     setBoard(board) {

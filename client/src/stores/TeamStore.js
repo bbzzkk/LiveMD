@@ -28,18 +28,15 @@ const TeamStore = types
           console.log(teamList);
 
           teamList.map(({ teamId, teamname, marked }) => {
+            const board = Board.create({ id: teamId });
             const team = Team.create({
               teamId: teamId,
               teamname: teamname,
               marked: marked,
+              board: board,
             });
             self.teamList.push(team);
           });
-          console.log(teamList);
-          console.log('이것이 팀리스트호출이다');
-          // response.data.map(team => {
-          //   const team = Team.create({ teamId: teamId, team });
-          // });
         } catch (error) {
           console.log('failed: ', error);
         }
@@ -52,7 +49,10 @@ const TeamStore = types
           });
         const { teamId, memberId, result } = response.data;
         if (result) {
-          const board = Board.create();
+          const board = Board.create({ id: teamId });
+
+          console.log('teamStore');
+          console.log(teamData);
           const team = Team.create({
             teamId: teamId,
             owner: teamData.userId,

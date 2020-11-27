@@ -16,7 +16,8 @@ const AuthStore = types
 
     return {
       setUser(user) {
-        const board = Board.create();
+        console.log(user);
+        const board = Board.create({ id: user.id });
         self.user = User.create({ ...user, board: board });
       },
       getUser: flow(function* (userId) {
@@ -70,7 +71,7 @@ const AuthStore = types
             console.log('catch 문 들어옴');
             console.log(e);
           });
-        const board = Board.create();
+        const board = Board.create({ id: user.id });
         self.user = User.create({ ...user, board: board });
         self.isAuthenticated = true;
       }),

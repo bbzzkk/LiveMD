@@ -10,16 +10,18 @@ const PeopleMain = () => {
       <form className="form-horizontal" role="form">
         {/* Add New Member */}
         <div className="form-group">
-          <label for="inputAddNewMember" id="inputAddNewMemberLabel">Add New Member</label>
+          <label htmlFor="inputAddNewMember" id="inputAddNewMemberLabel">
+            Add New Member
+          </label>
           <input
             type="text"
-            class="form-control search-user"
+            className="form-control search-user"
             id="inputAddNewMember"
             placeholder="Username or email address"
           />
           <div className="dropdown select addNewMemberSelect">
             <button
-              class="btn btn-default dropdown-toggle"
+              className="btn btn-default dropdown-toggle"
               type="button"
               id="teamRoleMenu"
               data-toggle="dropdown"
@@ -28,7 +30,7 @@ const PeopleMain = () => {
             >
               <span className="dropdown-label pull-left">Admin</span>
               <span className="caretSpan">
-                <span class="caret"></span>
+                <span className="caret"></span>
               </span>
             </button>
             <ul
@@ -59,7 +61,9 @@ const PeopleMain = () => {
               </li>
             </ul>
           </div>
-          <Button variant="outlined" className="AddNewMemberButton">추가</Button>
+          <Button variant="outlined" className="AddNewMemberButton">
+            추가
+          </Button>
         </div>
         <br />
 

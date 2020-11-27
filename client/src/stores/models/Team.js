@@ -7,11 +7,8 @@ export const TeamBase = types.model('TeamBase', {
   teamId: types.identifier,
   teamname: types.string,
   thumbnail: types.maybe(types.string),
-  board: types.optional(
-    types.late(() => Board),
-    {},
-  ),
-  members: types.optional(types.array(types.late(() => Member)), []),
+  board: Board,
+  members: types.optional(types.array(Member), []),
   marked: types.optional(types.boolean, false),
 });
 
