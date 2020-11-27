@@ -12,12 +12,19 @@ import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 200,
-    minWidth: 250,
-    margin: theme.spacing(2),
+    maxWidth: 250,
+    minWidth: 100,
+    widht: '150%',
+    height: '4%',
+    margin: '1%',
+    transition: "transform 0.15s ease-in-out"
+  },
+  cardHovered: {
+    transform: "scale3d(1.05, 1.05, 1)"
   },
   bullet: {
     display: 'inline-block',
@@ -27,6 +34,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontSize: 24,
     fontWeight: "550",
+    textAlign: 'left',
   },
   pos: {
     marginTop: 10,
@@ -44,8 +52,12 @@ const useStyles = makeStyles(theme => ({
   black_btn:{
     color: 'grey'
   },
-  cardaction:{
+  icon_button:{
+    padding: 0,
 
+  },
+  card_action:{
+    justifyContent: 'flex-end',
   }
 }));
 
@@ -53,6 +65,10 @@ const Document = props => {
   const { owner, createdAt, title } = props;
   const classes = useStyles();
   const [click, setClick] = useState(false);
+  const [state, setState] = useState({
+    raised:false,
+    shadow:1,
+  })
 
 
   const handleClick =()=>{
@@ -64,7 +80,12 @@ const Document = props => {
   
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root}
+    classes={{root: state.raised ? classes.cardHovered : ""}}
+    onMouseOver={()=>setState({raised: true, shadow:1})}
+    onMouseOut={()=>setState({raised:false, shadow:0})}
+    raised={state.raised} zDepth={state.shadow}>
+    <Button>
       <CardContent>
         <Typography className={classes.title} variant="h5" component="h2">
           {title}
@@ -74,11 +95,12 @@ const Document = props => {
           {createdAt}
         </Typography>
       </CardContent>
-      <CardActions>
-        <IconButton>
+      </Button>
+      <CardActions className={classes.card_action} focusV>
+        <IconButton className={classes.icon_button}>
         <BookmarkIcon className={click===true? classes.red_btn : classes.black_btn} onClick={handleClick}/>
         </IconButton>
-        <IconButton>
+        <IconButton className={classes.icon_button}>
         <DeleteIcon/>
         </IconButton>
       </CardActions>

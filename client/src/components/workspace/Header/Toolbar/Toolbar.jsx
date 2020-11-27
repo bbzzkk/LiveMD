@@ -6,17 +6,20 @@ import Typography from "@material-ui/core/Typography";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
+import Button from '@material-ui/core/Button';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const AntTabs = withStyles({
   root: {
-    marginLeft: "0.3em",
+    // marginLeft: "5%",
     padding: "0.1em",
-    borderBottom: "1px solid #e8e8e8",
+    // borderBottom: "1px solid #e8e8e8",
     backgroundColor: "none",
     color: "black",
     width:"100%",
     // boxShadow: "10px 1px 1px lightgrey",
-    fontSize: '2em',
+    fontSize: '5em',
+    marginRight: '10%'
   },
   indicator: {
     backgroundColor: "#1e6896",
@@ -29,7 +32,8 @@ const AntTab = withStyles((theme) => ({
     minWidth: 50,
     fontWeight: theme.typography.fontWeightRegular,
     fontSize: "15px",
-    marginRight: theme.spacing(10),
+    // marginTop: "0%",
+    marginRight: '10%',
     fontFamily: [
       "-apple-system",
       "BlinkMacSystemFont",
@@ -104,11 +108,14 @@ const Toolbar = () => {
   };
 
   return (
+    <>
         <AntTabs value={value} onChange={handleChange} aria-label="ant example" centered>
           <AntTab label={<div><DescriptionOutlinedIcon style={{verticalAlign: 'middle', marginRight:'10px'}} />Documents</div>} />
           <AntTab label={<div><PeopleAltOutlinedIcon style={{verticalAlign: 'middle', marginRight:'10px'}} />People</div>} />
           <AntTab label={<div><SettingsIcon style={{verticalAlign: 'middle', marginRight:'10px'}} />Settings</div>} />
         </AntTabs>
+
+  </>
        
   
   );
