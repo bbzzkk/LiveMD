@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import {
   Login,
-  Main,
+  Home,
   OAuth2RedirectHandler,
   PageList,
   Page,
@@ -32,14 +32,18 @@ const App = props => {
             exact
             path="/"
             render={() => (
-              <Auth option={0} RouteComponent={Main} authStore={authStore} />
+              <Auth option={0} RouteComponent={Home} authStore={authStore} />
             )}
           />
           <Route
             exact
             path="/board"
             render={() => (
-              <Auth option={1} RouteComponent={Workspace} authStore={authStore} />
+              <Auth
+                option={1}
+                RouteComponent={Workspace}
+                authStore={authStore}
+              />
             )}
           />
           <Route
@@ -62,7 +66,11 @@ const App = props => {
             exact
             path="/board:team"
             render={() => (
-              <Auth option={1} RouteComponent={Workspace} authStore={authStore} />
+              <Auth
+                option={1}
+                RouteComponent={Workspace}
+                authStore={authStore}
+              />
             )}
           />
         </Switch>

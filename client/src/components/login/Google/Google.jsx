@@ -12,15 +12,16 @@ import S from './style';
 const Google = props => {
   const responseGoogle = async data => {
     const { teamStore, boardStore, authStore } = props.store;
-
+    console.log(teamStore);
     await authStore
       .signInGoogle2(data)
       .then(async () => {
+        console.log('로그인 바로 직후 then!');
         boardStore.setBoard(authStore.user.board);
         // console.log("TEST@");
         // await teamStore.getTeamList(authStore.user.id);
       })
-      .catch(e => console.log("error"));
+      .catch(e => console.log('error'));
 
     props.history.push('/board');
 
@@ -32,7 +33,7 @@ const Google = props => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-   });
+    });
   };
 
   const responseFail = () => {

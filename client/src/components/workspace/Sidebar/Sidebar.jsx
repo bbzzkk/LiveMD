@@ -3,7 +3,7 @@ import S from './style';
 
 import Overview from './Overview';
 import My from './My';
-import Teams from './TeamList';
+import TeamList from './TeamList';
 
 const Sidebar = () => {
   const handleClickMy = () => {
@@ -14,7 +14,7 @@ const Sidebar = () => {
       <Overview></Overview>
       <S.DrawerList>
         <My />
-        <Teams />
+        <TeamList />
       </S.DrawerList>
     </S.Drawer>
   );
