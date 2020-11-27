@@ -1,8 +1,11 @@
 import React from 'react';
 
-import Header from '@/components/workspace/Header';
-import Sidebar from '@/components/workspace/Sidebar';
-import Main from '@/components/workspace/Main';
+import {
+  Header,
+  Sidebar,
+  Main,
+  TeamSettings,
+} from '@/components/workspace';
 
 import S from './style';
 
@@ -17,7 +20,8 @@ const Workspace = props => {
 
         <S.MainContainer>
           <Header />
-          <Main />
+          {/* <Main /> */}
+          <TeamSettings />
         </S.MainContainer>
       </S.Workspace>
     </>
