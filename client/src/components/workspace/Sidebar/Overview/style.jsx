@@ -202,26 +202,25 @@ const S = {
     text-aligin: center;
     border-bottom-left-radius: 20%;
     border-bottom-right-radius: 20%;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    height: 20%;
+    padding-top: 1em;
+    margin-bottom: 2em;
+    // height: 20vw;
     // box-shadow: -1px 1px 1px 1px grey;
   `,
   Avatar: styled.img`
     display: block;
-    margin-top: 10%;
+    margin-top: 5em;
     margin-left: auto;
     margin-right: auto;
-    width: 35%;
-    height: 35%
-    margin-top: 10%;
+    width: 5em;
+    height: 5em;
+    margin-top: 1em;
     // border: 1px white ridge;
     border-radius: 50%;
-    margin-bottom: 10%;
+    margin-bottom: 1em;
   `,
-  Username: styled.h3`
+  Username: styled.h4`
     text-align: center;
-    margin-bottom: 10%;
   `,
 };
 

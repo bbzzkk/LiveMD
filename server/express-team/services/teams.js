@@ -6,6 +6,8 @@ exports.createTeam = async (teamname, description, userId, email) => {
     teamname: teamname,
     description: description,
   });
+  console.log("team");
+  console.log(team);
   const member = await Member.create({
     teamId: team.teamId,
     userId: userId,
@@ -13,6 +15,8 @@ exports.createTeam = async (teamname, description, userId, email) => {
     status: "active",
     email: email,
   });
+  console.log("member");
+  console.log(member);
   if (team && member) {
     team.save();
     member.save();

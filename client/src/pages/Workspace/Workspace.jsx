@@ -10,7 +10,6 @@ import {
 import S from './style';
 
 const Workspace = props => {
-  console.log('This is workspace!!!!!');
   return (
     <>
       <S.Workspace>
