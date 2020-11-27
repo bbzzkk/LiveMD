@@ -7,7 +7,6 @@ import Main from '@/components/workspace/Main';
 import S from './style';
 
 const Workspace = props => {
-  console.log('This is workspace!!!!!');
   return (
     <>
       <S.Workspace>
