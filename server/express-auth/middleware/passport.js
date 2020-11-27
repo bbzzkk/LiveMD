@@ -6,6 +6,7 @@ const config = require("../configuration");
 const User = require("../models/user");
 
 passport.use(
+  "jwt",
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
 import GoogleLogin from 'react-google-login';
@@ -10,25 +11,27 @@ import S from './style';
 
 const Google = props => {
   const responseGoogle = async data => {
-    const {
-      boardStore,
-      authStore: { user, signInGoogle2 },
-    } = props.store;
-    await signInGoogle2(data)
-      .then(() => {
-        props.history.push('/');
-        toast.success(`${user.username} 님 반갑습니다😉`, {
-          position: 'top-center',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        boardStore.setBoard(user.board);
+    const { teamStore, boardStore, authStore } = props.store;
+
+    await authStore
+      .signInGoogle2(data)
+      .then(async () => {
+        boardStore.setBoard(authStore.user.board);
+        await teamStore.getTeamList(authStore.user.id);
       })
       .catch(e => console.log(e.error));
+
+    props.history.push('/board/redirect');
+
+    toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
+      position: 'top-center',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
   const responseFail = () => {
     toast.error('로그인에 실패하셨습니다..😥', {
@@ -59,4 +62,4 @@ const Google = props => {
     />
   );
 };
-export default inject('store')(observer(Google));
+export default withRouter(inject('store')(observer(Google)));

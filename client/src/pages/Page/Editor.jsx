@@ -50,7 +50,7 @@ const resizerMargin = 12;
 //     polyline.setAttribute('fill-opacity', 0.9);
 //     svg.appendChild(polyline);
 //     this.marker = cm.setBookmark(cursorPos, { widget: svg, insertLeft: true });
-//   }
+//   }t
 
 //   removeCursor() {
 //     if (this.marker) {
@@ -383,10 +383,7 @@ const Editor = ({
         <div
           style={{
             overflow: 'auto',
-            // Editor 길이는 Page에서 맞춰줬지만 Preview의 길이도 따로 설정해줘야함 안그러면 RTC들이 Preview침범.
-            // width : 85% === previewWidth - 200과 얼추 맞음.
-            width: videoButton ? previewWidth - 200 : previewWidth &&
-            chatButton ? previewWidth - 200 : previewWidth,
+            width : previewWidth,
             height,
             paddingLeft: resizerMargin,
           }}

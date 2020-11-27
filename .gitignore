@@ -6,6 +6,8 @@ yarn.lock
 package-lock.json
 
 ###### client ######
+/client/debug.log
+/client/src/config
 /client/.vscode
 /client/yarn.lock
 /client/build
@@ -46,6 +48,7 @@ package-lock.json
 /server/.gitignore
 /server/**/.gitignore
 /server/**/.dockerignore
+/server/express-auth/configuration/
 
 ### node js ###
 /server/**/node_modules

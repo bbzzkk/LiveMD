@@ -8,13 +8,13 @@ const Home = props => {
   return (
     <>
       {/* <S.Main> */}
-        <Header
-          authenticated={authenticated}
-          onLogout={onLogout}
-          currentUser={currentUser}
-        />
-        <Body/>
-        {/* <S.MainContent>;
+      <Header
+        authenticated={authenticated}
+        onLogout={onLogout}
+        currentUser={currentUser}
+      />
+      <Body />
+      {/* <S.MainContent>;
           {authenticated ? (
             <>
               <div>{currentUser?.name}</div>
@@ -22,7 +22,7 @@ const Home = props => {
             </>
           ) : 'null'}
         </S.MainContent> */}
-        <Footer/>
+      <Footer />
       {/* </S.Main> */}
     </>
   );

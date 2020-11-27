@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import {
   Login,
   Main,
@@ -8,35 +8,52 @@ import {
   PageList,
   Page,
   Workspace,
+  Editor,
 } from '@/pages';
+import { LoadingIndicator } from '@/components/common';
 
-import { GlobalStyle } from '@/styles';
+// import { GlobalStyle } from '@/styles';
 // import getCurrentUser from '@/utils/APIUtils';
 
 import CreateRoom from '@/pages/VideoChat/CreateRoom';
 import Room from '@/pages/VideoChat/Room';
 
+import { Auth, LandingCheck } from '@/components/HOC';
+import { GlobalStyle } from '@/styles';
 import '@/cattaz.css';
 
-const App = () => {
+const App = props => {
+  const { authStore } = props.store;
   return (
     <>
-      <GlobalStyle />
-      {/* <Workspace /> */}
+      {/* <GlobalStyle /> */}
       <Router>
         <Switch>
+<<<<<<< HEAD
           <Route exact path="/" component={Main} />
           <Route exact path="/workspace" component={Workspace} />
           <Route path="/login" component={Login} />
+=======
+          <Route exact path="/" component={Auth(0, Main, authStore)} />
+          <Route path="/board/redirect" component={Workspace} />
+          <Route path="/board" component={Auth(1, Workspace, authStore)} />
+
+          <Route exact path="/login" component={Auth(0, Login, authStore)} />
+>>>>>>> 7a2466cd20a512a937ed5c5e8fe60f9d8187ff58
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route exact path="/page/" component={PageList} />
-          <Route exact path="/page/:page" component={Page} />
+          <Route exact path="/page/:page" component={Editor} />
           <Route path="/create" component={CreateRoom} />
           <Route path="/room/:roomID" component={Room} />
+          <Route
+            exact
+            path="/board/:team"
+            component={Auth(1, Workspace, authStore)}
+          />
         </Switch>
       </Router>
     </>
   );
 };
 
-export default App;
+export default inject('store')(observer(App));

@@ -1,27 +1,29 @@
 import React from 'react';
 
-import Header from '@/components/workspace/Header';
-import Sidebar from '@/components/workspace/Sidebar';
-import Main from '@/components/workspace/Main';
+import {
+  Header,
+  Sidebar,
+  Main,
+  TeamSettings,
+} from '@/components/workspace';
 
 import S from './style';
 
 const Workspace = props => {
   return (
-    <div className="main_wrap">
-      
-      {/* <S.Workspace>  */}
-         <Header className={"main_header"}/>
-         <S.SidebarContainer className={"main_sidebar"}>
+    <>
+      <S.Workspace>
+        <S.SidebarContainer>
           <Sidebar />
         </S.SidebarContainer>
-        
-        <S.MainContainer className={"main_container"}>
-   
-          <Main/>
+
+        <S.MainContainer>
+          <Header />
+          {/* <Main /> */}
+          <TeamSettings />
         </S.MainContainer>
-      {/* </S.Workspace> */}
-    </div>
+      </S.Workspace>
+    </>
   );
 };
 

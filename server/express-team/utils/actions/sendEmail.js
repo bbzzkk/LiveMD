@@ -12,10 +12,7 @@ const sendEmail = async (receiver, url, teamname) => {
       `<a href=${url}>${url}</a>` +
       "<p>This invitation link will expire in 1 days</p>",
   };
-  console.log(mailOptions);
 
-  console.log(process.env.INVITATION_SENDER);
-  console.log("11111111111111");
   const sender = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: process.env.INVITATION_PORT,

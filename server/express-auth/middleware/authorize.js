@@ -4,11 +4,7 @@ const db = require("_helpers/db");
 
 module.exports = authorize;
 
-function authorize(roles = []) {
-  if (typeof roles === "string") {
-    roles = [roles];
-  }
-
+function authorize() {
   return [
     jwt({ secret, algorithms: ["HS256"] }),
 
