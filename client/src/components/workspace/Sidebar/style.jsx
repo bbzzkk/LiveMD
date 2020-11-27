@@ -34,48 +34,20 @@ const S = {
   Drawer: styled(Drawer)`
     & > div {
       min-width: 10em;
-      // margin-top: 5em;
-      border-color: 5em gray;
+      border-color: 1px gray;
       background-color: #131236;
+      box-shadow: 1px 5px 5px grey;
       color: white;
       border-top-right-radius: 2em 2em;
-      width: 15%;
+      width: 15vw;
     }
   `,
   DrawerList: styled(List)`
     && {
-      padding-top: 1em;
+      // padding-top: 1em;
       // margin-left: 0.5em;
-      margin: 0.5em;
+      // margin: 0.5em;
     }
-  `,
-  My: styled(ListItem)``,
-  MyText: styled(ListItemText)``,
-  ButtonGroup: styled.div`
-    display: flex;
-  `,
-
-  TeamButton: styled(ColorButton)`
-    margin-top: 1em;
-    min-width: 10vw;
-    background-color: #e8e8e8;
-    height: 3em;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    width: 100%;
-  `,
-  AddIcon: styled(AddIcon)`
-    margin-right: 0.3vw;
-      &:hover {
-      letterSpacing: '0.3em',
-
-      color: '#1e6896',
-      border: '1px solid #1e6896',
-      backgroundColor: theme.palette.getContrastText('#1e6896'),
-    },
   `,
 };
 

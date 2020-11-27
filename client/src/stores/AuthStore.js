@@ -16,13 +16,8 @@ const AuthStore = types
 
     return {
       setUser(user) {
-        console.log('123232123');
-        const newUser = { ...user };
-        console.log(newUser);
-        // const board = Board.create();
-        // self.user = User.create({ ...user, board: board });
-        // self.u ser = { user };
-        self.user = { ...user };
+        const board = Board.create();
+        self.user = User.create({ ...user, board: board });
       },
       getUser: flow(function* (userId) {
         yield api

@@ -11,17 +11,18 @@ import S from './style';
 
 const Google = props => {
   const responseGoogle = async data => {
-    const { boardStore, authStore } = props.store;
+    const { teamStore, boardStore, authStore } = props.store;
 
     await authStore
       .signInGoogle2(data)
-      .then(() => {
+      .then(async () => {
         boardStore.setBoard(authStore.user.board);
+        // console.log("TEST@");
+        // await teamStore.getTeamList(authStore.user.id);
       })
-      .catch(e => console.log(e.error));
-    // return () => <Redirect to="/board" />;
-    console.log(props.history);
-    props.history.push('/board/redirect');
+      .catch(e => console.log("error"));
+
+    props.history.push('/board');
 
     toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
       position: 'top-center',
@@ -31,8 +32,9 @@ const Google = props => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });
+   });
   };
+
   const responseFail = () => {
     toast.error('로그인에 실패하셨습니다..😥', {
       position: 'top-center',

@@ -1,14 +1,15 @@
 import React from 'react';
 
-import Header from '@/components/workspace/Header';
-import Sidebar from '@/components/workspace/Sidebar';
-import Main from '@/components/workspace/Main';
-import PeopleMain from '@/components/workspace/PeopleMain';
+import {
+  Header,
+  Sidebar,
+  Main,
+  TeamSettings,
+} from '@/components/workspace';
 
 import S from './style';
 
 const Workspace = props => {
-  console.log('This is workspace!!!!!');
   return (
     <>
       <S.Workspace>
@@ -18,7 +19,9 @@ const Workspace = props => {
 
         <S.MainContainer>
           <Header />
-          <PeopleMain />
+          {/* <PeopleMain /> */}
+          {/* <Main /> */}
+          <TeamSettings />
         </S.MainContainer>
       </S.Workspace>
 

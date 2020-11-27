@@ -19,10 +19,11 @@ exports.createTeam = async (req, res) => {
 };
 
 // get all Team by userId
-exports.getManyTeam = (req, res) => {
+exports.getManyTeam = async (req, res) => {
   try {
     validationResult(req).throw();
-    const teams = memberService.getAffiliatedTeams(req.query.userId);
+    const teams = await memberService.getAffiliatedTeams(req.query.userId);
+    console.log(teams);
     res.status(200).json({ result: true, status: 200, data: teams });
   } catch (e) {
     res.status(500).json({

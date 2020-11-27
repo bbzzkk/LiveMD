@@ -7,45 +7,32 @@ import { getUuid } from '@/utils';
 
 const TeamStore = types
   .model('TeamStore', {
-    team: types.maybe(Team),
+    currentTeam: types.maybe(Team),
+    teamList: types.optional(types.array(Team), []),
   })
   .actions(self => {
-    let controller;
     return {
-      afterCreate() {
-        self.load();
-      },
-      load: flow(function* () {
-        controller = window.AbortController && new window.AbortController();
+      getTeamList: flow(function* (userId) {
         try {
-          const response = yield window.fetch(`http://localhost:3010/teams`, {
-            signal: controller.signal,
-          });
-          const documents = yield response.json().data;
-          applySnapshot(self.documents, documents);
-          console.log('success');
+          console.log(`http://localhost:5252/api/v1/teams?userId=${userId}`);
+          const response = yield api.get(
+            `http://localhost:5252/api/v1/teams?userId=${userId}`,
+          );
+          console.log(response);
+          // if (response.data.result) {
+          // }
+          // applySnapshot(self.documents, documents);
+          // console.log('success');
         } catch (error) {
           console.log('failed: ', error);
         }
       }),
-      reload() {
-        console.log('reload');
-        if (controller) controller.abort();
-        self.load();
-      },
-      beforeDestroy() {
-        if (controller) controller.abort();
-      },
-      createDocument: flow(function* () {
-        const documentId = getUuid;
-        const ownerId = self.board.owner.id;
-
+      createTeam: flow(function* (data) {
         yield api
-          .post(`http://localhost:3010/teams`, {
-            id: documentId,
-          })
+          .post(`http://localhost:5252/teams`, data)
           .then(response => {
-            if (response.status(200)) self.board.addDocument(documentId);
+            console.log(response);
+            if (response.status(200)) self.teamList.push('hi');
             else console.log('server error');
           })
           .catch(e => {
@@ -55,4 +42,4 @@ const TeamStore = types
     };
   });
 
-export default BoardStore;
+export default TeamStore;
