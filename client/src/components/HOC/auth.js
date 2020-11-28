@@ -39,7 +39,6 @@ const AuthProtection = ({ option, RouteComponent, authStore }) => {
     if (!token) {
       return <RouteComponent />;
     } else {
-      console.log('hihihihihihihihi I AM BOARD!!!!!!!');
       return <Redirect to="/board" />;
     }
   }
