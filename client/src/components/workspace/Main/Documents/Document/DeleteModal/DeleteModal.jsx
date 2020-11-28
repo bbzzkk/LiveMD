@@ -10,7 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 
 
-const DeleteModal = () => {
+const DeleteModal = (props) => {
+  const {title} = props; 
 
   const [open, setOpen] = React.useState(false);
   
@@ -34,19 +35,18 @@ const DeleteModal = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"정말로 삭제하시겠습니까?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            해당 문서가 영구히 삭제됩니다.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Disagree
+          <Button onClick={handleClose} style={{border:'#1e6896', color: '#1e6896'}}>
+            취소
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Agree
+          <Button onClick={handleClose} style={{backgroundColor:'#db4646', color: 'white'}}>
+            삭제
           </Button>
         </DialogActions>
       </Dialog>

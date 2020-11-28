@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 24,
     fontWeight: "550",
     textAlign: 'left',
+    textTransform:'none',
   },
   pos: {
     marginTop: 10,
@@ -99,15 +100,16 @@ const Document = props => {
       raised={state.raised} zDepth={state.shadow}
     >
     <Button style={{width:'100%'}}>
-      <CardContent style={{marginLeft:'-30%'}}>
-          <Typography className={classes.title} variant="h5" component="h2">
+      {/* <CardContent style={{marginLeft:'-30%'}}> */}
+          <Typography className={classes.title} variant="h5" component="h2" >
             {title}
           </Typography>
+          <br/>
         <Typography className={classes.pos} color="textSecondary">
           <QueryBuilderIcon />
           {createdAt}
         </Typography>
-      </CardContent>
+      {/* </CardContent> */}
       </Button>
       <CardActions className={classes.card_action} focusV>
         <IconButton className={classes.icon_button}>
