@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { withRouter } from 'react-router-dom';
+import { observer, inject } from 'mobx-react';
 
 import PropTypes from 'prop-types';
 
@@ -15,8 +17,6 @@ import IconButton from '@material-ui/core/IconButton';
 
 import DeleteModal from '@/components/workspace/Main/Documents/Document/DeleteModal';
 import CardHeader from '@material-ui/core/CardHeader';
-
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,7 +67,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Document = props => {
-  const { owner, createdAt, title } = props;
+  const { owner, createdAt, title, store } = props;
+  const { user } = store.authStore;
   const classes = useStyles();
   const [click, setClick] = useState(false);
 
@@ -82,12 +83,22 @@ const Document = props => {
     setClick(!click);
   }
 
+  const handleCardClick = () => {
+    props.history.push({
+      pathname: "/page/test",
+      state: {user: user},
+    })
+  }
+
   return (
-    <Card className={classes.root}
-    classes={{root: state.raised ? classes.cardHovered : ""}}
-    onMouseOver={()=>setState({raised: true, shadow:1})}
-    onMouseOut={()=>setState({raised:false, shadow:0})}
-    raised={state.raised} zDepth={state.shadow}>
+    <Card
+      className={classes.root}
+      onClick={handleCardClick}
+      classes={{root: state.raised ? classes.cardHovered : ""}}
+      onMouseOver={()=>setState({raised: true, shadow:1})}
+      onMouseOut={()=>setState({raised:false, shadow:0})}
+      raised={state.raised} zDepth={state.shadow}
+    >
     <Button style={{width:'100%'}}>
       {/* <CardContent style={{marginLeft:'-30%'}}> */}
           <Typography className={classes.title} variant="h5" component="h2" >
@@ -117,4 +128,4 @@ Document.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Document;
+export default withRouter(inject('store')(observer(Document)));

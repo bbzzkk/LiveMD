@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import {
@@ -10,10 +10,6 @@ import {
   Workspace,
   Editor,
 } from '@/pages';
-import { LoadingIndicator } from '@/components/common';
-
-
-// import getCurrentUser from '@/utils/APIUtils';
 
 import CreateRoom from '@/pages/VideoChat/CreateRoom';
 import Room from '@/pages/VideoChat/Room';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
 import GoogleLogin from 'react-google-login';
@@ -49,13 +49,14 @@ const Google = props => {
     <GoogleLogin
       clientId={config.google.clientID}
       render={renderProps => (
-        <S.Button
-          className="btn btn-danger"
+        <S.LoginButton
+          button
+          // variant="contained"
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
         >
-          Google로 시작하기
-        </S.Button>
+          <S.Text>Sign in via Google</S.Text>
+        </S.LoginButton>
       )}
       onSuccess={responseGoogle}
       onFailure={responseFail}

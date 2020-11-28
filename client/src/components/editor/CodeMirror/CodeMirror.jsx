@@ -24,7 +24,7 @@ const CodeMirror = ({
   onActiveUser,
   isVideoAndChatDivShowed,
   editorRatio,
-  setUsers,
+  username,
 }) => {
   const refEditor = useRef(null);
   const [previewWidth, setPreviewWidth] = useState(0);
@@ -75,7 +75,7 @@ const CodeMirror = ({
     cursorColor.current = '#' + (ydoc.clientID % 0xffffff).toString(16);
     binding.awareness.setLocalStateField('user', {
       color: cursorColor.current,
-      name: cursorColor.current,
+      name: username,
     });
 
     provider.current.awareness.on('change', renderUsers);

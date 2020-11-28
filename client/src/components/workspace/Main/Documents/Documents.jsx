@@ -3,20 +3,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import Card from '@material-ui/core/Card';
 
-
-
 import Document from '@/components/workspace/Main/Documents/Document';
 // import { documents as documentsMock } from '@/utils/Mock';
 import Searching from '@/components/workspace/Main/Documents/Filtering/Searching';
 import S from './style';
 
-const useStyles = makeStyles((theme)=> ({
-  document:{
+const useStyles = makeStyles(theme => ({
+  document: {
     top: '10%',
     left: '10%',
   },
-})
-)
+}));
 
 const Documents = () => {
   //  const [documents, setDocuments] = useState(documentsMock);
@@ -81,14 +78,14 @@ const Documents = () => {
     <Pagination style={{marginLeft:'40%'}} count={10} /> 
     </>
   );
-  
-    /* <div>
+
+  /* <div>
         <input></input>
         <S.NewNote variant="outlined" color="primary" onClick={handleAddNote}>
           New Note
         </S.NewNote>
       </div> */
-  
+
   /* {loading ? (
         <div>documents loading</div>
       ) : (
