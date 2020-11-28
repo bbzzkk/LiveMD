@@ -89,7 +89,7 @@ const Document = props => {
     raised={state.raised} zDepth={state.shadow}>
     <Button style={{width:'100%'}}>
       <CardContent style={{marginLeft:'-30%'}}>
-          <Typography className={classes.title} variant="h5" component="h2">
+          <Typography className={classes.title} variant="h5" component="h2" >
             {title}
           </Typography>
         <Typography className={classes.pos} color="textSecondary">

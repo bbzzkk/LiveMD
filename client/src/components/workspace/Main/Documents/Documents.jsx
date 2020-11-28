@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import Card from '@material-ui/core/Card';
-import CreateButton from './CreateButton/CreateButton';
 
 
 
@@ -52,7 +51,6 @@ const Documents = () => {
     <S.Horizon style={{marginTop:"5%", marginBottom: '5%'}}><S.Text>Pinned</S.Text></S.Horizon>
     {/* <S.DocumentContainer> */}
 
-    <CreateButton/>
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
 
