@@ -182,10 +182,11 @@ const Room = ({ roomID, username }) => {
           {isPause ? (
             <VideocamOffRounded
               fontSize="large"
-              color={disabled ? "disabled" : "secondary"}
+              // color={disabled ? "disabled" : "secondary"}
+              // color={disabled ? "disabled" : "secondary"}
             />
           ) : (
-            <VideocamRounded fontSize="large" color="primary" />
+            <VideocamRounded fontSize="large" style={{color : '#00796b'}} />
           )}
         </IconButton>
         <IconButton
@@ -199,10 +200,10 @@ const Room = ({ roomID, username }) => {
           {isMuted ? (
             <MicOffRounded
               fontSize="large"
-              color={disabled ? "disabled" : "secondary"}
+              // color={disabled ? "disabled" : "secondary"}
             />
           ) : (
-            <MicRounded fontSize="large" color="primary" />
+            <MicRounded fontSize="large" style={{color : '#00796b'}} />
           )}
         </IconButton>
       </S.VideoControlBtnDiv>

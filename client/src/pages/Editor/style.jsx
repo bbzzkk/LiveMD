@@ -20,6 +20,7 @@ export default {
     flex-direction: row;
     align-items: center;
     background-color: #f1f1f1;
+    box-shadow: 10px 0px 6px #1e2126;
   `,
 
   PageName: styled.input`
@@ -68,7 +69,7 @@ export default {
     display: ${props => (props.isVideoAndChatDivShowed ? 'flex' : 'none')};
     flex-direction: column;
     width: 20%;
-    border-left: 5px solid #f1f1f1;
+    /* border-left: 3px solid #f1f1f1; */
   `,
 
   VideoDiv: styled.div`

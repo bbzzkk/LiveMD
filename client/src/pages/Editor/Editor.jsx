@@ -21,8 +21,7 @@ import {
   PeopleOutlineRounded,
   ChatRounded,
 } from '@material-ui/icons';
-import {useLocation} from "react-router";
-
+import { useLocation } from 'react-router';
 
 const Editor = ({ doc, match }) => {
   const [activeUsers, setActiveUsers] = useState([]);
@@ -93,7 +92,7 @@ const Editor = ({ doc, match }) => {
     setEditorRatio({ edit: edit, preview: preview });
   };
 
-  const handleActive = (openActive) => event => {
+  const handleActive = openActive => event => {
     setAnchorEl(event.currentTarget);
     setOpenActive(openActive);
   };
@@ -109,7 +108,7 @@ const Editor = ({ doc, match }) => {
     },
     listItemText: {
       fontSize: '14px',
-    }
+    },
   }));
 
   const classes = useStyles();
@@ -124,7 +123,7 @@ const Editor = ({ doc, match }) => {
         <S.EditBtnGroup>
           <IconButton
             style={{
-              color: !editorRatio.preview ? '#1e6896' : '#bdbdbd',
+              color: !editorRatio.preview ? '#131236' : '#bdbdbd',
             }}
             onClick={() => handleRatio(2, 0)}
             aria-label="CreateOutlinedIcon"
@@ -136,7 +135,7 @@ const Editor = ({ doc, match }) => {
           <IconButton
             style={{
               color:
-                editorRatio.edit && editorRatio.preview ? '#1e6896' : '#bdbdbd',
+                editorRatio.edit && editorRatio.preview ? '#131236' : '#bdbdbd',
             }}
             onClick={() => handleRatio(1, 1)}
             aria-label="ImportContactsRoundedIcon"
@@ -147,7 +146,7 @@ const Editor = ({ doc, match }) => {
           </IconButton>
           <IconButton
             style={{
-              color: !editorRatio.edit ? '#1e6896' : '#bdbdbd',
+              color: !editorRatio.edit ? '#131236' : '#bdbdbd',
             }}
             onClick={() => handleRatio(0, 2)}
             aria-label="VisibilityRoundedIcon"
@@ -160,7 +159,7 @@ const Editor = ({ doc, match }) => {
         <S.VideoAndChatBtnGroup>
           <IconButton
             style={{
-              color: isVideoShowed ? '#1e6896' : '#bdbdbd',
+              color: isVideoShowed ? '#131236' : '#bdbdbd',
             }}
             onClick={videoShowAndHide}
             aria-label="VisibilityRoundedIcon"
@@ -171,7 +170,7 @@ const Editor = ({ doc, match }) => {
           </IconButton>
           <IconButton
             style={{
-              color: isChatShowed ? '#1e6896' : '#bdbdbd',
+              color: isChatShowed ? '#131236' : '#bdbdbd',
             }}
             onClick={chatShowAndHide}
             aria-label="ChatRoundedIcon"
@@ -185,7 +184,7 @@ const Editor = ({ doc, match }) => {
           <Button
             style={{
               color: 'white',
-              backgroundColor: '#1e6896',
+              backgroundColor: '#131236',
               fontWeight: 'bold',
               marginLeft: '10px',
             }}
@@ -196,24 +195,22 @@ const Editor = ({ doc, match }) => {
           <Popper
             open={openActive}
             anchorEl={anchorEl}
-            placement='bottom-end'
+            placement="bottom-end"
             transition
           >
             {({ TransitionProps }) => (
               <Fade {...TransitionProps} timeout={350}>
                 <Paper>
-                  <div className={classes.activeList}>
-                    <List
-                      component="nav"
-                      aria-label="activeList">
-                        {activeUsers.map((user, index) => (
-                          <ListItem key={index} >
-                            <ListItemText
-                              classes={{ primary: classes.listItemText }}
-                              primary={user}
-                            />
-                          </ListItem>
-                        ))}
+                  <div className={classes.activeList} style={{ backgroundColor: 'white' }}>
+                    <List component="nav" aria-label="activeList">
+                      {activeUsers.map((user, index) => (
+                        <ListItem key={index}>
+                          <ListItemText
+                            classes={{ primary: classes.listItemText }}
+                            primary={user}
+                          />
+                        </ListItem>
+                      ))}
                     </List>
                   </div>
                 </Paper>
