@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export default {
   Workspace: styled.div`
     // display: 'flex';
-    background: green;
+    // background: green;
     padding : 0;
   `,
 
