@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Document = props => {
+const CreateButton = props => {
   const { owner, createdAt, title } = props;
   const classes = useStyles();
   const [click, setClick] = useState(false);
@@ -89,22 +89,11 @@ const Document = props => {
     raised={state.raised} zDepth={state.shadow}>
     <Button style={{width:'100%'}}>
       <CardContent style={{marginLeft:'-30%'}}>
-          <Typography className={classes.title} variant="h5" component="h2">
-            {title}
-          </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          <QueryBuilderIcon />
-          {createdAt}
+          <Typography className={classes.title}>
+            create new documents
         </Typography>
       </CardContent>
       </Button>
-      <CardActions className={classes.card_action} focusV>
-        <IconButton className={classes.icon_button}>
-        <BookmarkIcon className={click===true? classes.red_btn : classes.black_btn} onClick={handleClick}/>
-        </IconButton>
-
-        <DeleteModal/>
-      </CardActions>
     </Card>
   );
 };
@@ -115,4 +104,4 @@ Document.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Document;
+export default CreateButton;
