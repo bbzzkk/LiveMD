@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+import Card from '@material-ui/core/Card';
+import CreateButton from './CreateButton/CreateButton';
+
+
 
 import Document from '@/components/workspace/Main/Documents/Document';
 // import { documents as documentsMock } from '@/utils/Mock';
@@ -41,11 +46,13 @@ const Documents = () => {
   // }, []);
 
   return (
+    <>
     <S.Container>
     <Searching/>
-    <S.Horizon style={{marginTop:"5%"}}><S.Text>Pinned</S.Text></S.Horizon>
+    <S.Horizon style={{marginTop:"5%", marginBottom: '5%'}}><S.Text>Pinned</S.Text></S.Horizon>
     {/* <S.DocumentContainer> */}
 
+    <CreateButton/>
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
 
@@ -54,7 +61,15 @@ const Documents = () => {
     <Document createdAt={Date.now()} title="hi" />
     {/* </S.DocumentContainer> */}
 
-    <S.Horizon style={{marginTop:"8%"}}><S.Text>Untagged</S.Text></S.Horizon>
+    <S.Horizon style={{marginTop:"5%", marginBottom: '5%'}}><S.Text>Untagged</S.Text></S.Horizon>
+    <Document createdAt={Date.now()} title="hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
+    <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
@@ -62,16 +77,11 @@ const Documents = () => {
 
     <Document createdAt={Date.now()} title="hi" />
     <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
 
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
 
     </S.Container>
+    <Pagination style={{marginLeft:'40%'}} count={10} /> 
+    </>
   );
   
     /* <div>
