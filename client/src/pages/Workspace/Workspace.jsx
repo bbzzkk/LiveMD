@@ -20,8 +20,8 @@ const Workspace = props => {
 
         <S.MainContainer>
           <Header />
-          <PeopleMain />
-          {/* <Main /> */}
+          {/* <PeopleMain /> */}
+          <Main />
           {/* <TeamSettings /> */}
         </S.MainContainer>
       </S.Workspace>

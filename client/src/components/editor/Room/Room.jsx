@@ -22,7 +22,7 @@ const Video = props => {
   return <S.StyledVideo playsInline autoPlay ref={ref} />;
 };
 
-const Room = ({ roomID }) => {
+const Room = ({ roomID, username }) => {
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef(null);
@@ -46,20 +46,22 @@ const Room = ({ roomID }) => {
         userVideo.current.srcObject = stream;
         userVideo.current.srcObject.getAudioTracks()[0].enabled = false; // 첫 입장 시 오디오는 off.
         userVideo.current.srcObject.getVideoTracks()[0].enabled = false;
-        socketRef.current.emit('join room', roomID); // ref는 우리가 방에 합류했다는 이벤트를 내보낸다.
+        socketRef.current.emit('join room', roomID, username); // ref는 우리가 방에 합류했다는 이벤트를 내보낸다.
         socketRef.current.on('all users', users => {
           const peers = []; // 방금 첫 사용자가 들어왔기 때문에 peers는 없는것.
-          users.forEach(userID => {
+          users.forEach(({ socketID, username }) => {
             // 서버에서 사용자들을 가져온다
-            const peer = createPeer(userID, socketRef.current.id, stream); // 사용자ID(누가 전화했는지 알 수 있음)
+            const peer = createPeer(socketID, socketRef.current.id, stream); // 사용자ID(누가 전화했는지 알 수 있음)
             peersRef.current.push({
               // peerID 전달,
-              peerID: userID, //방금 피어를 만든 사람의 소켓 ID
+              peerID: socketID, //방금 피어를 만든 사람의 소켓 ID
+              username: username,
               peer,
             });
             //peers에도 ID, peer 전달
             peers.push({
-              peerID: userID,
+              peerID: socketID,
+              username: username,
               peer,
             });
           });
@@ -74,6 +76,7 @@ const Room = ({ roomID }) => {
             const peer = addPeer(payload.signal, payload.callerID, stream); //callerID : 발신자
             const peerObj = {
               peerID: payload.callerID,
+              username: payload.username,
               peer,
             };
             peersRef.current.push(peerObj);
@@ -119,6 +122,7 @@ const Room = ({ roomID }) => {
         userToSignal,
         callerID,
         signal,
+        username,
       });
     });
 
@@ -206,14 +210,14 @@ const Room = ({ roomID }) => {
         <S.VideoWrapper>
           <S.StyledVideo muted ref={userVideo} autoPlay playsInline />
         </S.VideoWrapper>
-        <S.UserName>me</S.UserName>
+        <S.UserName>{username}</S.UserName>
         {peers.map(peer => {
           return (
             <div key={peer.peerID}>
               <S.VideoWrapper>
                 <Video peer={peer.peer} />
               </S.VideoWrapper>
-              <S.UserName>{peer.peerID}</S.UserName>
+              <S.UserName>{peer.username}</S.UserName>
             </div>
           );
         })}
