@@ -1,12 +1,14 @@
 import React from 'react';
 import { Header, Footer, Body } from '@/components/home';
 import S from './style';
+import { GlobalStyle } from '@/styles';
 
 const Home = props => {
   const { authenticated, onLogout, currentUser } = props;
 
   return (
     <>
+      <GlobalStyle />
       {/* <S.Main> */}
       <Header
         authenticated={authenticated}

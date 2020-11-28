@@ -23,7 +23,7 @@ const Header = props => {
   return (
     <S.Header>
       <Link to="/">
-        <img className="logo-img" src="/images/logo.png" alt="logo" />
+        <img className="logo-img" src="/images/fabicon.png" alt="logo"  style={{width:'10%'}}/>
       </Link>
       {isAuthenticated ? (
         <h3 className="sign-out" onClick={handleSignOut}>

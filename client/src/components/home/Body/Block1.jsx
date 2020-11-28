@@ -47,9 +47,7 @@ const Block1 = () => {
       <S.ment1_sc>협업의 즐거움.</S.ment1_sc>
 
       <Link to="/login">
-        <ColorButton1 variant="contained">
-          지금 시작하기
-        </ColorButton1>
+        <ColorButton1 variant="contained">지금 시작하기</ColorButton1>
       </Link>
     </>
   );

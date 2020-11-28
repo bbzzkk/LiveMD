@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     height: inherit;
   }
 
-  a { 
+  a:hover { 
     text-decoration: none; 
   }
 

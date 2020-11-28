@@ -4,10 +4,10 @@ import Board from './Board';
 import Member from './Member';
 
 export const TeamBase = types.model('TeamBase', {
-  id: types.identifier,
-  name: types.string,
-  board: types.maybe(types.reference(types.late(() => Board))),
-  owner: types.maybe(Member),
+  teamId: types.identifier,
+  teamname: types.string,
+  thumbnail: types.maybe(types.string),
+  board: Board,
   members: types.optional(types.array(Member), []),
   marked: types.optional(types.boolean, false),
 });
@@ -17,6 +17,15 @@ const Team = TeamBase.named('Team').actions(self => ({
     self.name = name;
   },
 
+  addOwner(memberId, teamId) {
+    const owner = Member.create({
+      memberId: memberId,
+      teamId: teamId,
+      role: 'owner',
+      status: 'active',
+    });
+    self.members.push(owner);
+  },
   // addMember: flow(function* addMembers(member) {
   //   self.members.push(list);
   // }),

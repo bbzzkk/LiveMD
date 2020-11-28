@@ -2,6 +2,7 @@ import { types, flow } from 'mobx-state-tree';
 import api from 'axios';
 
 import Team from './models/Team';
+import Board from './models/Board';
 
 import { getUuid } from '@/utils';
 
@@ -10,34 +11,79 @@ const TeamStore = types
     currentTeam: types.maybe(Team),
     teamList: types.optional(types.array(Team), []),
   })
+  .views(self => ({
+    get AllteamList() {
+      return self.teamList ? self.teamList : [];
+    },
+  }))
   .actions(self => {
     return {
       getTeamList: flow(function* (userId) {
         try {
-          console.log(`http://localhost:5252/api/v1/teams?userId=${userId}`);
+          console.log(userId);
           const response = yield api.get(
             `http://localhost:5252/api/v1/teams?userId=${userId}`,
           );
-          console.log(response);
-          // if (response.data.result) {
-          // }
-          // applySnapshot(self.documents, documents);
-          // console.log('success');
+          const teamList = response.data.data;
+          console.log(teamList);
+
+          teamList.map(({ teamId, teamname, marked }) => {
+            const board = Board.create({ id: teamId });
+            const team = Team.create({
+              teamId: teamId,
+              teamname: teamname,
+              marked: marked,
+              board: board,
+            });
+            self.teamList.push(team);
+          });
         } catch (error) {
           console.log('failed: ', error);
         }
       }),
-      createTeam: flow(function* (data) {
-        yield api
-          .post(`http://localhost:5252/teams`, data)
-          .then(response => {
-            console.log(response);
-            if (response.status(200)) self.teamList.push('hi');
-            else console.log('server error');
-          })
+      createTeam: flow(function* (teamData) {
+        const response = yield api
+          .post(`http://localhost:5252/api/v1/teams`, teamData)
           .catch(e => {
-            console.log(e);
+            return -1;
           });
+        const { teamId, memberId, result } = response.data;
+        if (result) {
+          const board = Board.create({ id: teamId });
+
+          console.log('teamStore');
+          console.log(teamData);
+          const team = Team.create({
+            teamId: teamId,
+            owner: teamData.userId,
+            teamname: teamData.teamname,
+            description: teamData.description,
+            board: board,
+          });
+          team.addOwner(memberId, teamId);
+          self.teamList.push(team);
+        } else console.log('server error');
+      }),
+      markTeam: flow(function* (teamData) {
+        // const response = yield api
+        //   .post(`http://localhost:5252/api/v1/teams`, teamData)
+        //   .catch(e => {
+        //     return -1;
+        //   });
+        // const { teamId, memberId, result } = response.data;
+        // if (result) {
+        //   const board = Board.create();
+        //   const team = Team.create({
+        //     teamId: teamId,
+        //     owner: teamData.id,
+        //     teamname: teamData.teamname,
+        //     description: teamData.description,
+        //     board: board,
+        //   });
+        //   team.addOwner(memberId, teamId);
+        //   self.teamList.push(team);
+        //   console.log(self.teamList);
+        // } else console.log('server error');
       }),
     };
   });
