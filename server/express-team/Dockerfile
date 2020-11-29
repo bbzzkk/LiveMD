@@ -1,13 +1,18 @@
-FROM node:14
+# node 최신 이미지를 사용합니다.
+FROM node:latest
 
-RUN npm install -g yarn
+# root 에 express-team 폴더를 생성
+RUN mkdir /express-team
 
-WORKDIR /usr/src/app
+# work dir 고정
+WORKDIR /express-team
 
-COPY package*.json ./
-RUN yarn install
-
+# host pc의 모든 파일 workdir 에 복사
 COPY . .
+RUN npm install
+RUN npm install -g --force yarn
+RUN yarn install
+CMD ["yarn", "start"]
 
-MAINTAINER Lee Yeon Ju
-<yeonzzu2@gmail.com>
+# 5252 포트 오픈
+EXPOSE 5252
