@@ -8,6 +8,8 @@ import Document from '@/components/workspace/Main/Documents/Document';
 import Searching from '@/components/workspace/Main/Documents/Filtering/Searching';
 import S from './style';
 
+import { observer, inject } from 'mobx-react';
+
 const useStyles = makeStyles(theme => ({
   document: {
     top: '10%',
@@ -15,85 +17,33 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Documents = () => {
-  //  const [documents, setDocuments] = useState(documentsMock);
-  const [documents, setDocuments] = useState('');
-  const [loading, setloading] = useState(false);
-  const handleAddNote = () => {
-    console.log('add new note');
-  };
-
-  // const fetchDocuments = async () => {
-  //   setloading(true);
-  //   const res = await fetch(
-  //     'http://ec2-15-164-233-188.ap-northeast-2.compute.amazonaws.com:8080/api/v1/user-documents/list',
-  //   );
-  //   const documents = await res.json();
-  //   console.log(documents);
-  //   setloading(false);
-  // };
+const Documents = props => {
+  const { boardStore, authStore } = props.store;
 
   useEffect(() => {
-    console.log('documents 새롭게 렌더링', documents);
-  }, [documents]);
+      boardStore.getAllDocuments(authStore.user.id);
+  }, [boardStore.documents]);
 
-  // useEffect(() => {
-  //   fetchDocuments();
-  // }, []);
+  if (boardStore.documents.length === 0) {
+    return (<div>No Document</div>);
+  }
 
   return (
     <>
-    <S.Container>
-    <Searching/>
-    <S.Horizon style={{marginTop:"5%", marginBottom: '5%'}}><S.Text>Pinned</S.Text></S.Horizon>
-    {/* <S.DocumentContainer> */}
-
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    {/* </S.DocumentContainer> */}
-
-    <S.Horizon style={{marginTop:"5%", marginBottom: '5%'}}><S.Text>Untagged</S.Text></S.Horizon>
-    <Document createdAt={Date.now()} title="hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-
-    <Document createdAt={Date.now()} title="hi" />
-    <Document createdAt={Date.now()} title="hi" />
-
-
-    </S.Container>
-    <Pagination style={{marginLeft:'40%'}} count={10} /> 
+      <S.Container>
+        <Searching />
+        <S.Horizon style={{ marginTop: '5%', marginBottom: '5%' }}>
+          <S.Text>Pinned</S.Text>
+        </S.Horizon> 
+        <S.Horizon style={{ marginTop: '5%', marginBottom: '5%' }}>
+          <S.Text>Untagged</S.Text>
+        </S.Horizon>
+        {boardStore.documents.map((doc, index) =>
+          (<Document key={index} createdAt={Date.now()} title={doc.title} docId={doc.id} />))}
+      </S.Container>
+      <Pagination style={{ marginLeft: '40%' }} count={10} />
     </>
   );
-
-  /* <div>
-        <input></input>
-        <S.NewNote variant="outlined" color="primary" onClick={handleAddNote}>
-          New Note
-        </S.NewNote>
-      </div> */
-
-  /* {loading ? (
-        <div>documents loading</div>
-      ) : (
-        documents.data.map(({ createdAt, title }) => {
-          return <Document createdAt={createdAt} title={title} />;
-        })
-      )} */
-  // <div>
 };
 
-export default Documents;
+export default inject('store')(observer(Documents));

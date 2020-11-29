@@ -11,8 +11,8 @@ const Document = DocumentBase.named('Document').actions(self => ({
   changeTitle(title) {
     self.title = title;
   },
-  changeupdateAt(updatedAt) {
-    self.updatedAt = updatedAt;
+  changeupdateAt() {
+    self.updatedAt = new Date();
   },
 }));
 

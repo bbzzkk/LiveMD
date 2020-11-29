@@ -2,7 +2,6 @@ import { types, flow, destroy, applySnapshot } from 'mobx-state-tree';
 import api from 'axios';
 
 import User from './models/User';
-import Board from './models/Board';
 
 const AuthStore = types
   .model('AuthStore', {
@@ -16,9 +15,9 @@ const AuthStore = types
 
     return {
       setUser(user) {
-        console.log(user);
-        const board = Board.create({ id: user.id });
-        self.user = User.create({ ...user, board: board });
+        const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
+        api.defaults.headers.common['Authorization'] = `Bearer ${ACCESS_TOKEN}`;
+        self.user = User.create({ ...user });
       },
       getUser: flow(function* (userId) {
         yield api
@@ -71,8 +70,7 @@ const AuthStore = types
             console.log('catch 문 들어옴');
             console.log(e);
           });
-        const board = Board.create({ id: user.id });
-        self.user = User.create({ ...user, board: board });
+        self.user = User.create({ ...user });
         self.isAuthenticated = true;
       }),
       signOut: flow(function* () {
