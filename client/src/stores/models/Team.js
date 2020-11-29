@@ -1,13 +1,11 @@
 import { types, flow, destroy, getParent } from 'mobx-state-tree';
 
-import Board from './Board';
 import Member from './Member';
 
 export const TeamBase = types.model('TeamBase', {
   teamId: types.identifier,
   teamname: types.string,
   thumbnail: types.maybe(types.string),
-  board: Board,
   members: types.optional(types.array(Member), []),
   marked: types.optional(types.boolean, false),
 });

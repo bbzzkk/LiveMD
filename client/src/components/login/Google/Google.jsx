@@ -15,12 +15,12 @@ const Google = props => {
     console.log(teamStore);
     await authStore
       .signInGoogle2(data)
-      .then(async res => {
-        console.log('유저 보드 아이디');
-        console.log(authStore.user.board.id);
-        await boardStore.setBoard(authStore.user.board.id);
-      })
-      .catch(e => console.log('error'));
+      // .then(async res => {
+      //   console.log('유저 보드 아이디');
+      //   console.log(authStore.user.board.id);
+      //   await boardStore.setBoard(authStore.user.board.id);
+      // })
+      // .catch(e => console.log('error'));
     props.history.push('/board');
 
     toast.success(`${authStore.user.username} 님 반갑습니다😉`, {

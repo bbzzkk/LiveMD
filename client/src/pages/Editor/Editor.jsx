@@ -44,6 +44,7 @@ const Editor = ({ doc, match }) => {
 
   const location = useLocation();
   const user = location.state.user;
+  const title = location.state.title;
 
   useEffect(() => {
     if (doc) {
@@ -117,7 +118,7 @@ const Editor = ({ doc, match }) => {
     <S.EditorContainer>
       <S.Header>
         <S.PageName
-          value={docName}
+          value={title}
           onChange={e => setDocName(e.target.value)}
         />
         <S.EditBtnGroup>
