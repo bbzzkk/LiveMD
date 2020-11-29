@@ -8,6 +8,11 @@ import {
   PeopleMain,
 } from '@/components/workspace';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 import S from './style';
 
 const Workspace = props => {
@@ -20,12 +25,18 @@ const Workspace = props => {
 
         <S.MainContainer>
           <Header />
-          {/* <PeopleMain /> */}
-          <Main />
+            <Switch>
+                <Route exact path="/board" render={() => (<Main/>)} />
+                <Route exact path="/board/documents" render={() => (<Main/>)} />
+                <Route exact path="/board/people" render={() => (<PeopleMain/>)} />
+                <Route exact path="/board/settings" render={() => (<TeamSettings/>)} />
+            </Switch>  
+          {/* <PeopleMain"/> */}
+          {/* <Main/> */}
           {/* <TeamSettings /> */}
         </S.MainContainer>
-      </S.Workspace>
 
+      </S.Workspace>
     </>
   );
 };

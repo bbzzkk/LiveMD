@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 
 const TeamSettings = () => {
   return (
-    <S.TeamSettingsContainer>
+    <S.TeamSettingsContainer className="container">
       <h2>General</h2>
       <div className="settings">
         <div className="input-container">
@@ -82,6 +82,7 @@ const TeamSettings = () => {
             color="secondary"
             disableFocusRipple
             disableRipple
+            className="leaveTeamBtn"
           >
             Leave team
           </Button>

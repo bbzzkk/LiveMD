@@ -29,7 +29,10 @@ const Others = props => {
       color="primary"
       size="small"
       startIcon={<S.ExitIcon />}
-      style={{ marginTop: 'auto', marginLeft: '-34%' }}
+      style={{ marginTop: 'auto', 
+                marginLeft: '-30%', 
+                position: 'relative',
+                bottom: '30%'}}
       onClick={handleSignout}
     >
       Sign out

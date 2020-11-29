@@ -33,7 +33,7 @@ const ColorButton = withStyles(theme => ({
 const S = {
   Drawer: styled(Drawer)`
     & > div {
-      min-width: 10em;
+      min-width: 11em;
       border-color: 1px gray;
       background-color: #131236;
       box-shadow: 1px 5px 5px grey;
