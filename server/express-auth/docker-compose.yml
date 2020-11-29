@@ -1,0 +1,17 @@
+version: '3' # 버전 정보
+services: # 서비스 목록 정의
+   express-auth: # 서비스 이름
+      container_name: express-auth
+      restart: always
+      build: . # 현재 경로에서 Dockerfile을 찾아서 그 파일로 빌드된 이미지를 사용하겠다
+      ports:
+         - '5000:5000' # host:container
+           #links: # 컨테이너간의 연결
+           #- mongo # mongo와 연결
+   mongo: # 서비스 이름
+      container_name: mongo
+      image: mongo
+      ports:
+         - '27017:27017' # host:container
+
+

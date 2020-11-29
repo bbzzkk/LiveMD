@@ -7,8 +7,8 @@ const passport = require("passport");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 
-console.log("TET");
-//mongoose.Promise = global.Promise;
+console.log("TESTTEST");
+mongoose.Promise = global.Promise;
 mongoose
   .connect("mongodb://live-md.com:27017/LiveMD", {
     useNewUrlParser: true,
@@ -62,8 +62,8 @@ if (!process.env.NODE_ENV === "test") {
 app.use(express.json());
 
 // Routes
-//const apiRouter = require("./routes/index");
-//app.use("/api/v1/", apiRouter);
+const apiRouter = require("./routes/index");
+app.use("/api/v1/", apiRouter);
 
 // app.use((req, res, next) => {
 //   next(createError(404));
@@ -87,4 +87,3 @@ function errorNotification(err, str, req) {
 }
 
 module.exports = app;
-
