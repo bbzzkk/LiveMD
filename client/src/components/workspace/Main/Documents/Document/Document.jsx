@@ -102,6 +102,7 @@ const Document = props => {
     >
     <Button style={{width:'100%'}}>
       {/* <CardContent style={{marginLeft:'-30%'}}> */}
+      <div className="spanTitleAndTiem">
           <Typography className={classes.title} variant="h5" component="h2" >
             {title}
           </Typography>
@@ -110,6 +111,7 @@ const Document = props => {
           <QueryBuilderIcon />
           {createdAt}
         </Typography>
+      </div>
       {/* </CardContent> */}
       </Button>
       <CardActions className={classes.card_action} focusV>
