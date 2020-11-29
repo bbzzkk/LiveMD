@@ -71,6 +71,15 @@ public class DocumentsService {
     }
 
     @Transactional
+    public DocumentsIdResponseDto updateMarked(String docId){
+        Optional<Documents> optional = repository.findByDocId(docId);
+        Documents documents = optional.get();
+        documents.updateMarked();
+
+        return new DocumentsIdResponseDto(documents);
+    }
+
+    @Transactional
     public DocumentsIdResponseDto delete(String docId) throws NoSuchElementException{
         Optional<Documents> optional = repository.findByDocId(docId);
         Documents documents = optional.get();
