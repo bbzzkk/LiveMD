@@ -33,6 +33,17 @@ const App = props => {
           />
           <Route
             exact
+            path="/board:team"
+            render={() => (
+              <Auth
+                option={1}
+                RouteComponent={Workspace}
+                authStore={authStore}
+              />
+            )}
+          />
+          <Route
+            exact
             path="/board"
             render={() => (
               <Auth
@@ -92,17 +103,7 @@ const App = props => {
           <Route exact path="/page/:page" component={Editor} />
           <Route exact path="/create" component={CreateRoom} />
           <Route exact path="/room/:roomID" component={Room} />
-          <Route
-            exact
-            path="/board:team"
-            render={() => (
-              <Auth
-                option={1}
-                RouteComponent={Workspace}
-                authStore={authStore}
-              />
-            )}
-          />
+
         </Switch>
       </Router>
     </>
