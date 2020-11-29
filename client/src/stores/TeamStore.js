@@ -2,57 +2,90 @@ import { types, flow } from 'mobx-state-tree';
 import api from 'axios';
 
 import Team from './models/Team';
+import Board from './models/Board';
 
 import { getUuid } from '@/utils';
 
 const TeamStore = types
   .model('TeamStore', {
-    team: types.maybe(Team),
+    currentTeam: types.maybe(Team),
+    teamList: types.optional(types.array(Team), []),
   })
+  .views(self => ({
+    get AllteamList() {
+      return self.teamList ? self.teamList : [];
+    },
+  }))
   .actions(self => {
-    let controller;
     return {
-      afterCreate() {
-        self.load();
-      },
-      load: flow(function* () {
-        controller = window.AbortController && new window.AbortController();
+      getTeamList: flow(function* (userId) {
         try {
-          const response = yield window.fetch(`http://localhost:3010/teams`, {
-            signal: controller.signal,
+          console.log(userId);
+          const response = yield api.get(
+            `http://localhost:5252/api/v1/teams?userId=${userId}`,
+          );
+          const teamList = response.data.data;
+          console.log(teamList);
+
+          teamList.map(({ teamId, teamname, marked }) => {
+            const board = Board.create({ id: teamId });
+            const team = Team.create({
+              teamId: teamId,
+              teamname: teamname,
+              marked: marked,
+              board: board,
+            });
+            self.teamList.push(team);
           });
-          const documents = yield response.json().data;
-          applySnapshot(self.documents, documents);
-          console.log('success');
         } catch (error) {
           console.log('failed: ', error);
         }
       }),
-      reload() {
-        console.log('reload');
-        if (controller) controller.abort();
-        self.load();
-      },
-      beforeDestroy() {
-        if (controller) controller.abort();
-      },
-      createDocument: flow(function* () {
-        const documentId = getUuid;
-        const ownerId = self.board.owner.id;
-
-        yield api
-          .post(`http://localhost:3010/teams`, {
-            id: documentId,
-          })
-          .then(response => {
-            if (response.status(200)) self.board.addDocument(documentId);
-            else console.log('server error');
-          })
+      createTeam: flow(function* (teamData) {
+        const response = yield api
+          .post(`http://localhost:5252/api/v1/teams`, teamData)
           .catch(e => {
-            console.log(e);
+            return -1;
           });
+        const { teamId, memberId, result } = response.data;
+        if (result) {
+          const board = Board.create({ id: teamId });
+
+          console.log('teamStore');
+          console.log(teamData);
+          const team = Team.create({
+            teamId: teamId,
+            owner: teamData.userId,
+            teamname: teamData.teamname,
+            description: teamData.description,
+            board: board,
+          });
+          team.addOwner(memberId, teamId);
+          self.teamList.push(team);
+        } else console.log('server error');
+      }),
+      markTeam: flow(function* (teamData) {
+        // const response = yield api
+        //   .post(`http://localhost:5252/api/v1/teams`, teamData)
+        //   .catch(e => {
+        //     return -1;
+        //   });
+        // const { teamId, memberId, result } = response.data;
+        // if (result) {
+        //   const board = Board.create();
+        //   const team = Team.create({
+        //     teamId: teamId,
+        //     owner: teamData.id,
+        //     teamname: teamData.teamname,
+        //     description: teamData.description,
+        //     board: board,
+        //   });
+        //   team.addOwner(memberId, teamId);
+        //   self.teamList.push(team);
+        //   console.log(self.teamList);
+        // } else console.log('server error');
       }),
     };
   });
 
-export default BoardStore;
+export default TeamStore;

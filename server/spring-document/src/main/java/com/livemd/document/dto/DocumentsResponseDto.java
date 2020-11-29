@@ -18,6 +18,8 @@ public class DocumentsResponseDto {
     private String content;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+    private boolean isMarked;
+
 
     public DocumentsResponseDto(Documents entity){
         this.id = entity.getId();
@@ -27,5 +29,6 @@ public class DocumentsResponseDto {
         this.content = entity.getContent();
         this.createdDate = entity.getCreatedDate();
         this.modifiedDate = entity.getModifiedDate();
+        this.isMarked = entity.isMarked();
     }
 }

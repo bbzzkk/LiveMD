@@ -31,6 +31,8 @@ const Header = props => {
         <S.Header>
           <S.Container>
             <Toolbar></Toolbar>
+
+            <Others />
           </S.Container>
         </S.Header>
       </HideOnScroll>

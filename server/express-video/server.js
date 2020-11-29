@@ -24,33 +24,42 @@ const socketToRoom = {};
 // on은 수신, emit은 전송이라고 이해하면 된다.
 app.use(cors());
 io.on("connection", (socket) => {
-  socket.on("join room", (roomID) => {
-    console.log(roomID);
+  socket.on("join room", (roomID, username) => {
+    console.log("join room");
+      const user = {
+        socketID: socket.id,
+        username: username
+      };
+
 	    if (users[roomID]) {
       const length = users[roomID].length;
       if (length === 6) {
         socket.emit("room full");
         return;
       }
-      users[roomID].push(socket.id);
+        users[roomID].push(user);
     } else {
-      users[roomID] = [socket.id];
+        users[roomID] = [user];
     }
     socketToRoom[socket.id] = roomID;
-    const usersInThisRoom = users[roomID].filter((id) => id !== socket.id);
+    const usersInThisRoom = users[roomID].filter(({ socketID }) => socketID !== socket.id);
+    console.log(usersInThisRoom);
 
     //모든 소켓에게 전송
     socket.emit("all users", usersInThisRoom);
   });
 
   socket.on("sending signal", (payload) => {
+    console.log("sending signal");
     io.to(payload.userToSignal).emit("user joined", {
       signal: payload.signal,
       callerID: payload.callerID,
+      username: payload.username,
     });
   });
 
   socket.on("returning signal", (payload) => {
+    console.log("returning signal");
     io.to(payload.callerID).emit("receiving returned signal", {
       signal: payload.signal,
       id: socket.id,
@@ -61,7 +70,7 @@ io.on("connection", (socket) => {
     const roomID = socketToRoom[socket.id];
     let room = users[roomID];
     if (room) {
-      room = room.filter((id) => id !== socket.id);
+      room = room.filter(({ socketID }) => socketID !== socket.id);
       users[roomID] = room;
     }
     socket.broadcast.emit('user left', socket.id);

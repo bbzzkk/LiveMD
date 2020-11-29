@@ -21,6 +21,8 @@ import {
   PeopleOutlineRounded,
   ChatRounded,
 } from '@material-ui/icons';
+import {useLocation} from "react-router";
+
 
 const Editor = ({ doc, match }) => {
   const [activeUsers, setActiveUsers] = useState([]);
@@ -40,6 +42,9 @@ const Editor = ({ doc, match }) => {
   const [msgCount, setMsgCount] = useState(0);
   const [openActive, setOpenActive] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const location = useLocation();
+  const user = location.state.user;
 
   useEffect(() => {
     if (doc) {
@@ -230,17 +235,19 @@ const Editor = ({ doc, match }) => {
             onActiveUser={handleActiveUserDisp}
             isVideoAndChatDivShowed={isVideoAndChatDivShowed}
             editorRatio={editorRatio}
+            username={user.username}
           />
         </S.CodeMirrorContainer>
         <S.VideoAndChatDiv isVideoAndChatDivShowed={isVideoAndChatDivShowed}>
           <S.VideoDiv isChatShowed={isChatShowed} isVideoShowed={isVideoShowed}>
-            <Room />
+            <Room roomID={roomName} username={user.username} />
           </S.VideoDiv>
           <S.ChatDiv isChatShowed={isChatShowed} isVideoShowed={isVideoShowed}>
             <Chat
               isVideoShowed={isVideoShowed}
               isChatShowed={isChatShowed}
               setMsgCount={setMsgCount}
+              username={user.username}
             />
           </S.ChatDiv>
         </S.VideoAndChatDiv>

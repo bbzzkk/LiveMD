@@ -181,7 +181,7 @@ const Block4 = () => {
         <div className="carousel-item active">
           <ImageSize
             className="d-block w-100"
-            src="images/block1.png"
+            src="images/login.png"
             alt="First slide"
           />
         </div>
@@ -189,7 +189,7 @@ const Block4 = () => {
         <div className="carousel-item">
           <img
             className="d-block w-100"
-            src="images/block1.png"
+            src="images/team.png"
             alt="Second slide"
           />
         </div>
@@ -197,7 +197,7 @@ const Block4 = () => {
         <div className="carousel-item">
           <img
             className="d-block w-100"
-            src="images/block1_sizeTest.png"
+            src="images/editor.png"
             alt="Third slide"
           />
         </div>
@@ -205,7 +205,7 @@ const Block4 = () => {
         <div className="carousel-item">
           <img
             className="d-block w-100"
-            src="images/block1.png"
+            src="images/RTC.png"
             alt="Third slide"
           />
         </div>

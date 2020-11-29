@@ -1,8 +1,10 @@
 import React from 'react';
 import S from './style';
 
-import Teams from './Teams';
-import Overview from './Overview/Overview';
+import Overview from './Overview';
+import My from './My';
+import TeamList from './TeamList';
+import CreateButton from './CreateButton';
 
 const Sidebar = () => {
   const handleClickMy = () => {
@@ -11,11 +13,10 @@ const Sidebar = () => {
   return (
     <S.Drawer open variant="permanent">
       <Overview></Overview>
+      <CreateButton/>
       <S.DrawerList>
-        <S.My button onClick={handleClickMy}>
-          <S.MyText primary="My Workspace" />
-        </S.My>
-        <Teams />
+        <My />
+        <TeamList />
       </S.DrawerList>
     </S.Drawer>
   );

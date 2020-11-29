@@ -4,6 +4,7 @@ const Member = require("../models/Member");
 exports.createTeam = async (teamname, description, userId, email) => {
   const team = await Team.create({
     teamname: teamname,
+    ownerId: userId,
     description: description,
   });
   const member = await Member.create({
@@ -17,6 +18,7 @@ exports.createTeam = async (teamname, description, userId, email) => {
     team.save();
     member.save();
   }
+  return { teamId: team.teamId, memberId: member.memberId };
 };
 
 exports.getTeamByName = (teamname) =>
