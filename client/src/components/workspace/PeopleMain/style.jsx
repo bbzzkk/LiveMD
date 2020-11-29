@@ -32,7 +32,8 @@ const S = {
     }
     .AddNewMemberButton{
       display: inline-block;
-      width: 14%;
+      width: 12%;
+      margin-left: 1%;
     }
     
     .search-user {
@@ -43,10 +44,10 @@ const S = {
 
     #teamRoleMenu{
       width: auto;
-      padding-right: 25px;
+      padding-right: 13%;
       z-index: 1;
       line-height: normal;
-      margin-left: 15%;
+      margin-left: 18%;
     }
 
     .ListimageAndName{

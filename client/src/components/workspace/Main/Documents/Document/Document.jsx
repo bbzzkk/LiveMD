@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 250,
     minWidth: 100,
-    width: '150%',
+    // width: '150%',
+    width: '15rem',
     height: '4%',
     margin: '1%',
     transition: "transform 0.15s ease-in-out"
@@ -101,6 +102,7 @@ const Document = props => {
     >
     <Button style={{width:'100%'}}>
       {/* <CardContent style={{marginLeft:'-30%'}}> */}
+      <div className="spanTitleAndTiem">
           <Typography className={classes.title} variant="h5" component="h2" >
             {title}
           </Typography>
@@ -109,6 +111,7 @@ const Document = props => {
           <QueryBuilderIcon />
           {createdAt}
         </Typography>
+      </div>
       {/* </CardContent> */}
       </Button>
       <CardActions className={classes.card_action} focusV>

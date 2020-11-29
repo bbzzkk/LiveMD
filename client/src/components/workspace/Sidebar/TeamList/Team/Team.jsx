@@ -15,11 +15,11 @@ const Team = props => {
     }
   };
   return (
-    <S.ListItem button>
-      <S.ListItemContainer onClick={handleMarked}>
+    <S.ListItem button style={{textAlign : 'center', borderBottom : '1px solid black'}}>
+      {/* <S.ListItemContainer onClick={handleMarked}>
         <S.StarIcon style={{ color: isMarked ? 'yellow' : 'green' }} />
-      </S.ListItemContainer>
-      <S.ListItemText>{teamname}</S.ListItemText>
+      </S.ListItemContainer> */}
+      <S.ListItemText style={{color : '#00796b' }}>{teamname}</S.ListItemText>
     </S.ListItem>
   );
 };
