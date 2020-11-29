@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 250,
     minWidth: 100,
-    width: '150%',
+    // width: '150%',
+    width: '15rem',
     height: '4%',
     margin: '1%',
     transition: "transform 0.15s ease-in-out"
