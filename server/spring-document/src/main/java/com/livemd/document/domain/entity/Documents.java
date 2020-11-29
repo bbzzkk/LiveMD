@@ -22,21 +22,28 @@ public class Documents extends BaseTimeEntity {
     @Column(unique = true, nullable = false)
     private String docId;
 
-    @Column
+    @Column(columnDefinition = "varchar(255) default 'Untitled'")
     private String title;
 
     @Column
     private String content;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isMarked;
+
     @Builder
-    public Documents(String ownerId, String docId, String title, String content){
+    public Documents(String ownerId, String docId, String title, String content, boolean isMarked){
         this.ownerId = ownerId;
         this.docId = docId;
         this.title = title;
         this.content = content;
+        this.isMarked = isMarked;
     }
     public void update(String title){
         this.title = title;
     }
+
+    public void updateMarked(){
+        this.isMarked = !this.isMarked;}
 
 }

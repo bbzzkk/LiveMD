@@ -1,5 +1,6 @@
 package com.livemd.document.controller;
 
+import com.livemd.document.domain.entity.Documents;
 import com.livemd.document.dto.*;
 import com.livemd.document.envelope.DocumentsIdResponseEnvelope;
 import com.livemd.document.envelope.DocumentsPageResponseEnvelope;
@@ -70,6 +71,14 @@ public class DocumentsApiController {
         ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
         return responseEntity;
     }
+
+//    @PutMapping("/{documentId}")
+//    public ResponseEntity<DocumentsIdResponseEnvelope> updateMarked(@PathVariable String documentId) {
+//        DocumentsIdResponseDto data = service.updateMarked(documentId);
+//        DocumentsIdResponseEnvelope envelope = new DocumentsIdResponseEnvelope(200, true, data);
+//        ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
+//        return responseEntity;
+//    }
 
     @DeleteMapping("/{docId}")
     public ResponseEntity<DocumentsIdResponseEnvelope> delete(@PathVariable String docId) throws NoSuchElementException{
