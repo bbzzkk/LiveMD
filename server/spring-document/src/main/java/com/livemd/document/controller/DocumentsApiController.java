@@ -72,13 +72,13 @@ public class DocumentsApiController {
         return responseEntity;
     }
 
-    @PutMapping("/{docId}")
-    public ResponseEntity<DocumentsIdResponseEnvelope> updateMarked(@PathVariable String docId) {
-        DocumentsIdResponseDto data = service.updateMarked(docId);
-        DocumentsIdResponseEnvelope envelope = new DocumentsIdResponseEnvelope(200, true, data);
-        ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
-        return responseEntity;
-    }
+//    @PutMapping("/{documentId}")
+//    public ResponseEntity<DocumentsIdResponseEnvelope> updateMarked(@PathVariable String documentId) {
+//        DocumentsIdResponseDto data = service.updateMarked(documentId);
+//        DocumentsIdResponseEnvelope envelope = new DocumentsIdResponseEnvelope(200, true, data);
+//        ResponseEntity<DocumentsIdResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
+//        return responseEntity;
+//    }
 
     @DeleteMapping("/{docId}")
     public ResponseEntity<DocumentsIdResponseEnvelope> delete(@PathVariable String docId) throws NoSuchElementException{
