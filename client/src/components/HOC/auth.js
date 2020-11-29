@@ -12,7 +12,7 @@ const AuthProtection = ({ option, RouteComponent, authStore }) => {
   const user = JSON.parse(localStorage.getItem('USER_INFO'));
   const { setUser } = authStore;
 
-  console.log(`option: ${option}`);
+  // console.log(`option: ${option}`);
 
   if (user) {
     setUser(user);

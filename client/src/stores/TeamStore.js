@@ -2,7 +2,6 @@ import { types, flow } from 'mobx-state-tree';
 import api from 'axios';
 
 import Team from './models/Team';
-import Board from './models/Board';
 
 import { getUuid } from '@/utils';
 
@@ -20,20 +19,18 @@ const TeamStore = types
     return {
       getTeamList: flow(function* (userId) {
         try {
-          console.log(userId);
+          console.log("TEAM API 호출!");
           const response = yield api.get(
             `http://localhost:5252/api/v1/teams?userId=${userId}`,
           );
           const teamList = response.data.data;
-          console.log(teamList);
+          // console.log(teamList);
 
           teamList.map(({ teamId, teamname, marked }) => {
-            const board = Board.create({ id: teamId });
             const team = Team.create({
               teamId: teamId,
               teamname: teamname,
               marked: marked,
-              board: board,
             });
             self.teamList.push(team);
           });
@@ -49,7 +46,6 @@ const TeamStore = types
           });
         const { teamId, memberId, result } = response.data;
         if (result) {
-          const board = Board.create({ id: teamId });
 
           console.log('teamStore');
           console.log(teamData);
@@ -58,7 +54,6 @@ const TeamStore = types
             owner: teamData.userId,
             teamname: teamData.teamname,
             description: teamData.description,
-            board: board,
           });
           team.addOwner(memberId, teamId);
           self.teamList.push(team);

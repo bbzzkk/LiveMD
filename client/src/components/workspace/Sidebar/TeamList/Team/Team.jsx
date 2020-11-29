@@ -4,7 +4,6 @@ import S from './style';
 
 const Team = props => {
   const { marked, teamname } = props.team;
-  console.log('This is Team component');
   const { teamStore } = props.store;
   const [isMarked, setMarked] = useState(marked);
   const handleMarked = () => {

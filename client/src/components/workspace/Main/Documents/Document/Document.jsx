@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Document = props => {
-  const { owner, createdAt, title, store } = props;
+  const { owner, createdAt, title, store, docId } = props;
   const { user } = store.authStore;
   const classes = useStyles();
   const [click, setClick] = useState(false);
@@ -84,8 +84,11 @@ const Document = props => {
 
   const handleCardClick = () => {
     props.history.push({
-      pathname: "/page/test",
-      state: {user: user},
+      pathname: `/page/${docId}`,
+      state: {
+        user: user,
+        title: title,
+      },
     })
   }
 
