@@ -32,7 +32,7 @@ const PageList = props => {
 
   const getListPages = async () => {
     try {
-      const response = await window.fetch(`${url}`, {
+      const response = await window.fetch(`${url}/page`, {
         headers,
       });
       const data = await response.json();

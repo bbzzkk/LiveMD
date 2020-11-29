@@ -116,7 +116,7 @@ const Chat = ({ isVideoShowed, isChatShowed, setMsgCount }) => {
           value={message}
           onChange={handleChange}
           onKeyPress={onKeyPress}
-          placeholder="여기에 메세지 입력 ..."
+          placeholder="모든 사용자에게 메세지 보내기"
         />
         <S.Button
           msglen={message.length}

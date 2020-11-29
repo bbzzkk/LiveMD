@@ -9,7 +9,7 @@ export default {
     height: 100%;
     align-items: center;
     flex-direction: column;
-    border-top: ${props => (props.isVideoShowed ? '5px solid #F1F1F1' : 'none')};
+    border-top: ${props => (props.isVideoShowed ? '2px solid #f1f3f4' : 'none')};
     padding-top: 10px;
   `,
 
@@ -83,7 +83,7 @@ export default {
     /* height: 15%; */
     display: flex;
     flex-direction: row;
-    /* border-top: 1px solid black; */
+    border-top: 1px solid #f1f3f4;
   `,
 
   TextArea: styled.textarea`
@@ -91,15 +91,14 @@ export default {
     padding-top: 5px;
     padding-left: 5px;
     font-size: 14px;
-    background-color: white;
     outline: none;
     resize: none;
-    color: black;
+    color: #9aa0a6;
     letter-spacing: 1px;
     border-radius: 3px solid #bdbdbd;
     border: none;
     ::placeholder {
-      color: #616161;
+      color: #9aa0a6;
     }
   `,
 

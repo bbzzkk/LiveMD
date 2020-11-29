@@ -35,3 +35,7 @@
 .react-codemirror2 {
   font-size: 16px;
 }
+
+.cm-s-3024-night.CodeMirror {
+ background-color: #1e2126;
+}

@@ -44,6 +44,40 @@ const App = props => {
           />
           <Route
             exact
+            path="/board/people"
+            render={() => (
+              <Auth
+                option={1}
+                RouteComponent={Workspace}
+                authStore={authStore}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/board/documents"
+            render={() => (
+              <Auth
+                option={1}
+                RouteComponent={Workspace}
+                authStore={authStore}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/board/settings"
+            render={() => (
+              <Auth
+                option={1}
+                RouteComponent={Workspace}
+                authStore={authStore}
+              />
+            )}
+          />
+          
+          <Route
+            exact
             path="/login"
             render={() => (
               <Auth option={0} RouteComponent={Login} authStore={authStore} />
