@@ -24,7 +24,7 @@ const Workspace = props => {
         </S.SidebarContainer>
 
         <S.MainContainer>
-          <Header />
+          <Header/>
             <Switch>
                 <Route exact path="/board" render={() => (<Main/>)} />
                 <Route exact path="/board/documents" render={() => (<Main/>)} />
@@ -35,7 +35,6 @@ const Workspace = props => {
           {/* <Main/> */}
           {/* <TeamSettings /> */}
         </S.MainContainer>
-
       </S.Workspace>
     </>
   );
