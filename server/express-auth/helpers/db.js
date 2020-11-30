@@ -6,7 +6,7 @@ const connectionOptions = {
   useFindAndModify: false,
 };
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/LiveMD",
+  process.env.MONGODB_URI || "mongodb://live-md.com:27017/LiveMD",
   connectionOptions
 );
 mongoose.Promise = global.Promise;

@@ -5,6 +5,8 @@ import Team from './models/Team';
 
 import { getUuid } from '@/utils';
 
+import { TEAM_API } from '@/utils/APIconfig';
+
 const TeamStore = types
   .model('TeamStore', {
     currentTeam: types.maybe(Team),
@@ -21,7 +23,7 @@ const TeamStore = types
         try {
           console.log("TEAM API 호출!");
           const response = yield api.get(
-            `http://localhost:5252/api/v1/teams?userId=${userId}`,
+            `${TEAM_API}/teams?userId=${userId}`,
           );
           const teamList = response.data.data;
           // console.log(teamList);
@@ -40,7 +42,7 @@ const TeamStore = types
       }),
       createTeam: flow(function* (teamData) {
         const response = yield api
-          .post(`http://localhost:5252/api/v1/teams`, teamData)
+          .post(`${TEAM_API}/teams`, teamData)
           .catch(e => {
             return -1;
           });
@@ -61,7 +63,7 @@ const TeamStore = types
       }),
       markTeam: flow(function* (teamData) {
         // const response = yield api
-        //   .post(`http://localhost:5252/api/v1/teams`, teamData)
+        //   .post(`${TEAM_API}/api/v1/teams`, teamData)
         //   .catch(e => {
         //     return -1;
         //   });

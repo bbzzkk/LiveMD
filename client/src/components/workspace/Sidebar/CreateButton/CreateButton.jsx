@@ -1,13 +1,17 @@
 import React from 'react';
-
+import {inject, observer} from 'mobx-react';
 import S from './style';
 
 import AddIcon from '@material-ui/icons/Add';
 
-const CreateButton = () => {
-
+const CreateButton = props => {
+  const { authStore, boardStore } = props.store;
+  const { id, email } = authStore.user;
+  const handleClick = () => {
+    boardStore.createDocument(id)
+  }
   return (
-    <S.container>
+    <S.container onClick = {handleClick}>
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -21,4 +25,4 @@ const CreateButton = () => {
 
   );
 };
-export default CreateButton;
+export default inject('store')(observer(CreateButton));

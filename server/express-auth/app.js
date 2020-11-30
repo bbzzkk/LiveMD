@@ -7,15 +7,15 @@ const passport = require("passport");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 
-mongoose.Promise = global.Promise;
-mongoose
-  .connect("mongodb://localhost/LiveMD", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
-  .then(() => console.log("mongoDB connected successful"))
-  .catch((err) => console.error(err));
+// mongoose.Promise = global.Promise;
+// mongoose
+//   .connect("mongodb://live-md.com:27017/LiveMD", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useCreateIndex: true,
+//   })
+//   .then(() => console.log("mongoDB connected successful"))
+//   .catch((err) => console.error(err));
 const app = express();
 
 // app.use(cors());
@@ -38,7 +38,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
