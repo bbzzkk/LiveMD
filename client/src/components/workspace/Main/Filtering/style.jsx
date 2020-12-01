@@ -54,7 +54,6 @@ const S = {
     width: 80%;
     position: relative;
     display: flex;
-    margin-left: 10px;
     justify-content: space-between;
   `,
   Searchbox: styled.input`
