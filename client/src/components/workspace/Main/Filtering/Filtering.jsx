@@ -8,8 +8,13 @@ import S from './style';
 const Filtering = props => {
   return (
     <S.Container>
-      <Searching />
-      <Sorting />
+      <div className="serching" style={{position : 'relative', left : '3.4rem'}}>
+        <Searching />
+      </div>
+
+      <div className="sorting" style={{position : 'relative', left : '11.9rem'}}>
+        <Sorting />
+      </div>
     </S.Container>
   );
 };

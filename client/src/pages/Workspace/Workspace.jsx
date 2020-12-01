@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
+import { workspaceGlobalStyle } from '@/styles';
 
 import {
   Header,
@@ -50,6 +51,7 @@ const Workspace = props => {
 
   return (
     <>
+      <workspaceGlobalStyle />
       <S.Workspace>
         <S.SidebarContainer>
           <Sidebar />
@@ -57,7 +59,7 @@ const Workspace = props => {
 
         <S.MainContainer>
           <Header />
-          <Main isDoc={boardStore.documents.length} />}
+          <Main isDoc={boardStore.documents.length} />
           <Switch>
             <Route exact path="/board/people" render={() => <PeopleMain />} />
             <Route
