@@ -8,8 +8,7 @@ import {
   Editor,
 } from '@/pages';
 
-import CreateRoom from '@/pages/VideoChat/CreateRoom';
-import Room from '@/pages/VideoChat/Room';
+
 import { None } from '@/components/workspace';
 import { Auth } from '@/components/HOC';
 
@@ -91,8 +90,8 @@ const App = props => {
           /> */}
           {/* <Route exact path="/page/" component={PageList} /> */}
           <Route exact path="/page/:page" component={Editor} />
-          <Route exact path="/create" component={CreateRoom} />
-          <Route exact path="/room/:roomID" component={Room} />
+          {/* <Route exact path="/create" component={CreateRoom} />
+          <Route exact path="/room/:roomID" component={Room} /> */}
         </Switch>
       </Router>
     </>
