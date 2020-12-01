@@ -3,7 +3,13 @@ import S from './style';
 import io from 'socket.io-client';
 import { SendRounded } from '@material-ui/icons';
 
-const Chat = ({ isVideoShowed, isChatShowed, setMsgCount }) => {
+const Chat = ({
+  isVideoShowed,
+  isChatShowed,
+  setMsgCount,
+  username,
+  roomID,
+}) => {
   const [yourID, setYourID] = useState();
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
@@ -13,24 +19,34 @@ const Chat = ({ isVideoShowed, isChatShowed, setMsgCount }) => {
 
   useEffect(() => {
     socketRef.current = io.connect('https://live-md.com:8001');
-    socketRef.current.on('your id', id => {
-      setYourID(id);
+
+    socketRef.current.emit('join', username, roomID);
+    socketRef.current.on('updateChat', (username, data) => {
+      if (username === 'INFO') {
+        const messageObject = {
+          body: data.body,
+          id: data.id,
+        };
+        receivedMessage(messageObject);
+      } else {
+        receivedMessage(data);
+      }
     });
-    socketRef.current.on('message', message => {
-      receivedMessage(message);
-    });
+
+    return () => {
+      socketRef.current.disconnect();
+    };
   }, []);
 
   useEffect(() => {
     if (!isChatShowed) {
-      setMsgCount((cnt) => cnt + 1);
+      setMsgCount(cnt => cnt + 1);
     }
   }, [messages]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages, isVideoShowed, isChatShowed]);
-
 
   const receivedMessage = message => {
     setMessages(oldMsgs => [...oldMsgs, message]);
@@ -43,10 +59,11 @@ const Chat = ({ isVideoShowed, isChatShowed, setMsgCount }) => {
 
     const messageObject = {
       body: message,
-      id: yourID,
+      id: username,
     };
+
     setMessage('');
-    socketRef.current.emit('send message', messageObject);
+    socketRef.current.emit('sendMessage', messageObject);
   };
 
   const handleChange = e => {
@@ -78,15 +95,12 @@ const Chat = ({ isVideoShowed, isChatShowed, setMsgCount }) => {
       <S.Content>
         {messages.map((message, index) => {
           const nowTime = getNowTime(new Date());
-          if (message.id === yourID) {
+          if (message.id === username) {
             return (
               <S.MyMessage key={index}>
                 <S.MyMessageBox>
                   <S.Date>{nowTime}</S.Date>
-                  <S.Message
-                    backColor="#1e6896" 
-                    fontColor="white"
-                  >
+                  <S.Message backColor="#1e6896" fontColor="white">
                     {message.body}
                   </S.Message>
                 </S.MyMessageBox>
@@ -95,12 +109,9 @@ const Chat = ({ isVideoShowed, isChatShowed, setMsgCount }) => {
           } else {
             return (
               <S.PartnerMessage key={index}>
-                <S.ChatID>{yourID}</S.ChatID>
+                <S.ChatID>{message.id}</S.ChatID>
                 <S.PartnerMessageBox>
-                  <S.Message
-                    backColor="#bdbdbd"
-                    fontColor="black"
-                  >
+                  <S.Message backColor="#bdbdbd" fontColor="black">
                     {message.body}
                   </S.Message>
                   <S.Date>{nowTime}</S.Date>

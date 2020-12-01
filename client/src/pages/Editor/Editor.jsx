@@ -117,10 +117,7 @@ const Editor = ({ doc, match }) => {
   return (
     <S.EditorContainer>
       <S.Header>
-        <S.PageName
-          value={title}
-          onChange={e => setDocName(e.target.value)}
-        />
+        <S.PageName value={title} onChange={e => setDocName(e.target.value)} />
         <S.EditBtnGroup>
           <IconButton
             style={{
@@ -202,7 +199,10 @@ const Editor = ({ doc, match }) => {
             {({ TransitionProps }) => (
               <Fade {...TransitionProps} timeout={350}>
                 <Paper>
-                  <div className={classes.activeList} style={{ backgroundColor: 'white' }}>
+                  <div
+                    className={classes.activeList}
+                    style={{ backgroundColor: 'white' }}
+                  >
                     <List component="nav" aria-label="activeList">
                       {activeUsers.map((user, index) => (
                         <ListItem key={index}>
@@ -246,6 +246,7 @@ const Editor = ({ doc, match }) => {
               isChatShowed={isChatShowed}
               setMsgCount={setMsgCount}
               username={user.username}
+              roomID={roomName}
             />
           </S.ChatDiv>
         </S.VideoAndChatDiv>

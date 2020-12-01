@@ -77,7 +77,7 @@ const AuthStore = types
       signOut: flow(function* () {
         yield api
           .get(`${AUTH_API}/signout`, {
-            withCredentials: true,
+            // withCredentials: true,
           })
           .then(() => {
             localStorage.removeItem('ACCESS_TOKEN');
