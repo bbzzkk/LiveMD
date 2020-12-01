@@ -15,12 +15,12 @@ const S = {
   ListItemContainer: styled(ListItemIcon)``,
   AddIcon: styled(AddIcon)`
     margin-right: 0.3vw;
-      &:hover {
+      /* &:hover {
       letterSpacing: '0.3em',
       color: '#1e6896',
       border: '1px solid #1e6896',
       backgroundColor: grey,
-    },
+    } */
   `,
   StarIcon: styled(StarBorder)`
     color: white;
