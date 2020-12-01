@@ -28,6 +28,7 @@
     "mobx-react": "^7.0.5",
     "mobx-state-tree": "^4.0.1-rc.1",
     "path-to-regexp": "^6.2.0",
+    "query-string": "^6.13.7",
     "react": "^16.13.1",
     "react-codemirror2": "^7.2.1",
     "react-dnd": "^11.1.3",

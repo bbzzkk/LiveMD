@@ -5,27 +5,27 @@ const { AuthController } = require("../../controllers/index");
 const passportJWT = passport.authenticate("jwt", { session: false });
 
 router.post("/signin", AuthController.signIn);
-router.post("/signout", AuthController.signOut);
+router.get("/signout", AuthController.signOut);
 router.get(
-  "/google",
-  passport.authenticate("google", {
-    session: false,
-    scope: ["profile"],
-  })
+	"/google",
+	passport.authenticate("google", {
+		session: false,
+		scope: ["profile"],
+	})
 );
 
 router.get(
-  "/google/redirect",
-  passport.authenticate("google"),
-  AuthController.googleOAuth
-  // (req, res, err) => {
-  //   if (err.name === "TokenError") {
-  //      // redirect them back to the login page
-  //   } else {
-  //     res.redirect("http://localhost:3000");
-  //     // res.json(req.user);
-  //   }
-  // }
+	"/google/redirect",
+	passport.authenticate("google"),
+	AuthController.googleOAuth
+	// (req, res, err) => {
+	//   if (err.name === "TokenError") {
+	//      // redirect them back to the login page
+	//   } else {
+	//     res.redirect("http://localhost:3000");
+	//     // res.json(req.user);
+	//   }
+	// }
 );
 
 // router.post(

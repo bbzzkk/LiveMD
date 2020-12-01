@@ -76,7 +76,7 @@ const AuthStore = types
       }),
       signOut: flow(function* () {
         yield api
-          .post(`${AUTH_API}/signout`, {
+          .get(`${AUTH_API}/signout`, {
             withCredentials: true,
           })
           .then(() => {

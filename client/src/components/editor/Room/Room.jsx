@@ -186,7 +186,7 @@ const Room = ({ roomID, username }) => {
               // color={disabled ? "disabled" : "secondary"}
             />
           ) : (
-            <VideocamRounded fontSize="large" style={{color : '#00796b'}} />
+            <VideocamRounded fontSize="large" style={{ color: '#00796b' }} />
           )}
         </IconButton>
         <IconButton
@@ -203,7 +203,7 @@ const Room = ({ roomID, username }) => {
               // color={disabled ? "disabled" : "secondary"}
             />
           ) : (
-            <MicRounded fontSize="large" style={{color : '#00796b'}} />
+            <MicRounded fontSize="large" style={{ color: '#00796b' }} />
           )}
         </IconButton>
       </S.VideoControlBtnDiv>

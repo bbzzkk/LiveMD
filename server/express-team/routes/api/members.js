@@ -3,31 +3,31 @@ const { memberController } = require("../../controllers/index");
 const { checkMembers } = require("../../middleware/index");
 
 router.post(
-  "/inivite",
-  checkMembers.inviteMembers,
-  memberController.inviteMembers
+	"/invite",
+	checkMembers.inviteMembers,
+	memberController.inviteMembers
 );
 router.post(
-  "/confirm",
-  checkMembers.confirmMember,
-  memberController.confirmMember
+	"/confirm",
+	checkMembers.confirmMember,
+	memberController.confirmMember
 );
 router.post(
-  "/reinvite",
-  checkMembers.reinviteMember,
-  memberController.reinviteMember
+	"/reinvite",
+	checkMembers.reinviteMember,
+	memberController.reinviteMember
 );
 
 router.get("/", checkMembers.getManyMember, memberController.getManyMember);
 router.put(
-  "/:memberId",
-  checkMembers.updateMember,
-  memberController.updateMember
+	"/:memberId",
+	checkMembers.updateMember,
+	memberController.updateMember
 );
 router.delete(
-  "/:memberId",
-  checkMembers.deleteOneMember,
-  memberController.deleteOneMember
+	"/:memberId",
+	checkMembers.deleteOneMember,
+	memberController.deleteOneMember
 );
 
 module.exports = router;

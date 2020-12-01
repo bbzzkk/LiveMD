@@ -10,7 +10,14 @@
   position: absolute;
   top: -1.05em;
   left: -1px;
-  font-size: .6em;
+  writing-mode: horizontal-tb;
+  font-size: .3em;
+  height: auto;
+  width: 10vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
   background-color: rgb(250, 129, 0);
   font-family: serif;
   font-style: normal;
