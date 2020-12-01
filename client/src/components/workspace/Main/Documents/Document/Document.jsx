@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
@@ -26,10 +26,10 @@ const useStyles = makeStyles(theme => ({
     width: '15rem',
     height: '4%',
     margin: '1%',
-    transition: "transform 0.15s ease-in-out"
+    transition: 'transform 0.15s ease-in-out',
   },
   cardHovered: {
-    transform: "scale3d(1.05, 1.05, 1)"
+    transform: 'scale3d(1.05, 1.05, 1)',
   },
   bullet: {
     display: 'inline-block',
@@ -38,9 +38,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontSize: 24,
-    fontWeight: "550",
+    fontWeight: '550',
     textAlign: 'left',
-    textTransform:'none',
+    textTransform: 'none',
   },
   pos: {
     marginTop: 10,
@@ -50,85 +50,83 @@ const useStyles = makeStyles(theme => ({
   },
   clock: {
     marginTop: 10,
-    marginLeft: 5
+    marginLeft: 5,
   },
-  red_btn:{
-    color: '#db4646'
+  red_btn: {
+    color: '#db4646',
   },
-  black_btn:{
-    color: 'grey'
+  black_btn: {
+    color: 'grey',
   },
-  icon_button:{
+  icon_button: {
     padding: 0,
-
   },
-  card_action:{
+  card_action: {
     justifyContent: 'flex-end',
-  }
+  },
 }));
 
 const Document = props => {
-  const { owner, createdAt, title, store } = props;
+  const { createdAt, title, store, docId } = props;
   const { user } = store.authStore;
   const classes = useStyles();
   const [click, setClick] = useState(false);
 
   const [state, setState] = useState({
-    raised:false,
-    shadow:1,
-  })
+    raised: false,
+    shadow: 1,
+  });
 
-
-  const handleClick =()=>{
+  const handleClick = () => {
     // console.log(click)
     setClick(!click);
-  }
+  };
 
   const handleCardClick = () => {
     props.history.push({
-      pathname: "/page/test",
-      state: {user: user},
-    })
-  }
+      pathname: `/page/${docId}`,
+      state: {
+        user: user,
+        title: title,
+      },
+    });
+  };
 
   return (
     <Card
       className={classes.root}
       onClick={handleCardClick}
-      classes={{root: state.raised ? classes.cardHovered : ""}}
-      onMouseOver={()=>setState({raised: true, shadow:1})}
-      onMouseOut={()=>setState({raised:false, shadow:0})}
-      raised={state.raised} zDepth={state.shadow}
+      classes={{ root: state.raised ? classes.cardHovered : '' }}
+      onMouseOver={() => setState({ raised: true, shadow: 1 })}
+      onMouseOut={() => setState({ raised: false, shadow: 0 })}
+      raised={state.raised}
+      zdepth={state.shadow}
     >
-    <Button style={{width:'100%'}}>
-      {/* <CardContent style={{marginLeft:'-30%'}}> */}
-      <div className="spanTitleAndTiem">
-          <Typography className={classes.title} variant="h5" component="h2" >
+      <Button style={{ width: '100%' }}>
+        {/* <CardContent style={{marginLeft:'-30%'}}> */}
+        <div className="spanTitleAndTiem">
+          <Typography className={classes.title} variant="h5" component="h2">
             {title}
           </Typography>
-          <br/>
-        <Typography className={classes.pos} color="textSecondary">
-          <QueryBuilderIcon />
-          {createdAt}
-        </Typography>
-      </div>
-      {/* </CardContent> */}
+          <br />
+          <Typography className={classes.pos} color="textSecondary">
+            <QueryBuilderIcon />
+            {createdAt}
+          </Typography>
+        </div>
+        {/* </CardContent> */}
       </Button>
-      <CardActions className={classes.card_action} focusV>
-        <IconButton className={classes.icon_button}>
-        <BookmarkIcon className={click===true? classes.red_btn : classes.black_btn} onClick={handleClick}/>
+      <CardActions className={classes.card_action} focusv="false">
+        <IconButton className={classes.icon_button} onClick={handleClick}>
+          <BookmarkIcon
+            className={click === true ? classes.red_btn : classes.black_btn}
+          />
         </IconButton>
 
-        <DeleteModal/>
+        <DeleteModal />
       </CardActions>
     </Card>
   );
-};
-
-Document.propTypes = {
-  owner: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
 };
 
 export default withRouter(inject('store')(observer(Document)));

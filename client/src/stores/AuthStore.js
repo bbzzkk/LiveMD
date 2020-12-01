@@ -2,7 +2,7 @@ import { types, flow, destroy, applySnapshot } from 'mobx-state-tree';
 import api from 'axios';
 
 import User from './models/User';
-import Board from './models/Board';
+import { AUTH_API } from '@/utils/APIconfig';
 
 const AuthStore = types
   .model('AuthStore', {
@@ -16,13 +16,13 @@ const AuthStore = types
 
     return {
       setUser(user) {
-        console.log(user);
-        const board = Board.create({ id: user.id });
-        self.user = User.create({ ...user, board: board });
+        const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
+        api.defaults.headers.common['Authorization'] = `Bearer ${ACCESS_TOKEN}`;
+        self.user = User.create({ ...user });
       },
       getUser: flow(function* (userId) {
         yield api
-          .get(`http://localhost:5000/api/v1/users/${userId}`, {
+          .get(`${AUTH_API}/users/${userId}`, {
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const AuthStore = types
       signInGoogle2: flow(function* (data) {
         let user;
         yield api
-          .post(`http://localhost:5000/api/v1/auth/signin`, data, {
+          .post(`${AUTH_API}/signin`, data, {
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
@@ -71,13 +71,12 @@ const AuthStore = types
             console.log('catch 문 들어옴');
             console.log(e);
           });
-        const board = Board.create({ id: user.id });
-        self.user = User.create({ ...user, board: board });
+        self.user = User.create({ ...user });
         self.isAuthenticated = true;
       }),
       signOut: flow(function* () {
         yield api
-          .post(`http://localhost:5000/api/v1/auth/signout`, {
+          .post(`${AUTH_API}/signout`, {
             withCredentials: true,
           })
           .then(() => {

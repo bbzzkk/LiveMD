@@ -21,6 +21,7 @@
     "history": "^5.0.0",
     "http-proxy-middleware": "^1.0.6",
     "json-server": "^0.16.3",
+    "lnd": "^0.0.2",
     "mdast-util-to-hast": "^10.0.0",
     "mobx": "^6.0.4",
     "mobx-devtools-mst": "^0.9.26",

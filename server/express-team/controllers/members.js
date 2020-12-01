@@ -22,7 +22,7 @@ const inviteMembers = async (req, res) => {
 
         await sendEmail(
           email,
-          `http://localhost:3000/invitation?code=${code}`,
+          `https://live-md.com/invitation?code=${code}`,
           teamname
         );
       } catch (e) {
@@ -51,7 +51,7 @@ const reinviteMember = async (req, res) => {
     const { email, teamname } = req.body;
     await sendEmail(
       email,
-      `http://localhost:3000/invitation?code=${code}`,
+      `https://live-md.com/invitation?code=${code}`,
       teamname
     );
   } catch (e) {

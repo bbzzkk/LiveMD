@@ -13,19 +13,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private JwtAuthInterceptor jwtAuthInterceptor;
+    // @Autowired
+    // private JwtAuthInterceptor jwtAuthInterceptor;
     //CORS 해결
     @Override
     public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/**")
-                .allowedOrigins("*");
+        registry.addMapping("/**");
     }
 
     //JwtAuth interceptor 추가
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(jwtAuthInterceptor)
-                .addPathPatterns("/api/v1/documents/**");
-    }
+    // @Override
+    // public void addInterceptors(InterceptorRegistry registry){
+    //     registry.addInterceptor(jwtAuthInterceptor)
+    //             .addPathPatterns("/api/v1/documents/**");
+    // }
 }

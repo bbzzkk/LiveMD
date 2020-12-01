@@ -7,38 +7,14 @@ const passport = require("passport");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 
-mongoose.Promise = global.Promise;
-mongoose
-  .connect("mongodb://localhost/LiveMD", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
-  .then(() => console.log("mongoDB connected successful"))
-  .catch((err) => console.error(err));
 const app = express();
 
-// app.use(cors());
-// function corsCheck(req, callback) {
-//   let corsOptions;
-//   const acceptList = ["http://localhost:3000"];
-//   if (acceptList.indexOf(req.header("Origin")) !== -1) {
-//     corsOptions = { origin: true, credential: true };
-//   } else {
-//     corsOptions = { origin: false };
-//   }
-//   callback(null, corsOptions);
-// }
-// app.get("/", cors(corsCheck), (req, res, next) => {
-//   res.send("Hello Express");
-//   next();
-// });
 app.use(logger("dev"));
 app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -86,3 +62,4 @@ function errorNotification(err, str, req) {
 }
 
 module.exports = app;
+

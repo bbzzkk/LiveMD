@@ -26,13 +26,18 @@ const Others = props => {
   return (
     <S.SignOutButton
       variant="contained"
-      color="primary"
+
       size="small"
       startIcon={<S.ExitIcon />}
       style={{ marginTop: 'auto', 
                 marginLeft: '-30%', 
                 position: 'relative',
-                bottom: '30%'}}
+                bottom: '1.2rem',
+                color:'white',
+                backgroundColor:'#131236',
+                fontFamily:
+                'SF Pro KR,SF Pro Display,SF Pro Icons,Apple Gothic,HY Gulim,MalgunGothic,HY Dotum,Lexi Gulim,Helvetica Neue,Helvetica,Arial,sans-serif',
+              }}
       onClick={handleSignout}
     >
       Sign out

@@ -4,45 +4,46 @@ import { inject, observer } from 'mobx-react';
 import {
   Login,
   Home,
-  OAuth2RedirectHandler,
-  PageList,
-  Page,
   Workspace,
   Editor,
 } from '@/pages';
 
-import CreateRoom from '@/pages/VideoChat/CreateRoom';
-import Room from '@/pages/VideoChat/Room';
 
+import { None } from '@/components/workspace';
 import { Auth } from '@/components/HOC';
 
 import '@/cattaz.css';
 
 const App = props => {
-  const { authStore } = props.store;
+  console.log('App.jsx 입니다.');
+  console.log(props.store);
   return (
     <>
       <Router>
         <Switch>
+          <Route exact path="/None" render={() => <None />} />
           <Route
             exact
             path="/"
             render={() => (
-              <Auth option={0} RouteComponent={Home} authStore={authStore} />
+              <Auth option={0} RouteComponent={Home} store={props.store} />
+            )}
+          />
+          <Route
+            exact
+            path="/board/:team"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
             )}
           />
           <Route
             exact
             path="/board"
             render={() => (
-              <Auth
-                option={1}
-                RouteComponent={Workspace}
-                authStore={authStore}
-              />
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
             )}
           />
-          <Route
+          {/* <Route
             exact
             path="/board/people"
             render={() => (
@@ -74,35 +75,23 @@ const App = props => {
                 authStore={authStore}
               />
             )}
-          />
-          
+          /> */}
           <Route
             exact
             path="/login"
             render={() => (
-              <Auth option={0} RouteComponent={Login} authStore={authStore} />
+              <Auth option={0} RouteComponent={Login} store={props.store} />
             )}
           />
-          <Route
+          {/* <Route
             exact
             path="/oauth2/redirect"
             component={OAuth2RedirectHandler}
-          />
-          <Route exact path="/page/" component={PageList} />
+          /> */}
+          {/* <Route exact path="/page/" component={PageList} /> */}
           <Route exact path="/page/:page" component={Editor} />
-          <Route exact path="/create" component={CreateRoom} />
-          <Route exact path="/room/:roomID" component={Room} />
-          <Route
-            exact
-            path="/board:team"
-            render={() => (
-              <Auth
-                option={1}
-                RouteComponent={Workspace}
-                authStore={authStore}
-              />
-            )}
-          />
+          {/* <Route exact path="/create" component={CreateRoom} />
+          <Route exact path="/room/:roomID" component={Room} /> */}
         </Switch>
       </Router>
     </>

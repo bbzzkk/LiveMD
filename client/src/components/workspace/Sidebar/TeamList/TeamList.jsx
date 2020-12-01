@@ -19,8 +19,6 @@ const TeamList = props => {
       </S.ListItem>
       <S.List component="div" disablePadding>
         {teamList.map(team => {
-          console.log('this is teamList map');
-          console.log(team);
           return <Team key={team.teamId} team={team} />;
         })}
       </S.List>
