@@ -4,15 +4,11 @@ import { inject, observer } from 'mobx-react';
 import {
   Login,
   Home,
-  OAuth2RedirectHandler,
-  PageList,
-  Page,
   Workspace,
   Editor,
 } from '@/pages';
 
-import CreateRoom from '@/pages/VideoChat/CreateRoom';
-import Room from '@/pages/VideoChat/Room';
+
 import { None } from '@/components/workspace';
 import { Auth } from '@/components/HOC';
 
@@ -87,15 +83,15 @@ const App = props => {
               <Auth option={0} RouteComponent={Login} store={props.store} />
             )}
           />
-          <Route
+          {/* <Route
             exact
             path="/oauth2/redirect"
             component={OAuth2RedirectHandler}
-          />
-          <Route exact path="/page/" component={PageList} />
+          /> */}
+          {/* <Route exact path="/page/" component={PageList} /> */}
           <Route exact path="/page/:page" component={Editor} />
-          <Route exact path="/create" component={CreateRoom} />
-          <Route exact path="/room/:roomID" component={Room} />
+          {/* <Route exact path="/create" component={CreateRoom} />
+          <Route exact path="/room/:roomID" component={Room} /> */}
         </Switch>
       </Router>
     </>

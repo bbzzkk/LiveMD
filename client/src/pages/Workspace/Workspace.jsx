@@ -57,7 +57,7 @@ const Workspace = props => {
 
         <S.MainContainer>
           <Header />
-          <Main isDoc={boardStore.documents.length} />}
+          <Main isDoc={boardStore.documents.length} />
           <Switch>
             <Route exact path="/board/people" render={() => <PeopleMain />} />
             <Route
