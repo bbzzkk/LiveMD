@@ -30,9 +30,10 @@ exports.signIn = async (req, res, next) => {
 
 exports.signOut = async (req, res, next) => {
   // res.clearCookie("loginObj");
-  res.clearCookie("REFRESH_TOKEN", {
-    path: "http://localhost:3000",
-  });
+  // res.clearCookie("REFRESH_TOKEN", {
+  //   path: "http://localhost:3000",
+  // });
+  res.clearCookie("REFRESH_TOKEN");
   res.status(200).json({ result: true });
 };
 

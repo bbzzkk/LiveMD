@@ -5,6 +5,8 @@ import Team from './models/Team';
 
 import { getUuid } from '@/utils';
 
+import { TEAM_API } from '@/utils/APIconfig';
+
 const TeamStore = types
   .model('TeamStore', {
     currentTeam: types.maybe(Team),
@@ -17,15 +19,24 @@ const TeamStore = types
   }))
   .actions(self => {
     return {
+      getOneTeam(teamname) {
+        console.log('getOneTeam');
+        console.log(self.teamList);
+        const team = self.teamList.filter(team => {
+          console.log('필터안이에요');
+          return team.teamname === teamname;
+        })[0];
+        console.log(team);
+        return team;
+      },
+
       getTeamList: flow(function* (userId) {
         try {
-          console.log("TEAM API 호출!");
-          const response = yield api.get(
-            `http://localhost:5252/api/v1/teams?userId=${userId}`,
-          );
+          console.log('TEAM API 호출!');
+          const response = yield api.get(`${TEAM_API}/teams/${userId}`);
           const teamList = response.data.data;
-          // console.log(teamList);
 
+          self.teamList.length = 0;
           teamList.map(({ teamId, teamname, marked }) => {
             const team = Team.create({
               teamId: teamId,
@@ -40,13 +51,12 @@ const TeamStore = types
       }),
       createTeam: flow(function* (teamData) {
         const response = yield api
-          .post(`http://localhost:5252/api/v1/teams`, teamData)
+          .post(`${TEAM_API}/teams`, teamData)
           .catch(e => {
             return -1;
           });
         const { teamId, memberId, result } = response.data;
         if (result) {
-
           console.log('teamStore');
           console.log(teamData);
           const team = Team.create({
@@ -61,7 +71,7 @@ const TeamStore = types
       }),
       markTeam: flow(function* (teamData) {
         // const response = yield api
-        //   .post(`http://localhost:5252/api/v1/teams`, teamData)
+        //   .post(`${TEAM_API}/api/v1/teams`, teamData)
         //   .catch(e => {
         //     return -1;
         //   });
