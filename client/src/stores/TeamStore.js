@@ -19,15 +19,24 @@ const TeamStore = types
   }))
   .actions(self => {
     return {
+      getOneTeam(teamname) {
+        console.log('getOneTeam');
+        console.log(self.teamList);
+        const team = self.teamList.filter(team => {
+          console.log('필터안이에요');
+          return team.teamname === teamname;
+        })[0];
+        console.log(team);
+        return team;
+      },
+
       getTeamList: flow(function* (userId) {
         try {
-          console.log("TEAM API 호출!");
-          const response = yield api.get(
-            `${TEAM_API}/teams?userId=${userId}`,
-          );
+          console.log('TEAM API 호출!');
+          const response = yield api.get(`${TEAM_API}/teams/${userId}`);
           const teamList = response.data.data;
-          // console.log(teamList);
 
+          self.teamList.length = 0;
           teamList.map(({ teamId, teamname, marked }) => {
             const team = Team.create({
               teamId: teamId,
@@ -48,7 +57,6 @@ const TeamStore = types
           });
         const { teamId, memberId, result } = response.data;
         if (result) {
-
           console.log('teamStore');
           console.log(teamData);
           const team = Team.create({

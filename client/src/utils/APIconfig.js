@@ -10,10 +10,10 @@
 //   EDITOR_WS_HOST,
 // } = process.env;
 
-const API_HOST = "http://live-md.com";
-export const DOCUMENT_API = `${API_HOST}:8080/api/v1`;
-export const TEAM_API = `${API_HOST}:5252/api/v1`;
-export const AUTH_API = `${API_HOST}:5000/api/v1`;
+const API_HOST = "https://live-md.com";
+export const DOCUMENT_API = `${API_HOST}:8010`;
+export const TEAM_API = `${API_HOST}:8008`;
+export const AUTH_API = `${API_HOST}:8007`;
 // export const CHAT_API = `${CHAT_API_HOST}/chat`;
 // export const CHAT_WS_API = `${CHAT_WS_HOST}/chat`;
 // export const VIDEO_API = `${VIDEO_API_HOST}/video`;

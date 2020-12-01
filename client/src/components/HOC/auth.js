@@ -7,15 +7,17 @@ import { Main } from '@/pages';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AuthProtection = ({ option, RouteComponent, authStore }) => {
+const AuthProtection = ({ option, RouteComponent, store }) => {
   const token = localStorage.getItem('ACCESS_TOKEN');
   const user = JSON.parse(localStorage.getItem('USER_INFO'));
-  const { setUser } = authStore;
+  const { setUser } = store.authStore;
+  const { getTeamList } = store.teamStore;
 
   // console.log(`option: ${option}`);
-
+  const setTeamList = async userId => await getTeamList(userId);
   if (user) {
     setUser(user);
+    setTeamList(user.id);
   }
   if (option !== 0) {
     if (token) {

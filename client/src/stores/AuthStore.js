@@ -38,7 +38,7 @@ const AuthStore = types
       signInGoogle2: flow(function* (data) {
         let user;
         yield api
-          .post(`${AUTH_API}/auth/signin`, data, {
+          .post(`${AUTH_API}/signin`, data, {
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const AuthStore = types
       }),
       signOut: flow(function* () {
         yield api
-          .post(`${AUTH_API}/auth/signout`, {
+          .post(`${AUTH_API}/signout`, {
             withCredentials: true,
           })
           .then(() => {

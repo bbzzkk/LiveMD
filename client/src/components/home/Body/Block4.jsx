@@ -206,7 +206,7 @@ const Block4 = () => {
           <img
             className="d-block w-100"
             src="images/RTC.png"
-            alt="Third slide"
+            alt="Fourth slide"
           />
         </div>
       </ImageContainer>

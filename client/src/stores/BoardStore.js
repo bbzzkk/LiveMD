@@ -12,37 +12,30 @@ const BoardStore = types
     documents: types.optional(types.array(Document), []),
   })
   .actions(self => ({
-    addDocument(docId) {
+    addDocument(docId, title) {
       const document = Document.create({
         id: docId,
         createdAt: new Date(),
-        title: 'undefined',
+        title: title || 'undefined',
         updatedAt: new Date(),
       });
       self.documents.push(document);
     },
 
     getAllDocuments: flow(function* (ownerId) {
-      self.documents.length = 0;
       try {
-        const response = yield api.get(
-          `${DOCUMENT_API}/documents?oid=${ownerId}`, {
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': true,
-            },
-          }
-        );
+        const response = yield api.get(`${DOCUMENT_API}/owners/${ownerId}`);
 
+        self.documents.length = 0;
         const documentList = response.data.data.content;
-        documentList.map(({ docId }) => {
-          self.addDocument(docId);
+        documentList.map(({ docId, title }) => {
+          self.addDocument(docId, title);
         });
 
         // id  title create update
       } catch (error) {
         console.log('failed: ', error);
+        self.documents.length = 0;
         if (error.response) {
           console.log(error.response.data);
           console.log(error.response.status);
@@ -54,15 +47,9 @@ const BoardStore = types
     createDocument: flow(function* (ownerId) {
       const documentId = getUuid();
       yield api
-        .post(`${DOCUMENT_API}/documents?oid=${ownerId}`, {
+        .post(`${DOCUMENT_API}/owners/${ownerId}`, {
           docId: documentId,
-        }, {
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': true,
-            },
-          })
+        })
         .then(() => {
           self.addDocument(documentId);
         })

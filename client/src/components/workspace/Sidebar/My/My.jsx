@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { withRouter } from 'react-router-dom';
 import S from './style';
 
-const My = () => {
+const My = props => {
   const handleClickMy = () => {
-    console.log('go to My Workspace');
+    props.history.push('/board');
   };
   return (
     <S.My button onClick={handleClickMy}>
@@ -12,4 +12,4 @@ const My = () => {
     </S.My>
   );
 };
-export default My;
+export default withRouter(My);
