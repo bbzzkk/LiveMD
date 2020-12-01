@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
+import { workspaceGlobalStyle } from '@/styles';
 
 import {
   Header,
@@ -50,6 +51,7 @@ const Workspace = props => {
 
   return (
     <>
+      <workspaceGlobalStyle />
       <S.Workspace>
         <S.SidebarContainer>
           <Sidebar />
