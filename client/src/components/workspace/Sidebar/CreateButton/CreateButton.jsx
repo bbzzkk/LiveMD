@@ -27,7 +27,7 @@ const CreateButton = props => {
         }}
       >
         <AddIcon />
-        <S.text>New Document</S.text>
+        <S.text>문서 생성하기</S.text>
       </div>
     </S.container>
   );
