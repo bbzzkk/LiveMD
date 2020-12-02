@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const workspaceGlobalStyle = createGlobalStyle`
+const WorkspaceGlobalStyle = createGlobalStyle`
 
   body {
     font-family:
@@ -9,4 +9,4 @@ const workspaceGlobalStyle = createGlobalStyle`
 
 `;
 
-export default workspaceGlobalStyle;
+export default WorkspaceGlobalStyle;
