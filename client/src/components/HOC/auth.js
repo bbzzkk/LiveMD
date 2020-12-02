@@ -14,11 +14,12 @@ const AuthProtection = ({ option, RouteComponent, store }) => {
   const { getTeamList } = store.teamStore;
 
   // console.log(`option: ${option}`);
-  const setTeamList = async userId => await getTeamList(userId);
+  // const setTeamList = async userId => await getTeamList(userId);
   if (user) {
     setUser(user);
-    setTeamList(user.id);
+    // setTeamList(user.id);
   }
+
   if (option !== 0) {
     if (token) {
       return <RouteComponent />;

@@ -23,25 +23,34 @@ const BoardStore = types
     },
 
     getAllDocuments: flow(function* (ownerId) {
-      try {
-        const response = yield api.get(`${DOCUMENT_API}/owners/${ownerId}`);
+      // try {
+      const response = yield api.get(
+      //   `http://localhost:8080/api/v1/documents?oid=${ownerId}`,
+      // );
+      const response = yield api.get(`${DOCUMENT_API}/owners/${ownerId}`);
 
-        self.documents.length = 0;
-        const documentList = response.data.data.content;
-        documentList.map(({ docId, title }) => {
-          self.addDocument(docId, title);
-        });
+      self.documents.length = 0;
 
-        // id  title create update
-      } catch (error) {
-        console.log('failed: ', error);
-        self.documents.length = 0;
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      }
+      // if (response !== undefined) {
+      //   if (response.data.data.status === 200) {
+      const documentList = response.data.data.content;
+      documentList.map(({ docId, title }) => {
+        self.addDocument(docId, title);
+      });
+      //   }
+      // }
+
+      // id  title create update
+      // }
+      // catch (error) {
+      //   console.log('failed: ', error);
+      //   self.documents.length = 0;
+      //   if (error.response) {
+      //     console.log(error.response.data);
+      //     console.log(error.response.status);
+      //     console.log(error.response.headers);
+      //   }
+      // }
     }),
 
     createDocument: flow(function* (ownerId) {

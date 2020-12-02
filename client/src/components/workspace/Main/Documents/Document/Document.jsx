@@ -67,10 +67,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Document = props => {
-  const { createdAt, title, store, docId } = props;
+  const { store } = props;
+  const { createdAt, title, docId, updatedAt } = props.document;
   const { user } = store.authStore;
   const classes = useStyles();
   const [click, setClick] = useState(false);
+
+  const strCreatedAt = new Date(createdAt);
 
   const [state, setState] = useState({
     raised: false,
@@ -78,7 +81,6 @@ const Document = props => {
   });
 
   const handleClick = () => {
-    // console.log(click)
     setClick(!click);
   };
 
@@ -111,7 +113,7 @@ const Document = props => {
           <br />
           <Typography className={classes.pos} color="textSecondary">
             <QueryBuilderIcon />
-            {createdAt}
+            {`${1 + strCreatedAt.getMonth()}월 ${strCreatedAt.getDate()}일`}
           </Typography>
         </div>
         {/* </CardContent> */}

@@ -8,9 +8,7 @@ import { inject, observer } from 'mobx-react';
 const TeamList = props => {
   const { user } = props.store.authStore;
   const { teamList, getTeamList } = props.store.teamStore;
-  useEffect(() => {
-    getTeamList(user.id);
-  }, [teamList]);
+
   return (
     <S.List>
       <S.ListItem>

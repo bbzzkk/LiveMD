@@ -9,8 +9,6 @@ import { Auth } from '@/components/HOC';
 import '@/cattaz.css';
 
 const App = props => {
-  console.log('App.jsx 입니다.');
-  console.log(props.store);
   return (
     <>
       <Router>

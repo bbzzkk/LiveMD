@@ -13,26 +13,21 @@ const TeamStore = types
     teamList: types.optional(types.array(Team), []),
   })
   .views(self => ({
-    get AllteamList() {
+    get _teamList() {
       return self.teamList ? self.teamList : [];
     },
   }))
   .actions(self => {
     return {
       getOneTeam(teamname) {
-        console.log('getOneTeam');
-        console.log(self.teamList);
         const team = self.teamList.filter(team => {
-          console.log('필터안이에요');
           return team.teamname === teamname;
         })[0];
-        console.log(team);
         return team;
       },
 
       getTeamList: flow(function* (userId) {
         try {
-          console.log('TEAM API 호출!');
           const response = yield api.get(`${TEAM_API}/teams/${userId}`);
           const teamList = response.data.data;
 
@@ -57,8 +52,6 @@ const TeamStore = types
           });
         const { teamId, memberId, result } = response.data;
         if (result) {
-          console.log('teamStore');
-          console.log(teamData);
           const team = Team.create({
             teamId: teamId,
             owner: teamData.userId,

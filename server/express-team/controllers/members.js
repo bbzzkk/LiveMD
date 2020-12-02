@@ -51,7 +51,7 @@ const reinviteMember = async (req, res) => {
 		const { email, teamname } = req.body;
 		await sendEmail(
 			email,
-			`https://live-md.com/invitation?code=${code}`,
+			`https://live-md.com/login?return_to=https://live-md.com/invitation?code=${code}`,
 			teamname
 		);
 	} catch (e) {
@@ -66,7 +66,8 @@ const reinviteMember = async (req, res) => {
 const confirmMember = async (req, res) => {
 	try {
 		validationResult(req).throw();
-		const invitation = InvitationService.getOneByCode(req.body.code);
+		const { code, userId } = req.body;
+		const invitation = InvitationService.getOneByCode(code);
 		if (!invitation) {
 			return res.status(500).json({
 				result: false,
@@ -74,7 +75,7 @@ const confirmMember = async (req, res) => {
 				error: "Check whether invitation is valid",
 			});
 		}
-		await memberService.updateOne(invitation.memberId);
+		await memberService.updateStatus(invitation.memberId, userId);
 		return res.status(200).json({ result: true, status: 200 });
 	} catch (e) {
 		res.status(500).json({

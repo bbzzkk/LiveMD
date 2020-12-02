@@ -34,12 +34,24 @@ public class DocumentsApiController {
     @GetMapping
     public ResponseEntity<DocumentsPageResponseEnvelope> findAllByOwnerId (final Pageable pageable, @RequestParam(value = "oid") String oid) {
         Page data =  service.findAllByOwnerId(pageable, oid);
+        // if(data.isEmpty()){
+        //   throw new NoSuchElementException();
+        // }
+        System.out.println(data);
+        int status;
         if(data.isEmpty()){
-          throw new NoSuchElementException();
+            DocumentsPageResponseEnvelope envelope = new DocumentsPageResponseEnvelope(404, true, data);
+            ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
+            return responseEntity;
         }
-        DocumentsPageResponseEnvelope envelope = new DocumentsPageResponseEnvelope(200, true, data);
-        ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
-        return responseEntity;
+        else{
+            DocumentsPageResponseEnvelope envelope = new DocumentsPageResponseEnvelope(200, true, data);
+            ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
+            return responseEntity;
+        }
+        // DocumentsPageResponseEnvelope envelope = new DocumentsPageResponseEnvelope(status, true, data);
+        // ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
+        // return responseEntity;
     }
 
     @GetMapping("/{docId}")
@@ -55,10 +67,17 @@ public class DocumentsApiController {
     @GetMapping("/search")
     public ResponseEntity<DocumentsPageResponseEnvelope> searchByKeyword(final Pageable pageable, @RequestParam(value = "oid") String oid, @RequestParam(value = "keyword") String keyword) {
         Page data = service.findAllByTitle(pageable, oid, keyword);
+        // if(data.isEmpty()){
+        //     throw new NoSuchElementException();
+        // }
+        int status;
         if(data.isEmpty()){
-            throw new NoSuchElementException();
+            status = 404;
         }
-        DocumentsPageResponseEnvelope envelope = new DocumentsPageResponseEnvelope (200, true, data);
+        else{
+            status = 200;
+        }
+        DocumentsPageResponseEnvelope envelope = new DocumentsPageResponseEnvelope (status, true, data);
         ResponseEntity<DocumentsPageResponseEnvelope> responseEntity = new ResponseEntity<>(envelope, HttpStatus.OK);
         return responseEntity;
 
