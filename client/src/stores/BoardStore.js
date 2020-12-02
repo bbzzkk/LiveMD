@@ -25,9 +25,9 @@ const BoardStore = types
     getAllDocuments: flow(function* (ownerId) {
       // try {
       const response = yield api.get(
-        `http://localhost:8080/api/v1/documents?oid=${ownerId}`,
-      );
-      // .get(`${DOCUMENT_API}/owners/${ownerId}`);
+      //   `http://localhost:8080/api/v1/documents?oid=${ownerId}`,
+      // );
+      .get(`${DOCUMENT_API}/owners/${ownerId}`);
 
       self.documents.length = 0;
 
