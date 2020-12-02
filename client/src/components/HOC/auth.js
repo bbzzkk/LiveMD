@@ -19,6 +19,7 @@ const AuthProtection = ({ option, RouteComponent, store }) => {
     setUser(user);
     // setTeamList(user.id);
   }
+
   if (option !== 0) {
     if (token) {
       return <RouteComponent />;

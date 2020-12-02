@@ -21,16 +21,16 @@ const Documents = props => {
   const { boardStore, authStore, teamStore } = props.store;
 
   // useEffect(() => {
-  //   console.log('Documents useEffect 실행');
-  //   console.log(props.match);
-  //   if (props.match === undefined) {
-  //     boardStore.getAllDocuments(authStore.user.id);
-  //   } else {
-  //     const teamname = props.match.params;
-  //     const team = teamStore.getOneTeam(teamname);
-  //     console.log(team);
-  //     boardStore.getAllDocuments(team.teamId);
-  //   }
+  // console.log('Documents useEffect 실행');
+  // console.log(props.match);
+  // if (props.match === undefined) {
+  //   boardStore.getAllDocuments(authStore.user.id);
+  // } else {
+  //   const teamname = props.match.params;
+  //   const team = teamStore.getOneTeam(teamname);
+  //   console.log(team);
+  //   boardStore.getAllDocuments(team.teamId);
+  // }
   // }, [boardStore.documents]);
 
   return (
@@ -42,14 +42,9 @@ const Documents = props => {
         <S.Horizon style={{ marginTop: '5%', marginBottom: '5%' }}>
           <S.Text>Untagged</S.Text>
         </S.Horizon>
-        {boardStore.documents.map((doc, index) => (
-          <Document
-            key={index}
-            createdAt={Date.now()}
-            title={doc.title}
-            docId={doc.id}
-          />
-        ))}
+        {boardStore.documents.map((doc, index) => {
+          return <Document key={index} document={doc} />;
+        })}
       </S.Container>
       {/* <Pagination style={{ marginLeft: '40%' }} count={10} /> */}
     </>

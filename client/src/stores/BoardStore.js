@@ -24,16 +24,21 @@ const BoardStore = types
 
     getAllDocuments: flow(function* (ownerId) {
       // try {
-      const response = yield api
-        .get(`http://localhost:8080/api/v1/documents?oid=${ownerId}`)
-        // .get(`${DOCUMENT_API}/owners/${ownerId}`)
-        .catch(e => console.log(e));
+      const response = yield api.get(
+        `http://localhost:8080/api/v1/documents?oid=${ownerId}`,
+      );
+      // .get(`${DOCUMENT_API}/owners/${ownerId}`);
 
       self.documents.length = 0;
+
+      // if (response !== undefined) {
+      //   if (response.data.data.status === 200) {
       const documentList = response.data.data.content;
       documentList.map(({ docId, title }) => {
         self.addDocument(docId, title);
       });
+      //   }
+      // }
 
       // id  title create update
       // }

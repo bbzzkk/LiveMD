@@ -22,35 +22,22 @@ import S from './style';
 const Workspace = props => {
   const { match, history } = props;
   const { boardStore, authStore, teamStore } = props.store;
-  const getTeamList = () => {
-    if (Object.keys(props.match.params).length === 0) {
-      boardStore.getAllDocuments(authStore.user.id);
-    } else {
-      const teamname = props.match.params.team;
-      console.log(teamStore.teamList);
-      // if (teamStore.teamList.length === 0) {
-      //   await teamStore.getTeamList(authStore.user.id).then(async () => {
-      //     const team = teamStore.getOneTeam(teamname);
-      //     await boardStore.getAllDocuments(team.teamId);
-      //   });
-      // }
-      console.log('바로 접근');
-      console.log(teamStore.teamList);
-      console.log(props.location);
-      console.log(props.match);
-      console.log(teamname);
-      // const team = teamStore.getOneTeam(teamname);
-      console.log('team이 있나요???');
-      // teamStore.getTeamList().then(data => console.log(data));
-      // console.log(team);
-      // boardStore.getAllDocuments(team.teamId);
-      // boardStore.getAllDocuments(teamStore.teamList[0].teamId);
-    }
-  };
+
   useEffect(() => {
-    console.log('workspace useEffect 실행');
-    getTeamList();
-  }, [props.match.params]);
+    const fetchData = async () => {
+      await teamStore.getTeamList(authStore.user.id);
+
+      if (Object.keys(props.match.params).length === 0) {
+        boardStore.getAllDocuments(authStore.user.id);
+      } else {
+        const teamname = props.match.params.team;
+        const team = teamStore.getOneTeam(teamname);
+        boardStore.getAllDocuments(team.teamId);
+      }
+    };
+
+    fetchData();
+  }, [props.match.params, boardStore.documents]);
 
   return (
     <>

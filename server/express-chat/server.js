@@ -10,6 +10,7 @@ let rooms = [];
 
 const checkRoom = (roomId) => {
 	const room = rooms.filter((room) => room.roomId == roomId)[0];
+
 	if (!room) {
 		rooms.push({ roomId: roomId, total: 0 });
 		return { roomId: roomId, total: 0 };
@@ -20,7 +21,9 @@ const checkRoom = (roomId) => {
 
 io.on("connection", (socket) => {
 	socket.on("join", function (username, roomId) {
+		// roomId가 있으면 join 할 수 있도록 함
 		if (roomId !== null) {
+			// checkRoom
 			const room = checkRoom(roomId);
 			socket.username = username;
 			usernames[username] = username;

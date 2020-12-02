@@ -220,7 +220,12 @@ const S = {
     margin-bottom: 1em;
   `,
   Username: styled.h4`
+    margin-left: 1em;
+    padding-left: auto;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   `,
 };
 
