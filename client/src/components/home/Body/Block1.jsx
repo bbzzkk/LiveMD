@@ -13,7 +13,7 @@ const styles = {
     fontFamily:
       'SF Pro KR,SF Pro Display,SF Pro Icons,Apple Gothic,HY Gulim,MalgunGothic,HY Dotum,Lexi Gulim,Helvetica Neue,Helvetica,Arial,sans-serif',
     fontWeight: 600,
-    bottom: '-20px',
+    bottom: '-1rem',
   },
 };
 
@@ -29,7 +29,7 @@ const ColorButton1 = withStyles(() => ({
     fontWeight: 'bold',
     minWidth: '28px',
     width: '47%',
-    bottom: '-150px',
+    bottom: '-8rem',
     paddingTop: '10px',
 
     '&:hover': {

@@ -189,7 +189,7 @@ const Block4 = () => {
         <div className="carousel-item">
           <img
             className="d-block w-100"
-            src="images/team.png"
+            src="images/block3Team.png"
             alt="Second slide"
           />
         </div>
