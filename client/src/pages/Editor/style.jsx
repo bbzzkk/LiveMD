@@ -24,10 +24,11 @@ export default {
   `,
 
   PageName: styled.input`
+    font-family: 'Nanum Gothic', sans-serif;
     background-color: #f1f1f1;
     border: none;
     height: 40px;
-    width: 180px;
+    width: 11em;
     font-size: 28px;
     padding-left: 30px;
     margin-right: 10px;

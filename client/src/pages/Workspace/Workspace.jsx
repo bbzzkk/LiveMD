@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
-import { workspaceGlobalStyle } from '@/styles';
+import WorkspaceGlobalStyle from '@/styles/workspaceGlobal';
 
 import {
   Header,
@@ -41,7 +41,7 @@ const Workspace = props => {
 
   return (
     <>
-      <workspaceGlobalStyle />
+      <WorkspaceGlobalStyle />
       <S.Workspace>
         <S.SidebarContainer>
           <Sidebar />
