@@ -35,7 +35,7 @@ const ColorButton2 = withStyles(() => ({
     fontWeight: 'bold',
     minWidth: '28px',
     width: '150px',
-    bottom: '-100px',
+    bottom: '-6rem',
     paddingTop: '10px',
 
     '&:hover': {
