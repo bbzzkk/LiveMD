@@ -18,8 +18,10 @@ const TeamList = props => {
         <AddTeam />
       </S.ListItem>
       <S.List component="div" disablePadding>
-        {teamList.map(team => {
-          return <Team key={team.teamId} team={team} />;
+        {teamList.map((team, index) => {
+          return <Team key={team.teamId} team={team} index={index + 1}
+           selectedIndex={props.selectedIndex} 
+           setSelectedIndex={props.setSelectedIndex} />;
         })}
       </S.List>
     </S.List>
