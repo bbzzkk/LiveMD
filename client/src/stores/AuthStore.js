@@ -48,7 +48,7 @@ const AuthStore = types
           .then(res => {
             const {
               username,
-              id,
+              userId,
               email,
               thumbnail,
               ACCESS_TOKEN,
@@ -60,7 +60,7 @@ const AuthStore = types
               localStorage.setItem('ACCESS_TOKEN', ACCESS_TOKEN);
               user = {
                 username: username,
-                id: id,
+                id: userId,
                 email: email,
                 thumbnail: thumbnail,
               };

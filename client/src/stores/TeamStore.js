@@ -13,7 +13,7 @@ const TeamStore = types
     teamList: types.optional(types.array(Team), []),
   })
   // .views(self => ({
-  //   get teamList() {
+  //   get getTeamList() {
   //     return self.teamList ? self.teamList : [];
   //   },
   // }))
@@ -22,16 +22,13 @@ const TeamStore = types
       getOneTeam(teamname) {
         console.log('getOneTeam');
         console.log(teamname);
-        // console.log(self.teamList);
-        // console.log();
-        // console.log([...self.teamList]);
-        console.log(self.teamList.length);
+        console.log(self.teamList);
         const team = self.teamList.filter(team => {
           return team.teamname === teamname;
         })[0];
 
         console.log(team);
-        return team;
+        return self.teamList[0];
       },
 
       getTeamList: flow(function* (userId) {
