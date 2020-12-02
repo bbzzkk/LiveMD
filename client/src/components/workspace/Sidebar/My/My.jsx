@@ -13,17 +13,18 @@ const useStyles = makeStyles((theme) => ({
 const ListItem = withStyles({
   root: {
     "&$selected": {
-      backgroundColor: "#686868",
-      color: "white"
+      backgroundColor: "#020120",
+      borderLeftStyle: "solide", 
+      borderLeft: "0.25rem ridge white",
     },
     "&$selected:hover": {
-      backgroundColor: "#686868",
+      backgroundColor: "#020120",
       color: "white"
     },
-    // "&:hover": {
-    //   backgroundColor: "blue",
-    //   color: "white"
-    // }
+    "&:hover": {
+      backgroundColor: "#020120",
+      color: "white"
+    }
   },
   selected: {}
 })(MuiListItem);
