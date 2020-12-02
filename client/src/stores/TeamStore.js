@@ -12,20 +12,24 @@ const TeamStore = types
     currentTeam: types.maybe(Team),
     teamList: types.optional(types.array(Team), []),
   })
-  .views(self => ({
-    get AllteamList() {
-      return self.teamList ? self.teamList : [];
-    },
-  }))
+  // .views(self => ({
+  //   get teamList() {
+  //     return self.teamList ? self.teamList : [];
+  //   },
+  // }))
   .actions(self => {
     return {
       getOneTeam(teamname) {
         console.log('getOneTeam');
-        console.log(self.teamList);
+        console.log(teamname);
+        // console.log(self.teamList);
+        // console.log();
+        // console.log([...self.teamList]);
+        console.log(self.teamList.length);
         const team = self.teamList.filter(team => {
-          console.log('필터안이에요');
           return team.teamname === teamname;
         })[0];
+
         console.log(team);
         return team;
       },

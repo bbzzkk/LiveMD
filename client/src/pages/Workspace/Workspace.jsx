@@ -27,12 +27,12 @@ const Workspace = props => {
     } else {
       const teamname = props.match.params.team;
       console.log(teamStore.teamList);
-      if (teamStore.teamList.length < 0) {
-        await teamStore.getTeamList(authStore.user.id).then(async () => {
-          const team = teamStore.getOneTeam(teamname);
-          await boardStore.getAllDocuments(team.teamId);
-        });
-      }
+      // if (teamStore.teamList.length === 0) {
+      //   await teamStore.getTeamList(authStore.user.id).then(async () => {
+      //     const team = teamStore.getOneTeam(teamname);
+      //     await boardStore.getAllDocuments(team.teamId);
+      //   });
+      // }
       console.log('바로 접근');
       console.log(teamStore.teamList);
       console.log(props.location);
