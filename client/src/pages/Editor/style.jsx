@@ -28,20 +28,25 @@ export default {
     background-color: #f1f1f1;
     border: none;
     height: 40px;
-    width: 11em;
+    width: fit-content;
+    min-width: 11rem;
     font-size: 28px;
     padding-left: 30px;
     margin-right: 10px;
+    overflow : auto;
     :focus {
       outline: none;
     }
   `,
 
-  EditBtnGroup: styled.div``,
+  EditBtnGroup: styled.div`
+    min-width: 9rem;
+  `,
 
   VideoAndChatBtnGroup: styled.div`
     margin-left: auto;
     margin-right: 50px;
+    min-width: 14rem;
   `,
 
   ActiveDiv: styled.div`
