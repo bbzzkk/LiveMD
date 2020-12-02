@@ -1,13 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import {
-  Login,
-  Home,
-  Workspace,
-  Editor,
-} from '@/pages';
-
+import { Login, Home, Workspace, Editor } from '@/pages';
 
 import { None } from '@/components/workspace';
 import { Auth } from '@/components/HOC';
