@@ -7,16 +7,19 @@ import TeamList from './TeamList';
 import CreateButton from './CreateButton';
 
 const Sidebar = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
   const handleClickMy = () => {
     console.log('go to My Workspace');
   };
+
   return (
     <S.Drawer open variant="permanent">
       <Overview></Overview>
-      <CreateButton/>
+      <CreateButton />
       <S.DrawerList>
-        <My />
-        <TeamList />
+        <My selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
+        <TeamList selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
       </S.DrawerList>
     </S.Drawer>
   );

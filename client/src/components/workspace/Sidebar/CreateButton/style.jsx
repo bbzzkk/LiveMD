@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 const S = {
   container: styled.button`
-  background:#1AAB8A;
-  color:#fff;
+  background:#fff;
+  color: #1AAB8A;
   border:none;
   position:relative;
-  height:8%;
+  height:6%;
   font-size:1.6em;
   // padding:0 2em;
   cursor:pointer;
@@ -14,8 +14,8 @@ const S = {
   border-radius: 5px;
   // outline:none;
   &:hover{
-    background:#fff;
-    color:#1AAB8A;
+    background:#1AAB8A;
+    color:#fff;
   }
   `,
   text: styled.p`
