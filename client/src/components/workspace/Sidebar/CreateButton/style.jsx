@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 const S = {
   container: styled.button`
-  background:#20997d;
-  color: #fff;
+  background:#131236;
+  color:#20997d;
   border:none;
   position:relative;
   height:6%;
   // padding:0 2em;
   cursor:pointer;
-  transition:800ms ease all;
-  border-radius: 12px;
+  transition:300ms ease all;
+  border-radius: 5px;
   // outline:none;
   &:hover{
     background:#fff;
