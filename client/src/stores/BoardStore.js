@@ -27,7 +27,7 @@ const BoardStore = types
       const response = yield api.get(
       //   `http://localhost:8080/api/v1/documents?oid=${ownerId}`,
       // );
-      .get(`${DOCUMENT_API}/owners/${ownerId}`);
+      const response = yield api.get(`${DOCUMENT_API}/owners/${ownerId}`);
 
       self.documents.length = 0;
 
