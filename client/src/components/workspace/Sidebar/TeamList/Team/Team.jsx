@@ -44,8 +44,6 @@ const Team = props => {
   };
 
   const handleTeamClick = (e, index) => {
-    console.log(index);
-    // props.setSelectedIndex(index);
     props.history.push(`/${teamname}`);
   };
 

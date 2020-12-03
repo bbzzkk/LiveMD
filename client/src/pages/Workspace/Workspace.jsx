@@ -30,8 +30,9 @@ const Workspace = props => {
       } else {
         const teamname = props.match.params.team;
         const team = teamStore.getOneTeam(teamname);
-        teamStore.setCurrentTeam(teamname);
-        await boardStore.getAllDocuments(team.teamId);
+        await boardStore
+          .getAllDocuments(team.teamId)
+          .then(() => teamStore.setCurrentTeam(teamname));
       }
     };
     fetchData();
@@ -54,7 +55,7 @@ const Workspace = props => {
               path="/"
               render={() => <Main isDoc={boardStore.documents.length} />}
             />
-            <Route path="/settings" render={() => <TeamSettings />} />
+            <Route exact path="/settings" render={() => <TeamSettings />} />
             <Route path="/:team/settings" render={() => <TeamSettings />} />
             <Route
               exact

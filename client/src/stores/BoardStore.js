@@ -11,6 +11,11 @@ const BoardStore = types
   .model('BoardStore', {
     documents: types.optional(types.array(Document), []),
   })
+  .views(self => ({
+    _documents() {
+      return self.documents ? self.documents : [];
+    },
+  }))
   .actions(self => ({
     addDocument(docId, title) {
       const document = Document.create({

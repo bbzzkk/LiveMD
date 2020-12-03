@@ -11,9 +11,9 @@ import CreateButton from './CreateButton';
 const Sidebar = props => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const { currentTeamIndex } = props.store.teamStore;
-
+  // console.log(selectedIndex);
   useEffect(() => {
-    if (props.match.params) {
+    if (props.match.params.team) {
       setSelectedIndex(currentTeamIndex + 1);
     }
   });

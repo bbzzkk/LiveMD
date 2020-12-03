@@ -32,7 +32,7 @@ const ListItem = withStyles({
 
 const My = props => {
   const handleClickMy = (e, index) => {
-    props.setSelectedIndex(index);
+    props.setSelectedIndex(0);
     props.store.teamStore.initCurrentTeam();
     props.history.push('/');
   };
