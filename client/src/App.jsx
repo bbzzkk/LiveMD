@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { Login, Home, Workspace, Editor } from '@/pages';
@@ -9,70 +9,59 @@ import { Auth } from '@/components/HOC';
 import '@/cattaz.css';
 
 const App = props => {
+  const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
   return (
     <>
       <Router>
         <Switch>
-          <Route exact path="/None" render={() => <None />} />
           <Route
             exact
             path="/"
-            render={() => (
-              <Auth option={0} RouteComponent={Home} store={props.store} />
-            )}
+            render={() =>
+              ACCESS_TOKEN ? (
+                <Auth
+                  option={1}
+                  RouteComponent={Workspace}
+                  store={props.store}
+                />
+              ) : (
+                <Auth option={0} RouteComponent={Home} store={props.store} />
+              )
+            }
           />
-          <Route
-            exact
-            path="/board/:team"
-            render={() => (
-              <Auth option={1} RouteComponent={Workspace} store={props.store} />
-            )}
-          />
-          <Route
-            exact
-            path="/board"
-            render={() => (
-              <Auth option={1} RouteComponent={Workspace} store={props.store} />
-            )}
-          />
-          {/* <Route
-            exact
-            path="/board/people"
-            render={() => (
-              <Auth
-                option={1}
-                RouteComponent={Workspace}
-                authStore={authStore}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/board/documents"
-            render={() => (
-              <Auth
-                option={1}
-                RouteComponent={Workspace}
-                authStore={authStore}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/board/settings"
-            render={() => (
-              <Auth
-                option={1}
-                RouteComponent={Workspace}
-                authStore={authStore}
-              />
-            )}
-          /> */}
+
           <Route
             exact
             path="/login"
             render={() => (
               <Auth option={0} RouteComponent={Login} store={props.store} />
+            )}
+          />
+          <Route
+            path="/settings"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
+            )}
+          />
+          <Route exact path="/None" render={() => <None />} />
+          <Route
+            exact
+            path="/:team"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
+            )}
+          />
+
+          <Route
+            path="/:team/people"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
+            )}
+          />
+          <Route
+            path="/:team/settings"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
             )}
           />
           {/* <Route

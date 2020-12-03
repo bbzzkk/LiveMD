@@ -17,6 +17,7 @@ const AuthProtection = ({ option, RouteComponent, store }) => {
   // const setTeamList = async userId => await getTeamList(userId);
   if (user) {
     setUser(user);
+    getTeamList(user.id);
     // setTeamList(user.id);
   }
 
@@ -42,7 +43,7 @@ const AuthProtection = ({ option, RouteComponent, store }) => {
     if (!token) {
       return <RouteComponent />;
     } else {
-      return <Redirect to="/board" />;
+      return <Redirect to="/" />;
     }
   }
 };

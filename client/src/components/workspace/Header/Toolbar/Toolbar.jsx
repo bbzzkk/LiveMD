@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import {useHistory} from "react-router";
-import { Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { inject, observer } from 'mobx-react';
+import { Link, withRouter } from 'react-router-dom';
+
 import {
   makeStyles,
   responsiveFontSizes,
   withStyles,
 } from '@material-ui/core/styles';
+
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -67,32 +70,6 @@ const AntTab = withStyles(theme => ({
   selected: {},
 }))(props => <Tab disableRipple {...props} />);
 
-// const StyledTabs = withStyles({
-//   indicator: {
-//     display: "flex",
-//     justifyContent: "center",
-//     backgroundColor: "transparent",
-//     "& > span": {
-//       maxWidth: 40,
-//       width: "100%",
-//       backgroundColor: "purple"
-//     }
-//   }
-// })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
-// const StyledTab = withStyles((theme) => ({
-//   root: {
-//     textTransform: "none",
-//     color: "#fff",
-//     fontWeight: theme.typography.fontWeightRegular,
-//     fontSize: theme.typography.pxToRem(15),
-//     marginRight: theme.spacing(1),
-//     "&:focus": {
-//       opacity: 1
-//     }
-//   }
-// }))((props) => <Tab disableRipple {...props} />);
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -105,22 +82,47 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Toolbar = () => {
+const Toolbar = props => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const { currentTeamIndex } = props.store.teamStore;
+  const [params, setParams] = useState('');
+  if (
+    Object.keys(props.match.params).length > 1 &&
+    params !== props.match.params.team
+  ) {
+    setValue(0);
+    setParams(props.match.params.team);
+  } else if (Object.keys(props.match.params).length < 1 && params !== '') {
+    setParams('');
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-const history = useHistory();
+  const handleClick = name => {
+    if (props.match.params.team) {
+      if (name !== 'documents') {
+        if (props.match.url.match(/\//g).length > 1) {
+          props.history.push('/' + props.match.params.team + '/' + name);
+        } else {
+          props.history.push(props.match.params.team + '/' + name);
+        }
+      } else {
+        props.history.push('/' + props.match.params.team);
+      }
+    } else {
+      if (name !== 'documents') {
+        props.history.push('/' + name);
+      } else {
+        props.history.push('/');
+      }
+    }
+  };
+
   return (
     <>
-      <AntTabs
-        value={value}
-        onChange={handleChange}
-        aria-label="ant example"
-        centered
-      >
+      <AntTabs value={value} onChange={handleChange} centered>
         <AntTab
           label={
             <div>
@@ -130,19 +132,25 @@ const history = useHistory();
               Documents
             </div>
           }
-           component={Link} to="/board/documents"
+          onClick={() => handleClick('documents')}
+          // component={Link}
+          // to="/"
         />
-        <AntTab
-          label={
-            <div>
-              <PeopleAltOutlinedIcon
-                style={{ verticalAlign: 'middle', marginRight: '10px' }}
-              />
-              People
-            </div>
-          }
-          component={Link} to="/board/people"
-        />
+        {currentTeamIndex + 1 > 0 && (
+          <AntTab
+            label={
+              <div>
+                <PeopleAltOutlinedIcon
+                  style={{ verticalAlign: 'middle', marginRight: '10px' }}
+                />
+                People
+              </div>
+            }
+            onClick={() => handleClick('people')}
+            // component={Link}
+            // to="/people"
+          />
+        )}
         <AntTab
           label={
             <div>
@@ -152,11 +160,13 @@ const history = useHistory();
               Settings
             </div>
           }
-          component={Link} to="/board/settings"
+          onClick={() => handleClick('settings')}
+          // component={Link}
+          // to="/settings"
         />
       </AntTabs>
     </>
   );
 };
 
-export default Toolbar;
+export default withRouter(inject('store')(observer(Toolbar)));

@@ -2,35 +2,34 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import S from './style';
-import { makeStyles,withStyles } from '@material-ui/core/styles';
-import MuiListItem from "@material-ui/core/ListItem";
-const useStyles = makeStyles((theme) => ({
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import MuiListItem from '@material-ui/core/ListItem';
+const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor:'#131236',
+    backgroundColor: '#131236',
   },
 }));
 
 const ListItem = withStyles({
   root: {
-    "&$selected": {
-      backgroundColor: "#020120",
-      borderLeftStyle: "solide", 
-      borderLeft: "0.25rem ridge white",
+    '&$selected': {
+      backgroundColor: '#020120',
+      borderLeftStyle: 'solide',
+      borderLeft: '0.25rem ridge white',
     },
-    "&$selected:hover": {
-      backgroundColor: "#020120",
-      color: "white"
+    '&$selected:hover': {
+      backgroundColor: '#020120',
+      color: 'white',
     },
-    "&:hover": {
-      backgroundColor: "#020120",
-      color: "white"
-    }
+    '&:hover': {
+      backgroundColor: '#020120',
+      color: 'white',
+    },
   },
-  selected: {}
+  selected: {},
 })(MuiListItem);
 
 const Team = props => {
-
   const classes = useStyles();
 
   const { marked, teamname } = props.team;
@@ -45,17 +44,19 @@ const Team = props => {
   };
 
   const handleTeamClick = (e, index) => {
-    props.setSelectedIndex(index);
-    props.history.push(`/board/${teamname}`);
+    console.log(index);
+    // props.setSelectedIndex(index);
+    props.history.push(`/${teamname}`);
   };
 
   return (
     <ListItem
-      onClick={(e) => handleTeamClick(e, props.index)}
+      onClick={e => handleTeamClick(e, props.index)}
       button
-      style={{ textAlign: 'center'}}
+      style={{ textAlign: 'center' }}
       selected={props.selectedIndex === props.index}
-      className={classes.root}>
+      className={classes.root}
+    >
       {/* <S.ListItemContainer onClick={handleMarked}>
         <S.StarIcon style={{ color: isMarked ? 'yellow' : 'green' }} />
       </S.ListItemContainer> */}

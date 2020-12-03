@@ -9,7 +9,7 @@ import { TEAM_API } from '@/utils/APIconfig';
 
 const TeamStore = types
   .model('TeamStore', {
-    currentTeam: types.maybe(Team),
+    currentTeamIndex: types.maybe(types.integer),
     teamList: types.optional(types.array(Team), []),
   })
   .views(self => ({
@@ -19,6 +19,16 @@ const TeamStore = types
   }))
   .actions(self => {
     return {
+      initCurrentTeam() {
+        self.currentTeamIndex = -1;
+      },
+      setCurrentTeam(teamname) {
+        const teamIndex = self.teamList.findIndex(team => {
+          return team.teamname === teamname;
+        });
+        self.currentTeamIndex = teamIndex;
+      },
+
       getOneTeam(teamname) {
         const team = self.teamList.filter(team => {
           return team.teamname === teamname;

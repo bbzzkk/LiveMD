@@ -12,11 +12,9 @@ import S from './style';
 const Google = props => {
   const responseGoogle = async data => {
     const { teamStore, boardStore, authStore } = props.store;
-    
-    await authStore
-      .signInGoogle2(data)
-      .catch(e => console.log('error'));
-    props.history.push('/board');
+
+    await authStore.signInGoogle2(data).catch(e => console.log('error'));
+    props.history.push('/');
 
     toast.success(`${authStore.user.username} 님 반갑습니다😉`, {
       position: 'top-center',

@@ -28,7 +28,7 @@ const TeamSettings = () => {
           <div className="input-form">
             <label>Team URL Path</label>
             <div className="url-path">
-              <label id="url-pre-path">https://live-md.com/board/</label>
+              <label id="url-pre-path">https://live-md.com/</label>
               <input
                 type="text"
                 pattern="^(?!-)[a-zA-Z0-9-]+$"
