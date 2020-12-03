@@ -16,7 +16,7 @@ const BoardStore = types
       const document = Document.create({
         id: docId,
         createdAt: new Date(),
-        title: title || 'undefined',
+        title: title || 'Untitled',
         updatedAt: new Date(),
       });
       self.documents.push(document);

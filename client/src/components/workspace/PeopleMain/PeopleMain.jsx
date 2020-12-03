@@ -68,10 +68,10 @@ const PeopleMain = () => {
         <br />
 
         {/* Member List */}
-        <div className="form-group">
-          <div className="member-list">
-            {/* 본인 */}
-            <div className="item clearfix">
+        {/* <div className="form-group">
+          <div className="member-list"> */}
+        {/* 본인 */}
+        {/* <div className="item clearfix">
               <span className="id" style={{ display: 'none' }}>
                 7104fdbc-c0e9-4c5a-af04-62607ef52db2
               </span>
@@ -108,10 +108,10 @@ const PeopleMain = () => {
                 </div>
               </div>
             </div>
-            <hr />
+            <hr /> */}
 
-            {/* 동료*/}
-            <div className="item clearfix">
+        {/* 동료*/}
+        {/* <div className="item clearfix">
               <span className="id" style={{ display: 'none' }}>
                 f21c2d60-7be8-4d97-a2f9-311e88819f13
               </span>
@@ -183,7 +183,7 @@ const PeopleMain = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </form>
     </S.container>
   );

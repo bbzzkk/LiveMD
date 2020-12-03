@@ -47,6 +47,7 @@ const S = {
   Text: styled.div`
     margin-top: 0.7em;
   `,
+
   // Button: styled.div`
   //   text-align: center;
   //   border: none;
