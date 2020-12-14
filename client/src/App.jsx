@@ -1,66 +1,82 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Main, OAuth2RedirectHandler } from '@/pages';
-import { GlobalStyle } from '@/styles';
-import { LoadingIndicator } from '@/components/common';
-import getCurrentUser from '@/utils/APIUtils';
+import { inject, observer } from 'mobx-react';
+import { Login, Home, Workspace, Editor } from '@/pages';
 
-const App = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+import { None } from '@/components/workspace';
+import { Auth } from '@/components/HOC';
 
-  const loadCurrentlyLoggedInUser = () => {
-    setLoading(true);
+import '@/cattaz.css';
 
-    getCurrentUser()
-      .then(response => {
-        setCurrentUser(response);
-        setAuthenticated(true);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-
-  const handleLogout = e => {
-    localStorage.removeItem('accessToken');
-    setAuthenticated(false);
-    setCurrentUser(null);
-    alert('로그아웃 되었습니다.');
-    e.preventDefault();
-  };
-
-  useEffect(() => {
-    loadCurrentlyLoggedInUser();
-  }, []);
-
-  if (loading) {
-    return <LoadingIndicator />;
-  }
-
+const App = props => {
+  const ACCESS_TOKEN = localStorage.getItem('ACCESS_TOKEN');
   return (
     <>
-      <GlobalStyle />
       <Router>
         <Switch>
           <Route
             exact
             path="/"
+            render={() =>
+              ACCESS_TOKEN ? (
+                <Auth
+                  option={1}
+                  RouteComponent={Workspace}
+                  store={props.store}
+                />
+              ) : (
+                <Auth option={0} RouteComponent={Home} store={props.store} />
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/login"
             render={() => (
-              <Main
-                authenticated={authenticated}
-                currentUser={currentUser}
-                onLogout={handleLogout}
-              />
+              <Auth option={0} RouteComponent={Login} store={props.store} />
             )}
           />
-          <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
+          <Route
+            path="/settings"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
+            )}
+          />
+          <Route exact path="/None" render={() => <None />} />
+          <Route
+            exact
+            path="/:team"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
+            )}
+          />
+
+          <Route
+            path="/:team/people"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
+            )}
+          />
+          <Route
+            path="/:team/settings"
+            render={() => (
+              <Auth option={1} RouteComponent={Workspace} store={props.store} />
+            )}
+          />
+          {/* <Route
+            exact
+            path="/oauth2/redirect"
+            component={OAuth2RedirectHandler}
+          /> */}
+          {/* <Route exact path="/page/" component={PageList} /> */}
+          <Route exact path="/page/:page" component={Editor} />
+          {/* <Route exact path="/create" component={CreateRoom} />
+          <Route exact path="/room/:roomID" component={Room} /> */}
         </Switch>
       </Router>
     </>
   );
 };
 
-export default App;
+export default inject('store')(observer(App));

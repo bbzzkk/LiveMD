@@ -1,13 +1,16 @@
 /* eslint-disable */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import App from './App';
 
+import { Provider } from 'mobx-react';
+import store from './stores/RootStore';
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root'),
 );
 

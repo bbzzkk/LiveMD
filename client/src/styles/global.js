@@ -8,10 +8,14 @@ const GlobalStyle = createGlobalStyle`
 
   html, body {
     height: 100%;
-    min-width: 1366px;
+    //min-width: 1366px;
   }
 
-  a { 
+  body > #root {
+    height: inherit;
+  }
+
+  a:hover { 
     text-decoration: none; 
   }
 
