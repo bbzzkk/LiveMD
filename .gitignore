@@ -41,6 +41,7 @@ package-lock.json
 
 
 ###### server ######
+/server/**/.env
 /server/**/.metadata/
 /server/**/.env
 /server/**/node_modules
