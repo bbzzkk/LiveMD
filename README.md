@@ -13,16 +13,9 @@ Client
 
 ![node-badge](https://img.shields.io/badge/Node-14.12.0-yellowgreen) ![npm-badge](https://img.shields.io/badge/NPM-6.14.8-brightgreen) ![react](https://img.shields.io/badge/React-library-orange) ![craco](https://img.shields.io/badge/Craco-ConfigurationOverride-yellow)
 
-Server
+## How to Run Spring Boot
 
-![jdk](https://img.shields.io/badge/JDK-1.8.x-yellowgreen) ![spring-boot](https://img.shields.io/badge/SpringBoot-plugin-lightgray) ![Maven](https://img.shields.io/badge/Maven-build-blue) ![Swagger](https://img.shields.io/badge/Swagger-API-yellow) ![MySQL](https://img.shields.io/badge/MySQL-Database-green) ![JPA](https://img.shields.io/badge/JPA-ORM-red)
-
-
-### UML
-![JPA](./images/spring-social-uml-ver1.0.png)
-
-### Preview 화면
-![social-login](./images/social-login.gif)
-
-### 소스코드
-https://github.com/bbzzkk/LiveMD/tree/release
+```
+./gradlew build --exclude-task test
+java -jar build/libs/document-1.0-SNAPSHOT.jar
+```
