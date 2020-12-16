@@ -12,16 +12,11 @@ LiveMD의 다양한 모습을 살펴보세요!
 ## 목차
 
 1. [팀원 소개](#팀원-소개)
-2. [프로젝트 소개](#프로젝트-소개)
-
-   2-1. [프로젝트 목표](#프로젝트-목표) 
-
-   2-2. [프로젝트 시연 및 소개 영상](#-프로젝트-시연-및-소개-영상)  
-
-   2-3. [사용 기술](#-사용-기술)  
-
-   2-4. [아키텍처 및 배포 구조](#-아키텍처-및-배포-구조)  
-
+2. [프로젝트 소개](#프로젝트-소개) <br>
+   2-1. [프로젝트 목표](#프로젝트-목표) <br>
+   2-2. [프로젝트 시연 및 소개 영상](#-프로젝트-시연-및-소개-영상)  <br>
+   2-3. [사용 기술](#-사용-기술)  <br>
+   2-4. [아키텍처 및 배포 구조](#-아키텍처-및-배포-구조)  <br>
 3. [실행 방법](#실행-방법)
 4. [개발 유의사항](#개발-유의사항)
 
@@ -89,9 +84,9 @@ LiveMD의 다양한 모습을 살펴보세요!
 
 
 ### 🔃 아키텍처 및 배포 구조
-<p align='middle'><a href='./images/3-tier.png'><img src='./images/3-tier.png' /></a></p>
-<p align='middle'><a href='./images/deployment1.png'><img src='./images/deployment1.png' /></a></p>
-<p align='middle'><a href='./images/deployment2.png'><img src='./images/deployment2.png' /></a></p>
+<p align='middle'><a href='./images/3-tier.png'><img src='./images/3-tier.png' width="300px;" /></a></p>
+<p align='middle'><a href='./images/deployment1.png'><img src='./images/deployment1.png' width="300px;" height="200px;" /></a>
+<a href='./images/deployment2.png'><img src='./images/deployment2.png'  width="300px;" height="200px;"/></a></p>
 
 
 
