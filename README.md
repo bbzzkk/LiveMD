@@ -28,7 +28,7 @@ LiveMD의 다양한 모습을 살펴보세요!
   <tr>
   <td align="center">
   <sub>
-    즐거운
+    자칭 우아한
   </sub>
   </td>
   <td align="center">
@@ -53,18 +53,22 @@ LiveMD의 다양한 모습을 살펴보세요!
   </td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/kwak-bs"><img src="https://avatars0.githubusercontent.com/u/51367622?s=460&u=3a1e93ec2b32ea466d6a4d45dd8acccda1aeb858&v=4" width="100px;" alt="kwak-bs"/><br /><sub><b>곽병선</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/Joylish"><img src="https://avatars1.githubusercontent.com/u/52230415?s=460&u=852ba27b7a01fb17c1e955ea890b8a0931eee213&v=4" width="100px;" alt="Joylish"/><br /><sub><b>이연주</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/JSWww"><img src="./images/teams/jswwW.png" width="100px;" alt="jswwW"/><br /><sub><b>조성원</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/soyoung-Jung"><img src="./images/teams/soyoung.jpg" width="100px;" alt="soyoung-Jung"/><br /><sub><b>정소영</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/hataerin"><img src="https://avatars1.githubusercontent.com/u/26705587?s=460&u=d538dcfbd12ccfdd4319b6ca22e855e98c4e24c7&v=4" width="100px;" alt="hataerin"/><br /><sub><b>하태린</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/kwak-bs"><img src="./images/teams/kwak-bs.jpg" width="70px;" height="70px;" alt="kwak-bs"/><br /><sub><b>곽병선</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Joylish"><img src="https://avatars1.githubusercontent.com/u/52230415?s=460&u=852ba27b7a01fb17c1e955ea890b8a0931eee213&v=4" height="70px;"alt="Joylish"/><br /><sub><b>이연주</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/JSWww"><img src="./images/teams/jswwW.png" width="100px;" height="70px;" alt="jswwW"/><br /><sub><b>조성원</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/soyoung-Jung"><img src="./images/teams/soyoung.jpg" width="100px;" height="70px;" alt="soyoung-Jung"/><br /><sub><b>정소영</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/hataerin"><img src="https://avatars1.githubusercontent.com/u/26705587?s=460&u=d538dcfbd12ccfdd4319b6ca22e855e98c4e24c7&v=4"  height="70px;" alt="hataerin"/><br /><sub><b>하태린</b></sub></a><br /></td>
   </tr>
 </table>
 
 ### 🧐 LiveMD 개발자의 컨디션
 
 저희는 데일리 스크럼마다, 그날의 컨디션을 기록하고 서로 확인했어요!  
-피키포키 개발자들의 가장 높았던 컨디션 점수는 몇 점이었을까요? [데일리 스크럼 보러가기](https://github.com/bbzzkk/LiveMD/wiki#daily-scrum--wrap-up)
+LiveMD 개발자들의 가장 높았던 컨디션 점수는 몇 점이었을까요? 
+
+[데일리 스크럼 보러가기](https://github.com/bbzzkk/LiveMD/wiki#daily-scrum--wrap-up)
+
+
 [스프린트 보러가기](https://github.com/bbzzkk/LiveMD/wiki/16.-Sprint-log)
 
 ---
