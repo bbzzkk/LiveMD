@@ -88,9 +88,9 @@ LiveMD 개발자들의 가장 높았던 컨디션 점수는 몇 점이었을까�
 
 
 ### 🔃 아키텍처 및 배포 구조
-<p align='middle'><a href='./images/3-tier.png'><img src='./images/3-tier.png' width="300px;" /></a></p>
-<p align='middle'><a href='./images/deployment1.png'><img src='./images/deployment1.png' width="300px;" height="200px;" /></a>
-<a href='./images/deployment2.png'><img src='./images/deployment2.png'  width="300px;" height="200px;"/></a></p>
+<p align='middle'><a href='./images/3-tier.png'><img src='./images/3-tier.png' width="350px;" /></a></p>
+<p align='middle'><a href='./images/deployment1.png'><img src='./images/deployment1.png' width="350px;" height="200px;" /></a>
+<a href='./images/deployment2.png'><img src='./images/deployment2.png'  width="350px;" height="200px;"/></a></p>
 
 
 
@@ -146,7 +146,9 @@ git clone https://github.com/bbzzkk/LiveMD.git
 
 ----
 
+
 ## 응원하기
 
 이 프로젝트가 마음에 드셨다면 ⭐️을 눌러주세요!
+
 
