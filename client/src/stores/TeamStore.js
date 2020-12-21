@@ -3,7 +3,7 @@ import api from 'axios';
 
 import Team from './models/Team';
 
-import { getUuid } from '@/utils';
+import { getUuid } from '@/utils/uuid';
 
 import { TEAM_API } from '@/utils/APIconfig';
 
