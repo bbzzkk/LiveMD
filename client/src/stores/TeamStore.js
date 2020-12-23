@@ -5,7 +5,7 @@ import Team from './models/Team';
 
 import { getUuid } from '@/utils/uuid';
 
-import { TEAM_API } from '@/utils/APIconfig';
+import { GET_TEAMLIST_API, CREATE_TEAM_API } from '@/utils/APIconfig';
 
 const TeamStore = types
   .model('TeamStore', {
@@ -38,7 +38,7 @@ const TeamStore = types
 
       getTeamList: flow(function* (userId) {
         try {
-          const response = yield api.get(`${TEAM_API}/teams/${userId}`);
+          const response = yield api.get(`${GET_TEAMLIST_API}${userId}`);
           const teamList = response.data.data;
 
           self.teamList.length = 0;
@@ -56,7 +56,7 @@ const TeamStore = types
       }),
       createTeam: flow(function* (teamData) {
         const response = yield api
-          .post(`${TEAM_API}/teams`, teamData)
+          .post(`${CREATE_TEAM_API}`, teamData)
           .catch(e => {
             return -1;
           });

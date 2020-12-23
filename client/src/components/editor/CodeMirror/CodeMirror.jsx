@@ -13,6 +13,7 @@ import 'github-markdown-css/github-markdown.css';
 import PropTypes from 'prop-types';
 import WikiParser from './WikiParser';
 import './style.css';
+import { EDITOR_API } from '@/utils/APIconfig';
 
 const resizerMargin = 12;
 
@@ -61,7 +62,7 @@ const CodeMirror = ({
     provider.current = new WebsocketProvider(
       //   'wss://demos.yjs.dev',
       //   'ws://3.35.98.199:1234',
-      'wss://live-md.com:8006',
+      EDITOR_API,
       // 'codemirror-large',
       roomName,
       ydoc,
@@ -107,7 +108,7 @@ const CodeMirror = ({
       });
 
     handleActiveUser(users);
-  }
+  };
 
   useEffect(() => {
     refEditor.current.editor.setValue(value);
@@ -143,8 +144,8 @@ const CodeMirror = ({
     }
     const previewWidth = vw - newWidth - 2 * resizerMargin - 1;
     // if (newWidth !== width) {
-      // setWidth(newWidth * editorRatio.edit);
-      // setPreviewWidth(previewWidth * editorRatio.preview);
+    // setWidth(newWidth * editorRatio.edit);
+    // setPreviewWidth(previewWidth * editorRatio.preview);
     // }
     setWidth(newWidth * editorRatio.edit);
     setPreviewWidth(previewWidth * editorRatio.preview);
@@ -324,12 +325,14 @@ const CodeMirror = ({
           editorRatio.edit ? { display: 'inline-block' } : { display: 'none' }
         }
         pane2Style={
-          editorRatio.preview ? { display: 'inline-block' } : { display: 'none' }
+          editorRatio.preview
+            ? { display: 'inline-block' }
+            : { display: 'none' }
         }
         resizerStyle={
-          (!editorRatio.edit || !editorRatio.preview)
-          ? { display: 'none'}
-          : { display: 'inline-block'}
+          !editorRatio.edit || !editorRatio.preview
+            ? { display: 'none' }
+            : { display: 'inline-block' }
         }
       >
         <ReactCodeMirror

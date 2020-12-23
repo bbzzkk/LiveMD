@@ -2,7 +2,7 @@ import { types, flow, destroy, applySnapshot } from 'mobx-state-tree';
 import api from 'axios';
 
 import User from './models/User';
-import { AUTH_API } from '@/utils/APIconfig';
+import { GET_USER_API, SIGNIN_API, SIGNOUT_API } from '@/utils/APIconfig';
 
 const AuthStore = types
   .model('AuthStore', {
@@ -22,7 +22,7 @@ const AuthStore = types
       },
       getUser: flow(function* (userId) {
         yield api
-          .get(`${AUTH_API}/users/${userId}`, {
+          .get(`${GET_USER_API}${userId}`, {
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const AuthStore = types
       signInGoogle2: flow(function* (data) {
         let user;
         yield api
-          .post(`${AUTH_API}/signin`, data, {
+          .post(`${SIGNIN_API}`, data, {
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const AuthStore = types
       }),
       signOut: flow(function* () {
         yield api
-          .get(`${AUTH_API}/signout`, {
+          .get(`${SIGNOUT_API}`, {
             // withCredentials: true,
           })
           .then(() => {

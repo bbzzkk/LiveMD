@@ -9,6 +9,7 @@ import {
   MicRounded,
   MicOffRounded,
 } from '@material-ui/icons';
+import { VIDEO_API } from '@/utils/APIconfig';
 
 const Video = props => {
   const ref = useRef();
@@ -32,7 +33,7 @@ const Room = ({ roomID, username }) => {
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    socketRef.current = io.connect('https://live-md.com:8002');
+    socketRef.current = io.connect(VIDEO_API);
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })

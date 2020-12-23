@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import S from './style';
 import io from 'socket.io-client';
 import { SendRounded } from '@material-ui/icons';
+import { CHAT_API } from '@/utils/APIconfig';
 
 const Chat = ({
   isVideoShowed,
@@ -18,7 +19,7 @@ const Chat = ({
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect('https://live-md.com:8001');
+    socketRef.current = io.connect(CHAT_API);
 
     socketRef.current.emit('join', username, roomID);
     socketRef.current.on('updateChat', (username, data) => {

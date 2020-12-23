@@ -5,7 +5,7 @@ import getUuid from 'src/utils/uuid';
 
 import Document from './models/Document';
 
-import { DOCUMENT_API } from '@/utils/APIconfig';
+import { GET_ALL_DOCUMENTS_API, CREATE_DOCUMENTS_API } from '@/utils/APIconfig';
 
 const BoardStore = types
   .model('BoardStore', {
@@ -29,7 +29,7 @@ const BoardStore = types
 
     getAllDocuments: flow(function* (ownerId) {
       // const response = yield api.get(`http://localhost:8080/api/v1/documents?oid=${ownerId}`);
-      const response = yield api.get(`${DOCUMENT_API}/owners/${ownerId}`);
+      const response = yield api.get(`${GET_ALL_DOCUMENTS_API}${ownerId}`);
 
       self.documents.length = 0;
 
@@ -58,7 +58,7 @@ const BoardStore = types
     createDocument: flow(function* (ownerId) {
       const documentId = getUuid();
       yield api
-        .post(`${DOCUMENT_API}/owners/${ownerId}`, {
+        .post(`${CREATE_DOCUMENTS_API}${ownerId}`, {
           docId: documentId,
         })
         .then(() => {
